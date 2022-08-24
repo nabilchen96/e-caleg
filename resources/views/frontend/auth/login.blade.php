@@ -32,8 +32,8 @@
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
                                 <div class="text-center">
-                                    <img src="{{ url('logosc.png') }}" width="100" alt="">
-                                    <h4 class="mt-4">SUMSEL CRAFTERS</h4>
+                                    {{-- <img src="{{ url('logosc.png') }}" width="100" alt=""> --}}
+                                    <h3 class="mt-4">SAMPATA APP</h3>
                                 </div>
                             </div>
                             <form id="formLogin">

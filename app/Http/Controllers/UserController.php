@@ -20,22 +20,14 @@ class UserController extends Controller
         $user = DB::table('users');
 
         $data_user = Auth::user();
+        $user = $user->get();
 
-        if($data_user->role == 'Admin'){
-
-            $user = $user->get();
-
-        }else{
-
-            $user = $user->where('id', $data_user->id)->get();
-        }
-
+        
         return response()->json(['data' => $user]);
     }
 
     public function store(Request $request){
 
-        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'password'   => 'required|min:8',

@@ -67,17 +67,13 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            // $data = [
-            //     'responCode'    => 0,
-            //     'respon'        => $validator->errors()
-            // ];
-
+            
             $data['respon'] = 'Ada kesalahan silahkan ulangi!';
 
         }else{
             $data = User::create([
                 'name'          => $request->name,
-                'role'          => 'User',
+                'role'          => 'Peserta',
                 'email'         => $request->email,
                 'password'      => Hash::make($request->password)
             ]);

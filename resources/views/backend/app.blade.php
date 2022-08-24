@@ -71,11 +71,11 @@
                 <a class="navbar-brand brand-logo mr-5" style="color: white; font-size: 16px; margin-left: 20px;"
                     href="{{ url('/') }}">
                     {{-- <img src="{{ asset('logosc.png') }}" class="mr-2" alt="logo" /> --}}
-                    SUMSEL CRAFTERS
+                    SAMAPTA APP
                 </a>
                 <a class="navbar-brand brand-logo-mini" style="color: white;" href="{{ url('/') }}">
                     {{-- <img src="{{ asset('logosc.png') }}" alt="logo" /> --}}
-                    SC
+                    SA
                 </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -87,7 +87,7 @@
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="{{ asset('foto_profil') }}/{{ DB::table('user_profils')->where('id_user', Auth::user()->id)->value('foto_profil') ?? 'logosc.png' }}" alt="profile" />
+                            <img src="{{ asset('foto_profil') }}/logosc.png" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
@@ -149,11 +149,6 @@
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by 
                             <a href="https://www.themewagon.com/" target="_blank">
                                 Themewagon
-                            </a>
-                        </span>
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Developed by 
-                            <a href="https://www.sahretech.com/" target="_blank">
-                                Sahretech
                             </a>
                         </span>
                     </div>

@@ -47,7 +47,6 @@
                                     <th>Role</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
-                                    <th width="5%"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -86,10 +85,9 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Role</label>
                             <select name="role" class="form-control" id="role">
-                                @if (Auth::user()->role == 'Admin')                                    
-                                    <option value="Admin">Admin</option>
-                                @endif
-                                <option  value="User">User</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Panitia">Panitia</option>
+                                <option value="Peserta">Peserta</option>
                             </select>
                         </div>
                     </div>
@@ -131,13 +129,6 @@
                     {
                         render: function(data, type, row, meta) {
                             return `<span class="badge badge-success">${row.role}</span>`
-                        }
-                    },
-                    {
-                        render: function(data, type, row, meta) {
-                            return `<a href="/back/profil-${row.id}" target="_blank">
-                                    <i style="font-size: 1.5rem;" class="text-success bi bi-folder2-open"></i>
-                                </a>`
                         }
                     },
                     {
