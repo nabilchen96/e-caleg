@@ -1,0 +1,2 @@
+[26-Jul-2022 08:53:32 Asia/Jakarta] PHP Warning:  require(/home/sumselcr/public_html/sumsel-crafters-app/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/sumselcr/public_html/sumsel-crafters-app/public/index.php on line 34
+[26-Jul-2022 08:53:32 Asia/Jakarta] PHP Fatal error:  require(): Failed opening required '/home/sumselcr/public_html/sumsel-crafters-app/public/../vendor/autoload.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/sumselcr/public_html/sumsel-crafters-app/public/index.php on line 34

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="Hosted by DomaiNesia">
+    <meta name="keywords" content="domainesia">
+    <title><!--#echo var="code" --> <!--#echo var="reason" --></title>
+    <link rel="shortcut icon" href="//www.domainesia.com/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css" integrity="sha512-y6ZMKFUQrn+UUEVoqYe8ApScqbjuhjqzTuwUMEGMDuhS2niI8KA3vhH2LenreqJXQS+iIXVTRL2iaNfJbDNA1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="//files.domainesia.com/repo/cpanel-assets/defaults/css/404.css">
+    <style>
+      .inner {
+        top: 100px;
+      }
+
+      .errorMessage {
+        font-size: 20px;
+        font-family: 'Architects Daughter', cursive;
+        text-shadow: none;
+      }
+
+      .menu {
+        font-size: 16px;
+        font-family: 'Architects Daughter', cursive;
+      }
+
+      .menu a {
+        font-size: 16px;
+        padding: 0;
+      }
+
+    </style>
+  </head>
+  <!--  Body   -->
+  <body>
+    <div class="flex flex-col h-1/2 md:h-screen justify-between">
+      <main class="mb-auto h-20">
+        <!--     Wrapper     -->
+        <div id="wrapper" class="relative mx-auto overflow-hidden gradient">
+          <div class="relative max-w-sm">
+            <!--  Company Logo  -->
+            <a class="text-transparent" href="https://www.domainesia.com">
+              <img class="object-none object-right max-w-xs ml-20" src="//static.domainesia.com/assets/images/mediakit/2021/primary/light/domainesia-primary-light-300.png" alt="hosting berkualitas" title="hosting berkualitas"/>
+            </a>
+          </div> <!--  End Header  -->
+
+            <!--     Background Elements     -->
+          <div class="absolute jupiter"></div>
+          <div class="absolute mount"></div>
+
+          <div class="ccontainer overflow-hidden mb-0 ml-auto">
+            <div id="clouds">
+              <div class="absolute cloud1"></div>
+              <div class="absolute cloud2"></div>
+            </div>
+            <div id="clouds2">
+              <div class="absolute cloud3"></div>
+              <div class="absolute cloud4"></div>
+              <div class="absolute cloud5"></div>
+            </div>
+            <div id="clouds3">
+              <div class="absolute cloud1"></div>
+              <div class="absolute cloud2"></div>
+              <div class="absolute cloud3"></div>
+              <div class="absolute cloud4"></div>
+              <div class="absolute cloud5"></div>
+            </div>
+          </div>
+
+          <div class="absolute crash"></div>
+          <div class="absolute ground"></div>
+          <div class="absolute mushroom"></div>
+          <div class="absolute mushroom2"></div>
+
+          <!--     Content Box      -->
+          <div class="absolute content">
+            <!--     Inner Box      -->
+            <div class="inner">
+              <div class="chain1"></div>
+              <div class="chain2"></div>
+              <!--   Title for Content Box    -->
+              <h1>
+                <span class="status-code"><!--#echo var="code" --></span>
+                <span class="status-reason"><!--#echo var="reason" --></span>
+              </h1>
+              <!--    Message    -->
+              <div class="errorMessage">
+                <p class="reason-text"><!--#echo var="msg" --></p>
+                <br/>
+              </div>
+              <!--	Navigation	-->
+              <div class="errorNav">
+              <!--	Menu	-->
+              <div class="menu">
+                Proudly Hosted by DomaiNesia
+              </div> <!--	 End Menu	-->
+              </div> <!--	 End Navigation	  -->
+            </div> <!--     End Inner Box      -->
+          </div> <!--    End Content Box      -->
+        </div> <!--    End Wrapper     -->
+      </main>
+      <footer class="static mb-20">
+        <p>
+          Luncurkan Aplikasi Web dengan Cloud VPS Murah Berperforma Tinggi<br>
+          DomaiNesia Penyedia Web <a class="text-blue-400 hover:text-blue-300" href="https://www.domainesia.com/">Hosting Terbaik</a> di Indonesia <br>
+          Cek & Daftarkan Nama Domain dengan Mudah<br>
+        </p>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="//files.domainesia.com/repo/cpanel-assets/defaults/js/jquery-1.10.2-min.js"></script>
+    <script type="text/javascript" src="//files.domainesia.com/repo/cpanel-assets/defaults/js/bara-custom.js"></script>
+  </body>
+</html>
