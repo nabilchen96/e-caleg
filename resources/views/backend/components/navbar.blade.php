@@ -20,7 +20,14 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('back/samapta') }}">
+                <i class="bi bi-people-fill menu-icon"></i>
+                <span class="menu-title">Samapta</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/gruppenilaian') }}">
                 <i class="bi bi-people-fill menu-icon"></i>
                 <span class="menu-title">Grup Penilaian</span>
             </a>
