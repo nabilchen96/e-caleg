@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/login', 'App\Http\Controllers\Api\LoginController@index');
+Route::get('/logout', 'App\Http\Controllers\Api\LoginController@logout');
+
+Route::middleware('auth:sanctum')->get('/user', 'App\Http\Controllers\Api\UserController@index');
