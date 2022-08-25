@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Aturan_nilai_samapta;
 
-class UserController extends Controller
+class SamaptaController extends Controller
 {
     public function index(){
-        $users  = User::all();
+        $users  = Aturan_nilai_samapta::all();
         return response([
             $users
         ]);

@@ -14,7 +14,7 @@ class CreateAturanNilaiSamaptasTable extends Migration
     public function up()
     {
         Schema::create('aturan_nilai_samaptas', function (Blueprint $table) {
-            $table->id('');
+            $table->id();
             $table->string('untuk');
             $table->string('jenis_samapta');
             $table->integer('ukuran_menit');
