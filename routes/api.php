@@ -23,3 +23,4 @@ Route::get('/logout', 'App\Http\Controllers\Api\LoginController@logout');
 
 Route::middleware('auth:sanctum')->get('/user', 'App\Http\Controllers\Api\UserController@index');
 Route::middleware('auth:sanctum')->get('/samapta', 'App\Http\Controllers\Api\SamaptaController@index');
+Route::middleware('auth:sanctum')->get('/grup', 'App\Http\Controllers\Api\grupPenilaianController@index');
