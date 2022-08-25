@@ -45,6 +45,8 @@
                                     <th>Nama Grup</th>
                                     <th>Status</th>
                                     <th>Peserta</th>
+                                    <th>Panitia</th>
+                                    <th>Detail</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -61,34 +63,23 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">User Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Grup Penilaian Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input name="email" id="email" type="email" placeholder="email"
+                            <label for="exampleInputEmail1">Nama Grup</label>
+                            <input name="nama_grup" id="nama_grup" type="text" placeholder="Nama Grup"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="nama_grup_alert"></span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Lengkap</label>
-                            <input name="name" id="name" type="text" placeholder="Nama Lengkap"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input name="password" id="password" type="password" placeholder="Password"
-                                class="form-control form-control-sm" id="exampleInputPassword1">
-                            <span class="text-danger error" style="font-size: 12px;" id="password_alert"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Role</label>
-                            <select name="role" class="form-control" id="role">
-                                <option value="Admin">Admin</option>
-                                <option value="Panitia">Panitia</option>
-                                <option value="Peserta">Peserta</option>
+                            <label for="exampleInputPassword1">Status</label>
+                            <select name="status" class="form-control" id="status">
+                                <option value="Aktif">Aktif</option>
+                                <option value="Tidak Aktif">Tidak Aktif</option>
                             </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="status_alert"></span>
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -109,7 +100,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-user',
+                ajax: '/back/data-gruppenilaian',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -121,15 +112,19 @@
                         }
                     },
                     {
-                        data: "name"
+                        data: "nama_grup"
                     },
                     {
-                        data: "email"
+                        data: "status"
                     },
                     {
-                        render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">${row.role}</span>`
-                        }
+                        data: "peserta"
+                    },
+                    {
+                        data: "panitia"
+                    },
+                    {
+                      
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -167,9 +162,8 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#email').val(cokData[0].email)
-                modal.find('#name').val(cokData[0].name)
-                modal.find('#role').val(cokData[0].role)
+                modal.find('#nama_grup').val(cokData[0].nama_grup)
+                modal.find('#status').val(cokData[0].status)
             }
         })
 
@@ -183,7 +177,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-user' : '/back/update-user',
+                    url: formData.get('id') == '' ? '/back/store-gruppenilaian' : '/back/update-gruppenilaian',
                     data: formData,
                 })
                 .then(function(res) {
@@ -204,8 +198,8 @@
 
                     } else {
                         //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
-                        document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
+                        document.getElementById('nama_grup_alert').innerHTML = res.data.respon.nama_grup ?? ''
+                        document.getElementById('status_alert').innerHTML = res.data.respon.status ?? ''
                     }
 
                     document.getElementById("tombol_kirim").disabled = false;
@@ -229,7 +223,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-user', {
+                    axios.post('/back/delete-gruppenilaian', {
                             id
                         })
                         .then((response) => {

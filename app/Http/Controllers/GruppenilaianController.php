@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\Aturan_nilai_samapta;
+use App\Models\Gruppenilaian;
+use Illuminate\Support\Facades\Validator;
 
 class GruppenilaianController extends Controller
 {
@@ -14,21 +15,17 @@ class GruppenilaianController extends Controller
 
     public function data(){
         
-        $user = DB::table('users');
+        $gruppenilaian = Gruppenilaian::all();
 
-        $data_user = Auth::user();
-        $user = $user->get();
-
-        
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $gruppenilaian]);
     }
 
     public function store(Request $request){
 
 
         $validator = Validator::make($request->all(), [
-            'password'   => 'required|min:8',
-            'email'      => 'unique:users'
+            'nama_grup'   => 'required',
+            'status'      => 'required'
         ]);
 
         if($validator->fails()){
@@ -37,11 +34,11 @@ class GruppenilaianController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = User::insert([
-                'name'          => $request->name,
-                'role'          => $request->role,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password)
+            $data = Gruppenilaian::insert([
+                'nama_grup'     => $request->nama_grup,
+                'status'        => $request->status,
+                'peserta'       => " ",
+                'panitia'       => " "
             ]);
 
             $data = [
@@ -66,13 +63,13 @@ class GruppenilaianController extends Controller
             ];
         }else{
 
-            $user = User::find($request->id);
-            $data = $user->update([
-                'name'      => $request->name,
-                'role'      => $request->role,
-                'email'     => $request->email,
-                'password'  => $request->password ? Hash::make($request->password) : $user->password
-            ]);
+            $gruppenilaian = Grup::find($request->id);
+            $data = $gruppenilaian->update([
+                    'nama_grup'     => $request->nama_grup,
+                    'status'        => $request->status,
+                    'peserta'       => " ",
+                    'panitia'       => " "
+                ]);
 
             $data = [
                 'responCode'    => 1,
@@ -85,7 +82,7 @@ class GruppenilaianController extends Controller
 
     public function delete(Request $request){
 
-        $data = User::find($request->id)->delete();
+        $data = Gruppenilaian::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

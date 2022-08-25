@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAturanNilaiSamaptasTable extends Migration
+class CreateGruppenilaiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAturanNilaiSamaptasTable extends Migration
      */
     public function up()
     {
-        Schema::create('aturan_nilai_samaptas', function (Blueprint $table) {
+        Schema::create('gruppenilaians', function (Blueprint $table) {
             $table->id();
-            $table->string('untuk');
-            $table->string('jenis_samapta');
-            $table->integer('ukuran_menit');
-            $table->double('jumlah', 8, 2);
-            $table->float('nilai');
+            $table->string('nama_grup');
+            $table->string('status');
+            $table->string('peserta');
+            $table->string('panitia');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateAturanNilaiSamaptasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aturan_nilai_samaptas');
+        Schema::dropIfExists('gruppenilaians');
     }
 }

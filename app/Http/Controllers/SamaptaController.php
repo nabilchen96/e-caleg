@@ -67,7 +67,7 @@ class SamaptaController extends Controller
         }else{
 
             $samapta = Aturan_nilai_samapta::find($request->id);
-            $data = Aturan_nilai_samapta::insert([
+            $data = $samapta::update([
                 'jenis_samapta'   => $request->jenis_samapta,
                 'ukuran_menit'    => $request->ukuran_menit,
                 'jumlah'          => $request->jumlah,
