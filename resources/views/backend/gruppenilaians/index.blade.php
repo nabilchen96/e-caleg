@@ -120,14 +120,10 @@
                         data: "status"
                     },
                     {
-                        render: function(data, type, row, meta) {
-                            return `100`
-                        }
+                        data: "total_peserta"
                     },
                     {
-                        render: function(data, type, row, meta) {
-                            return `100`
-                        }
+                        data: "total_panitia"
                     },
                     {
                         render: function(data, type, row, meta) {
