@@ -48,7 +48,7 @@
                                     <th>Status</th>
                                     <th>Peserta</th>
                                     <th>Panitia</th>
-                                    <th>Detail</th>
+                                    <th width="5%"></th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -120,10 +120,14 @@
                         data: "status"
                     },
                     {
-                        data: "peserta"
+                        render: function(data, type, row, meta) {
+                            return `100`
+                        }
                     },
                     {
-                        data: "panitia"
+                        render: function(data, type, row, meta) {
+                            return `100`
+                        }
                     },
                     {
                         render: function(data, type, row, meta) {

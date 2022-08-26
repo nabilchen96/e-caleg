@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use DB;
+use App\Models\Gruppenilaian;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class GrupPenilaianController extends Controller
 {
     public function index(){
-        $users  = User::all();
+        $data  = Gruppenilaian::all();
         return response([
-            $users
+            $data
         ]);
     }
 }

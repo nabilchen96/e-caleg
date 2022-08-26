@@ -14,15 +14,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('back/samapta') }}">
                 <i class="bi bi-file-earmark-richtext menu-icon"></i>
                 <span class="menu-title">Nilai Referensi</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('back/samapta') }}">
-                <i class="bi bi-people-fill menu-icon"></i>
-                <span class="menu-title">Samapta</span>
             </a>
         </li>
         
