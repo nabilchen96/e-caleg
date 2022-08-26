@@ -15,7 +15,16 @@ class GruppenilaianController extends Controller
 
     public function data(){
         
-        $gruppenilaian = Gruppenilaian::all();
+        $gruppenilaian = DB::table('gruppenilaians')
+                            ->leftjoin('detail_grup_penilaians', 'detail_grup_penilaians.gruppenilaian_id', '=', 'gruppenilaians.id')
+                            ->leftjoin('users', 'users.id', 'detail_grup_penilaians.user_id')
+                            ->select(
+                                'gruppenilaians.*',
+                                DB::Raw('count(case when users.role = "Panitia" then 1 end) as total_panitia'),
+                                DB::Raw('count(case when users.role = "Peserta" then 1 end) as total_peserta')
+                            )
+                            ->groupBy('gruppenilaians.id')
+                            ->get();
 
         return response()->json(['data' => $gruppenilaian]);
     }
