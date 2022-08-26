@@ -14,12 +14,18 @@ class Detail_grup_penilaianController extends Controller
     public function index($id_grup){
         $grup = Gruppenilaian::where('id',$id_grup)->first();
         $user = User::all();
+        
         return view('backend.detail_gruppenilaian.index', ['grup'=>$grup,'user' => $user]);
     }
 
     public function data(){
         
-        $detailgrup = Detail_grup_Penilaian::all();
+
+        $detailgrup = DB::table('detail_grup_penilaians')
+                        ->leftjoin('gruppenilaians', 'gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')
+                        ->leftjoin('users', 'users.id', '=', 'detail_grup_penilaians.user_id')
+                        ->get();
+
         return response()->json(['data' => $detailgrup]);
     }
 
@@ -28,7 +34,7 @@ class Detail_grup_penilaianController extends Controller
 
         $validator = Validator::make($request->all(), [
             'nama'   => 'required',
-            'status'      => 'required'
+            // 'status'      => 'required'
         ]);
 
         if($validator->fails()){
@@ -39,7 +45,7 @@ class Detail_grup_penilaianController extends Controller
         }else{
             $data = Detail_grup_penilaian::insert([
                 'user_id'     => $request->nama,
-                'status'   => $request->status,
+                'status'   => "",
                 'gruppenilaian_id' => $request->id_grup,
             ]);
 
@@ -68,7 +74,7 @@ class Detail_grup_penilaianController extends Controller
             $detailgrup = Detail_grup_penilaian::find($request->id);
             $data = $detailgrup->update([
                 'user_id'     => $request->nama,
-                'status'   => $request->status,
+                'status'   => "",
                 'gruppenilaian_id' => $request->id_grup,
                 ]);
 

@@ -77,14 +77,6 @@
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="nama_alert"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Status</label>
-                            <select name="status" class="form-control" id="status">
-                                <option value="Panitia">Panitia</option>
-                                <option value="Peserta">Peserta</option>
-                            </select>
-                            <span class="text-danger error" style="font-size: 12px;" id="status_alert"></span>
-                        </div>
                     </div>
                     <div class="modal-footer p-3">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -116,10 +108,10 @@
                         }
                     },
                     {
-                        data: "user_id"
+                        data: "name"
                     },
                     {
-                        data: "status"
+                        data: "role"
                     },
                     {
                         render: function(data, type, row, meta) {
