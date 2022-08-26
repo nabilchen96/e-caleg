@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGruppenilaiansTable extends Migration
+class CreateDetailGrupPenilaiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateGruppenilaiansTable extends Migration
      */
     public function up()
     {
-        Schema::create('gruppenilaians', function (Blueprint $table) {
+        Schema::create('detail_grup_penilaians', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_grup');
+            $table->string('gruppenilaian_id');
+            $table->string('user_id');
             $table->string('status');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateGruppenilaiansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gruppenilaians');
+        Schema::dropIfExists('detail_grup_penilaians');
     }
 }

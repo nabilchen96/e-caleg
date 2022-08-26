@@ -9,6 +9,11 @@ class Gruppenilaian extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_grup', 'status', 'peserta', 'panitia'
+        'nama_grup', 'status'
     ];
+
+    public function grupdetail()
+    {
+    	return $this->hasOne('App\Models\Detail_grup_penilaian');
+    }
 }

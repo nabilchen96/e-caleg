@@ -50,6 +50,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/store-samapta', 'App\Http\Controllers\SamaptaController@store');
     Route::post('/back/update-samapta', 'App\Http\Controllers\SamaptaController@update');
     Route::post('/back/delete-samapta', 'App\Http\Controllers\SamaptaController@delete');
+
+    //DETAIL GRUP
+    Route::get('/back/detailgrup/{id_grup}', 'App\Http\Controllers\Detail_grup_penilaianController@index');
+    Route::get('/back/data-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@data');
+    Route::post('/back/store-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@store');
+    Route::post('/back/update-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@update');
+    Route::post('/back/delete-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@delete');
 });
 
 //LOGOUT

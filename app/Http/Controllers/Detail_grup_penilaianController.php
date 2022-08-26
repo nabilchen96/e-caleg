@@ -4,30 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\Aturan_nilai_samapta;
+use App\Models\detail_grup_penilaian;
+use App\Models\User;
+use App\Models\Gruppenilaian;
 use Illuminate\Support\Facades\Validator;
 
-class SamaptaController extends Controller
+class Detail_grup_penilaianController extends Controller
 {
-    public function index(){
-        return view('backend.samapta.index');
+    public function index($id_grup){
+        $grup = Gruppenilaian::where('id',$id_grup)->first();
+        $user = User::all();
+        return view('backend.detail_gruppenilaian.index', ['grup'=>$grup,'user' => $user]);
     }
 
     public function data(){
         
-        $samapta = Aturan_nilai_samapta::all();
-
-        return response()->json(['data' => $samapta]);
+        $detailgrup = Detail_grup_Penilaian::all();
+        return response()->json(['data' => $detailgrup]);
     }
 
     public function store(Request $request){
 
+
         $validator = Validator::make($request->all(), [
-            'jenis'   => 'required',
-            'ukuran'  => 'required',
-            'jumlah'  => 'required',
-            'untuk'   => 'required',
-            'nilai'   => 'required'
+            'nama'   => 'required',
+            'status'      => 'required'
         ]);
 
         if($validator->fails()){
@@ -36,13 +37,10 @@ class SamaptaController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = Aturan_nilai_samapta::insert([
-                'jenis_samapta'   => $request->jenis_samapta,
-                'ukuran_menit'    => $request->ukuran_menit,
-                'jumlah'          => $request->jumlah,
-                'untuk'           => $request->untuk,
-                'nilai'           => $request->nilai
-
+            $data = Detail_grup_penilaian::insert([
+                'user_id'     => $request->nama,
+                'status'   => $request->status,
+                'gruppenilaian_id' => $request->id_grup,
             ]);
 
             $data = [
@@ -67,15 +65,12 @@ class SamaptaController extends Controller
             ];
         }else{
 
-            $samapta = Aturan_nilai_samapta::find($request->id);
-            $data = $samapta::update([
-                'jenis_samapta'   => $request->jenis_samapta,
-                'ukuran_menit'    => $request->ukuran_menit,
-                'jumlah'          => $request->jumlah,
-                'untuk'           => $request->untuk,
-                'nilai'           => $request->nilai
-
-            ]);
+            $detailgrup = Detail_grup_penilaian::find($request->id);
+            $data = $detailgrup->update([
+                'user_id'     => $request->nama,
+                'status'   => $request->status,
+                'gruppenilaian_id' => $request->id_grup,
+                ]);
 
             $data = [
                 'responCode'    => 1,
@@ -88,7 +83,7 @@ class SamaptaController extends Controller
 
     public function delete(Request $request){
 
-        $data = Aturan_nilai_samapta::find($request->id)->delete();
+        $data = Detail_grup_penilaian::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

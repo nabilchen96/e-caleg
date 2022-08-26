@@ -38,4 +38,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function grupdetail()
+    {
+    	return $this->hasOne('App\Models\Detail_grup_penilaian');
+    }
 }

@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Grup Penilaian</h3>
+                    <h3 class="font-weight-bold text-white">Detail Grup Penilaian</h3>
                 </div>
             </div>
         </div>
@@ -37,18 +37,14 @@
                             Tambah
                         </button>
                     @endif
-                    <div class="col-12 col-xl-8 mb-xl-0">
-                    </div>
+                    <h3 class="font-weight-bold text-black">{{ $grup->nama_grup }}</h3>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Nama Grup</th>
+                                    <th>Nama</th>
                                     <th>Status</th>
-                                    <th>Peserta</th>
-                                    <th>Panitia</th>
-                                    <th>Detail</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -65,21 +61,27 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Grup Penilaian Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Detail Grup Penilaian Form</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="id">  
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_grup" id="id_grup" value="{{ $grup->id }}"> 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Grup</label>
-                            <input name="nama_grup" id="nama_grup" type="text" placeholder="Nama Grup"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="nama_grup_alert"></span>
+                            <label for="exampleInputEmail1">Nama</label>
+                                <select class="form-control" name="nama" id="nama">
+                                <option value="">-- Choose Nama --</option>
+                                @foreach ($user as $user_nama)
+                                    <option value="{{ $user_nama->id }}">{{ $user_nama->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="nama_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Status</label>
                             <select name="status" class="form-control" id="status">
-                                <option value="Aktif">Aktif</option>
-                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                <option value="Panitia">Panitia</option>
+                                <option value="Peserta">Peserta</option>
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="status_alert"></span>
                         </div>
@@ -102,7 +104,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-gruppenilaian',
+                ajax: '/back/data-detailgrup',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -114,21 +116,10 @@
                         }
                     },
                     {
-                        data: "nama_grup"
+                        data: "user_id"
                     },
                     {
                         data: "status"
-                    },
-                    {
-                        data: "peserta"
-                    },
-                    {
-                        data: "panitia"
-                    },
-                    {
-                        render: function(data, type, row, meta) {
-                        return `<a href="/back/detailgrup/${row.id}"><i style="font-size: 1.5rem;" class="text-success bi bi-eye"></i></a>`
-                        }
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -160,13 +151,15 @@
             })
 
             document.getElementById("form").reset();
+            // document.getElementById("id_grup").value = { $grup->nama_grup };
             document.getElementById('id').value = ''
             $('.error').empty();
 
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#nama_grup').val(cokData[0].nama_grup)
+                modal.find('#nama').val(cokData[0].user_id)
+                modal.find('#id_grop').val(cokData[0].gruppenilaian_id)
                 modal.find('#status').val(cokData[0].status)
             }
         })
@@ -181,7 +174,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-gruppenilaian' : '/back/update-gruppenilaian',
+                    url: formData.get('id') == '' ? '/back/store-detailgrup' : '/back/update-detailgrup',
                     data: formData,
                 })
                 .then(function(res) {
@@ -202,7 +195,7 @@
 
                     } else {
                         //error validation
-                        document.getElementById('nama_grup_alert').innerHTML = res.data.respon.nama_grup ?? ''
+                        document.getElementById('nama_alert').innerHTML = res.data.respon.nama ?? ''
                         document.getElementById('status_alert').innerHTML = res.data.respon.status ?? ''
                     }
 
@@ -227,7 +220,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-gruppenilaian', {
+                    axios.post('/back/delete-detail_gruppenilaian', {
                             id
                         })
                         .then((response) => {
