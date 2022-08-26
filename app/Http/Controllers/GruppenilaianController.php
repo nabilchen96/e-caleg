@@ -63,12 +63,10 @@ class GruppenilaianController extends Controller
             ];
         }else{
 
-            $gruppenilaian = Grup::find($request->id);
+            $gruppenilaian = Gruppenilaian::find($request->id);
             $data = $gruppenilaian->update([
                     'nama_grup'     => $request->nama_grup,
                     'status'        => $request->status,
-                    'peserta'       => " ",
-                    'panitia'       => " "
                 ]);
 
             $data = [

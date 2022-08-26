@@ -38,6 +38,7 @@
                         </button>
                     @endif
                     <h3 class="font-weight-bold text-black">{{ $grup->nama_grup }}</h3>
+                    <br>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead>
@@ -45,7 +46,7 @@
                                     <th width="5%">No</th>
                                     <th>Nama</th>
                                     <th>Status</th>
-                                    <th width="5%"></th>
+                                    {{-- <th width="5%"></th> --}}
                                     <th width="5%"></th>
                                 </tr>
                             </thead>
@@ -91,12 +92,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
+
         })
+        
+        var current_path = window.location.pathname;
+        var path_arr = current_path.split("/");
 
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-detailgrup',
+                ajax: '/back/data-detailgrup/'+path_arr[3],
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -113,14 +118,14 @@
                     {
                         data: "role"
                     },
-                    {
-                        render: function(data, type, row, meta) {
-                            return `<a data-toggle="modal" data-target="#modal"
-                                    data-bs-id=` + (row.id) + ` href="javascript:void(0)">
-                                    <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
-                                </a>`
-                        }
-                    },
+                    // {
+                    //     render: function(data, type, row, meta) {
+                    //         return `<a data-toggle="modal" data-target="#modal"
+                    //                 data-bs-id=` + (row.id) + ` href="javascript:void(0)">
+                    //                 <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
+                    //             </a>`
+                    //     }
+                    // },
                     {
                         render: function(data, type, row, meta) {
                             return `<a href="javascript:void(0)" onclick="hapusData(` + (row
@@ -151,7 +156,7 @@
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
                 modal.find('#nama').val(cokData[0].user_id)
-                modal.find('#id_grop').val(cokData[0].gruppenilaian_id)
+                modal.find('#id_grup').val(cokData[0].gruppenilaian_id)
                 modal.find('#status').val(cokData[0].status)
             }
         })
@@ -212,7 +217,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-detail_gruppenilaian', {
+                    axios.post('/back/delete-detailgrup', {
                             id
                         })
                         .then((response) => {
