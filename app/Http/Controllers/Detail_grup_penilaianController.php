@@ -18,12 +18,13 @@ class Detail_grup_penilaianController extends Controller
         return view('backend.detail_gruppenilaian.index', ['grup'=>$grup,'user' => $user]);
     }
 
-    public function data(){
+    public function data($id_grup){
         
 
         $detailgrup = DB::table('detail_grup_penilaians')
                         ->leftjoin('gruppenilaians', 'gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')
                         ->leftjoin('users', 'users.id', '=', 'detail_grup_penilaians.user_id')
+                        ->where('gruppenilaian_id', $id_grup)
                         ->get();
 
         return response()->json(['data' => $detailgrup]);
