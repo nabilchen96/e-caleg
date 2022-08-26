@@ -19,7 +19,6 @@ class Detail_grup_penilaianController extends Controller
     }
 
     public function data($id_grup){
-        
 
         $detailgrup = DB::table('detail_grup_penilaians')
                         ->leftjoin('gruppenilaians', 'gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')

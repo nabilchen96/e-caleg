@@ -38,6 +38,7 @@
                         </button>
                     @endif
                     <h3 class="font-weight-bold text-black">{{ $grup->nama_grup }}</h3>
+                    <br>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead>
@@ -91,12 +92,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
+
         })
+        
+        var current_path = window.location.pathname;
+        var path_arr = current_path.split("/");
 
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-detailgrup',
+                ajax: '/back/data-detailgrup/'+path_arr[3],
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
