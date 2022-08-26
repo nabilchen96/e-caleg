@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function index(){
-        $users  = User::all();
 
+        $tipe = request('tipe');
+
+        if($tipe == 'all') {
+            $users  = User::all();
+        } else if($tipe == 'peserta') {
+            $users = User::where('role','Peserta')->get();
+        }
+
+        
         return response()->json([
             'success' => true,
             'message' => 'Get data successfully',
