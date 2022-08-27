@@ -57,6 +57,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/store-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@store');
     Route::post('/back/update-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@update');
     Route::post('/back/delete-detailgrup', 'App\Http\Controllers\Detail_grup_penilaianController@delete');
+
+    //PENILAIAN
+    Route::get('/back/list-penilaian', 'App\Http\Controllers\PenilaianController@index');
+    Route::get('/back/data-penilaian', 'App\Http\Controllers\PenilaianController@data');
+    Route::post('/back/store-penilaian', 'App\Http\Controllers\PenilaianController@store');
+    // Route::post('/back/update-penilaian', 'App\Http\Controllers\PenilaianController@update');
 });
 
 //LOGOUT

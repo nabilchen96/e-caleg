@@ -22,9 +22,9 @@
                     <div class="weather-info">
                         <div class="d-flex">
                             <div>
-                                <p>Total User</p>
+                                <p>Grup Aktif</p>
                                 <h2 class="mb-0 font-weight-normal">
-                                    <i class="bi bi-box-seam mr-2"></i> {{ @$total_produk }} User
+                                    LOREM IPSUM
                                 </h2>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                     <div class="card card-tale">
                         <div class="card-body">
                             <p class="mb-4">Total Peserta <br> Terdaftar</p>
-                            <h2 class="mb-2">{{ @$berita_user }}</h3>
+                            <h2 class="mb-2">200</h3>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Total Panitia<br> Terdaftar</p>
-                            <h2 class="mb-2">{{ @$diskusi_produk }}</h2>
+                            <h2 class="mb-2">100</h2>
                         </div>
                     </div>
                 </div>
@@ -56,15 +56,15 @@
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">Total Grup<br> Penilaian</p>
-                            <h2 class="mb-2">{{ @$diskusi_berita }}</h2>
+                            <h2 class="mb-2">10</h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-6 mb-4 mb-lg-0 stretch-card transparent">
                     <div class="card card-light-danger">
                         <div class="card-body">
-                            <p class="mb-4">Total Grup <br> Aktif</p>
-                            <h2 class="mb-2">{{ @$produk_user }}</h2>
+                            <p class="mb-4">Total Grup <br> Tidak Aktif</p>
+                            <h2 class="mb-2"></h2>
                         </div>
                     </div>
                 </div>

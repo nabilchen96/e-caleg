@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data User</h3>
+                    <h3 class="font-weight-bold text-white">Data Penilaian</h3>
                 </div>
             </div>
         </div>
@@ -32,23 +32,29 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    @if (Auth::user()->role == 'Admin')                        
-                        <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
-                            Tambah
-                        </button>
-                    @endif
+                    <button type="button" class="btn btn-danger btn-sm mb-4">
+                        Cetak PDF
+                    </button>
+                    <br>
+                    <h3>{{ DB::table('gruppenilaians')->where('status', 'Aktif')->value('nama_grup') }}</h3>
+                    <br>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
-                            <thead>
+                            <thead class="table-bordered table-dark" style="border-color: #c3c5c8 !important;">
                                 <tr>
-                                    <th width="5%">No</th>
-                                    <th>Name</th>
-                                    <th>No Reg / NIT</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th width="5%"></th>
-                                    <th width="5%"></th>
+                                    <th width="5%" rowspan="2" style="vertical-align: middle;">No</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Nama</th>
+                                    <th style="border-bottom: 2px solid #454d55;">Samapta A</th>
+                                    <th colspan="3" style="border-bottom: 2px solid #454d55; text-align: center;">Samapta B</th>
+                                    <th style="border-bottom: 1px solid #454d55; vertical-align: middle;">Nilai Akhir</th>
+                                    <th rowspan="2" width="5%"></th>
+                                </tr>
+                                <tr>
+                                    <th>Lari</th>
+                                    <th>Push Up</th>
+                                    <th>Sit Up</th>
+                                    <th>Shuttle Run</th>
+                                    <th>S = (A + B) / 2</th>
                                 </tr>
                             </thead>
                         </table>
@@ -66,43 +72,31 @@
                         <h5 class="modal-title m-2" id="exampleModalLabel">User Form</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="id">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input name="email" id="email" type="email" placeholder="email"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
-                        </div>
+                        <input type="hidden" name="detail_grup_penilaian_id" id="detail_grup_penilaian_id">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Lengkap</label>
                             <input name="name" id="name" type="text" placeholder="Nama Lengkap"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">No Reg / NIT <span class="text-danger">(Hanya untuk Peserta)</span></label>
-                            <input name="no_reg" id="no_reg" type="text" placeholder="No Reg / NIT"
+                            <label for="exampleInputPassword1">Jarak Lari</label>
+                            <input name="jarak_lari" id="jarak_lari" step="0.01" type="number" placeholder="Jarak Lari"
                                 class="form-control form-control-sm">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input name="password" id="password" type="password" placeholder="Password"
-                                class="form-control form-control-sm" id="exampleInputPassword1">
-                            <span class="text-danger error" style="font-size: 12px;" id="password_alert"></span>
+                            <label for="exampleInputPassword1">Jumlah Push Up</label>
+                            <input name="jumlah_push_up" id="jumlah_push_up" step="0.01" type="number" placeholder="Jumlah Push Up"
+                                class="form-control form-control-sm">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Role</label>
-                            <select name="role" class="form-control" id="role">
-                                <option value="Admin">Admin</option>
-                                <option value="Panitia">Panitia</option>
-                                <option value="Peserta">Peserta</option>
-                            </select>
+                            <label for="exampleInputPassword1">Jumlah Sit Up</label>
+                            <input name="jumlah_sit_up" id="jumlah_sit_up" step="0.01" type="number" placeholder="Jumlah Sit Up"
+                                class="form-control form-control-sm">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Jenis Kelamin</label>
-                            <select name="jk" class="form-control" id="jk">
-                                <option>Laki-laki</option>
-                                <option>Perempuan</option>
-                            </select>
+                            <label for="exampleInputPassword1">Shuttle Run DTK</label>
+                            <input name="jumlah_shuttle_run" id="jumlah_shuttle_run" step="0.01" type="number" placeholder="Jumlah Shuttle Run"
+                                class="form-control form-control-sm">
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -123,7 +117,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-user',
+                ajax: '/back/data-penilaian',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -135,35 +129,36 @@
                         }
                     },
                     {
-                        data: "name"
+                        render: function(data, type, row, meta){
+
+                            return `${row.name} <br> <b>No Reg</b>: ${row.no_reg} <br> <b>JK</b>: ${row.jk}`
+                        }
                     },
                     {
-                        data: "no_reg"
+                        data: "nilai_lari"
                     },
                     {
-                        data: 'jk'
+                        data: "nilai_push_up"
                     },
                     {
-                        data: "email"
+                        data: "nilai_sit_up"
                     },
                     {
-                        render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">${row.role}</span>`
+                        data: "nilai_shuttle_run"
+                    },
+                    {
+                        render: function(data, type, row, meta){
+                            let samaptaA = row.nilai_lari
+                            let samaptaB = (row.nilai_push_up + row.nilai_sit_up + row.nilai_shuttle_run) / 3
+
+                            return Math.round((samaptaA + samaptaB) / 2)
                         }
                     },
                     {
                         render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
-                                    data-bs-id=` + (row.id) + ` href="javascript:void(0)">
+                                    data-bs-id=` + (row.detail_grup_penilaian_id) + ` href="javascript:void(0)">
                                     <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
-                                </a>`
-                        }
-                    },
-                    {
-                        render: function(data, type, row, meta) {
-                            return `<a href="javascript:void(0)" onclick="hapusData(` + (row
-                                .id) + `)">
-                                    <i style="font-size: 1.5rem;" class="text-danger bi bi-trash"></i>
                                 </a>`
                         }
                     },
@@ -177,21 +172,21 @@
             var cok = $("#myTable").DataTable().rows().data().toArray()
 
             let cokData = cok.filter((dt) => {
-                return dt.id == recipient;
+                return dt.detail_grup_penilaian_id == recipient;
             })
 
             document.getElementById("form").reset();
-            document.getElementById('id').value = ''
+            // document.getElementById('id').value = ''
             $('.error').empty();
 
             if (recipient) {
                 var modal = $(this)
-                modal.find('#id').val(cokData[0].id)
-                modal.find('#email').val(cokData[0].email)
+                modal.find('#detail_grup_penilaian_id').val(cokData[0].detail_grup_penilaian_id)
                 modal.find('#name').val(cokData[0].name)
-                modal.find('#role').val(cokData[0].role)
-                modal.find('#no_reg').val(cokData[0].no_reg)
-                modal.find('#jk').val(cokData[0].jk)
+                modal.find('#jarak_lari').val(cokData[0].jarak_lari)
+                modal.find('#jumlah_push_up').val(cokData[0].jumlah_push_up)
+                modal.find('#jumlah_sit_up').val(cokData[0].jumlah_sit_up)
+                modal.find('#jumlah_shuttle_run').val(cokData[0].jumlah_shuttle_run)
             }
         })
 
@@ -205,7 +200,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-user' : '/back/update-user',
+                    url: '/back/store-penilaian',
                     data: formData,
                 })
                 .then(function(res) {
@@ -226,8 +221,8 @@
 
                     } else {
                         //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
-                        document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
+                        // document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
+                        // document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
                     }
 
                     document.getElementById("tombol_kirim").disabled = false;
