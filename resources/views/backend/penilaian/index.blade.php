@@ -131,27 +131,38 @@
                     {
                         render: function(data, type, row, meta){
 
-                            return `${row.name} <br> <b>No Reg</b>: ${row.no_reg} <br> <b>JK</b>: ${row.jk}`
+                            return `${row.name} <br> <b>No Reg / NIT</b>: ${row.no_reg} <br> <b>JK</b>: ${row.jk}`
                         }
                     },
                     {
-                        data: "nilai_lari"
+                        render: function(data, type, row, meta){
+                            return `<b>Nilai</b>: ${row.nilai_lari} <br> <b>Jarak</b>: ${row.jarak_lari} meter`
+                        }
                     },
                     {
-                        data: "nilai_push_up"
+                        render: function(data, type, row, meta){
+
+                            return `<b>Nilai</b>: ${row.nilai_push_up} <br> <b>Jumlah</b>: ${row.jumlah_push_up}`
+                        }
                     },
                     {
-                        data: "nilai_sit_up"
+                        render: function(data, type, row, meta){
+
+                            return `<b>Nilai</b>: ${row.nilai_sit_up} <br> <b>Jumlah</b>: ${row.jumlah_sit_up}`
+                        }
                     },
                     {
-                        data: "nilai_shuttle_run"
+                        render: function(data, type, row, meta){
+
+                            return `<b>Nilai</b>: ${row.nilai_shuttle_run} <br> <b>Jumlah</b>: ${row.jumlah_shuttle_run} detik`
+                        }
                     },
                     {
                         render: function(data, type, row, meta){
                             let samaptaA = row.nilai_lari
                             let samaptaB = (row.nilai_push_up + row.nilai_sit_up + row.nilai_shuttle_run) / 3
 
-                            return Math.round((samaptaA + samaptaB) / 2)
+                            return ((samaptaA + samaptaB) / 2).toFixed(2)
                         }
                     },
                     {
