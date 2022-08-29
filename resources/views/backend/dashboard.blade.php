@@ -64,7 +64,7 @@
                     <div class="card card-light-danger">
                         <div class="card-body">
                             <p class="mb-4">Total Grup <br> Tidak Aktif</p>
-                            <h2 class="mb-2"></h2>
+                            <h2 class="mb-2">3</h2>
                         </div>
                     </div>
                 </div>

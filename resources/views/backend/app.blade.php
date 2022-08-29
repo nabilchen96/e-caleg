@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sumsel Crafters</title>
+    <title>Samapta App</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('skydash/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('skydash/vendors/ti-icons/css/themify-icons.css') }}">
@@ -60,6 +60,9 @@
             border: 6px solid transparent;
             background-clip: content-box;
         }
+        table td{
+            line-height: 1.5 !important;
+        }
     </style>
 </head>
 
@@ -87,14 +90,11 @@
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="{{ asset('foto_profil') }}/logosc.png" alt="profile" />
+                            {{-- <img src="{{ asset('mountain.png') }}" style="object-fit: cover;" alt="profile" /> --}}
+                            <i class="bi bi-person-circle" style="font-size: 30px;"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="{{ url('/back/profil') }}-{{ Auth::user()->id }}">
-                                <i class="ti-settings text-primary"></i>
-                                Profil
-                            </a>
                             <a class="dropdown-item" href="{{ url('logout') }}">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout
@@ -125,9 +125,9 @@
 
                 <div
                     style="
-                    background-image: url({{ asset('mountain.png') }}); 
+                    background-image: url({{ asset('big-sur.jpg') }}); 
                     height: 200px; 
-                    background-position: center;
+                    background-position: bottom;
                     background-size: cover;
                     width: 100%;">
 
