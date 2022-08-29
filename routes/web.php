@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/delete-gruppenilaian', 'App\Http\Controllers\GruppenilaianController@delete');
 
     //SAMAPTA
-    Route::get('/back/samapta', 'App\Http\Controllers\SamaptaController@index');
+    Route::get('/back/referensi', 'App\Http\Controllers\SamaptaController@index');
     Route::get('/back/data-samapta', 'App\Http\Controllers\SamaptaController@data');
     Route::post('/back/store-samapta', 'App\Http\Controllers\SamaptaController@store');
     Route::post('/back/update-samapta', 'App\Http\Controllers\SamaptaController@update');
