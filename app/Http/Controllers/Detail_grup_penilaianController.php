@@ -105,4 +105,11 @@ class Detail_grup_penilaianController extends Controller
 
         return response()->json($data);
     }
+
+    public function pilih($pilih){
+
+        $data = User::where('role',$pilih)->get();
+        
+        return response()->json(['data' => $data]);
+    }
 }

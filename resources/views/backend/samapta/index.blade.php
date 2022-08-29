@@ -43,8 +43,8 @@
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Jenis Samapta</th>
-                                    <th>Ukuran Menit</th>
                                     <th>Jumlah</th>
+                                    <th>Satuan</th>
                                     <th>Untuk</th>
                                     <th>Nilai</th>
                                     <th width="5%"></th>
@@ -137,10 +137,20 @@
                         data: "jenis_samapta"
                     },
                     {
-                        data: "ukuran_menit"
+                        data: "jumlah"
                     },
                     {
-                        data: "jumlah"
+                        render: function(data, type, row, meta) {
+                            if (row.jenis_samapta == "Lari") {
+                                return "Meter"
+                            }else if (row.jenis_samapta == "Push-up") {
+                                return "Kali"
+                            }else if (row.jenis_samapta == "Sit-up"){
+                                return "Kali"
+                            }else{
+                                return "Detik"
+                            }
+                        }
                     },
                     {
                         data: "untuk"
