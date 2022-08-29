@@ -25,3 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', 'App\Http\Controllers\Api\UserCo
 Route::middleware('auth:sanctum')->get('/samapta', 'App\Http\Controllers\Api\SamaptaController@index');
 Route::middleware('auth:sanctum')->get('/grup', 'App\Http\Controllers\Api\GrupPenilaianController@index');
 Route::middleware('auth:sanctum')->get('/detail-grup/{id}', 'App\Http\Controllers\Api\DetailGrupPenilaianController@index');
+
+//PENILAIAN
+Route::middleware('auth:sanctum')->get('/list-penilaian', 'App\Http\Controllers\Api\PenilaianController@index');
+Route::middleware('auth:sanctum')->post('/store-penilaian', 'App\Http\Controllers\Api\PenilaianController@store');

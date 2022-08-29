@@ -125,7 +125,7 @@
 
                 <div
                     style="
-                    background-image: url('https://cdn.pixabay.com/photo/2019/08/15/11/16/nature-4407819_960_720.png'); 
+                    background-image: url({{ asset('mountain.png') }}); 
                     height: 200px; 
                     background-position: center;
                     background-size: cover;

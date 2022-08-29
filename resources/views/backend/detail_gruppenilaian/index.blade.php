@@ -45,8 +45,9 @@
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Nama</th>
+                                    <th>No Reg / NIT</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Status</th>
-                                    {{-- <th width="5%"></th> --}}
                                     <th width="5%"></th>
                                 </tr>
                             </thead>
@@ -116,16 +117,14 @@
                         data: "name"
                     },
                     {
+                        data: "no_reg"
+                    },
+                    {
+                        data: 'jk'
+                    },
+                    {
                         data: "role"
                     },
-                    // {
-                    //     render: function(data, type, row, meta) {
-                    //         return `<a data-toggle="modal" data-target="#modal"
-                    //                 data-bs-id=` + (row.id) + ` href="javascript:void(0)">
-                    //                 <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
-                    //             </a>`
-                    //     }
-                    // },
                     {
                         render: function(data, type, row, meta) {
                             return `<a href="javascript:void(0)" onclick="hapusData(` + (row
