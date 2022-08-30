@@ -121,6 +121,7 @@
                     },
                     {
                         data: "total_peserta"
+
                     },
                     {
                         data: "total_panitia"

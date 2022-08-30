@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\detail_grup_penilaian;
+use App\Models\Detail_grup_penilaian;
 use App\Models\User;
 use App\Models\Gruppenilaian;
 use Illuminate\Support\Facades\Validator;
@@ -104,5 +104,12 @@ class Detail_grup_penilaianController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function pilih($pilih){
+
+        $data = User::where('role',$pilih)->get();
+        
+        return response()->json(['data' => $data]);
     }
 }

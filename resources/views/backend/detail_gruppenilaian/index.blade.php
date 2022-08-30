@@ -69,13 +69,17 @@
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="id_grup" id="id_grup" value="{{ $grup->id }}"> 
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Status</label>
+                        <select class="form-control" name="pilih" id="pilih" onchange="Pilih()">
+                            <option value="">-- Choose Nama --</option>
+                            <option value="Panitia">Panitia</option>
+                            <option value="Peserta">Peserta</option>
+                        </select>
+                    </div>
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Nama</label>
                                 <select class="form-control" name="nama" id="nama">
                                 <option value="">-- Choose Nama --</option>
-                                @foreach ($user as $user_nama)
-                                    <option value="{{ $user_nama->id }}">{{ $user_nama->name }}
-                                    </option>
-                                @endforeach
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="nama_alert"></span>
                         </div>
@@ -91,6 +95,21 @@
 @endsection
 @push('script')
     <script>
+        function Pilih() {
+        let pilih = document.getElementById("pilih").value;
+        axios.get('/back/detailgruppilih/' + pilih).then((response) => {
+
+        let data = response.data
+        let role_opt
+        role_opt += '<option value="">-- Choose Nama --</option>'
+
+        data.data.forEach(e => {
+                role_opt += '<option value="' + (e.id) + '">' + (e.name) + '</option>'
+            })
+
+        document.getElementById('nama').innerHTML = role_opt
+        })
+    }
         document.addEventListener('DOMContentLoaded', function() {
             getData()
 
