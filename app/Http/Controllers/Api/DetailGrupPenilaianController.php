@@ -24,9 +24,11 @@ class DetailGrupPenilaianController extends Controller
                     )
                     ->get();
 
-        return response([
-            $data
-        ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Get data successfully',
+            'data' => $data
+        ], 200);
 
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Detail_grup_penilaian;
+use App\Models\ListPesertaInput;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Penilaian;
@@ -131,9 +133,15 @@ class PenilaianController extends Controller
                     'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
                 ]
             );
+
+            // UPDATE STATUS
+            ListPesertaInput::where('detail_group_penilaian_id', $request->detail_grup_penilaian_id)->update([
+                'status' => '1'
+            ]);
     
             $data = [
                 'responCode'    => 1,
+                'success' => true,
                 'respon'        => 'Data Sukses Ditambah'
             ];
         }

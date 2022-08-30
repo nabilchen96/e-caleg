@@ -12,8 +12,19 @@ class GrupPenilaianController extends Controller
 {
     public function index(){
         $data  = Gruppenilaian::all();
-        return response([
+        return response()->json([
             $data
         ]);
+    }
+
+    public function grupAktif(){
+        
+        $data = Gruppenilaian::where('status','Aktif')->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Get data successfully',
+            'data' => $data
+        ], 200);
     }
 }

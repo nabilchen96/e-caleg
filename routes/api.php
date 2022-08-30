@@ -24,7 +24,10 @@ Route::get('/logout', 'App\Http\Controllers\Api\LoginController@logout');
 Route::middleware('auth:sanctum')->get('/user', 'App\Http\Controllers\Api\UserController@index');
 Route::middleware('auth:sanctum')->get('/samapta', 'App\Http\Controllers\Api\SamaptaController@index');
 Route::middleware('auth:sanctum')->get('/grup', 'App\Http\Controllers\Api\GrupPenilaianController@index');
+Route::middleware('auth:sanctum')->get('/grup-aktif', 'App\Http\Controllers\Api\GrupPenilaianController@grupAktif');
 Route::middleware('auth:sanctum')->get('/detail-grup/{id}', 'App\Http\Controllers\Api\DetailGrupPenilaianController@index');
+Route::middleware('auth:sanctum')->get('/list-peserta/{id}', 'App\Http\Controllers\Api\ListPesertaInputController@index');
+Route::middleware('auth:sanctum')->post('/post-peserta', 'App\Http\Controllers\Api\ListPesertaInputController@store');
 
 //PENILAIAN
 Route::middleware('auth:sanctum')->get('/list-penilaian', 'App\Http\Controllers\Api\PenilaianController@index');
