@@ -32,6 +32,9 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
+                    <a href="{{ url('back/gruppenilaian') }}" class="btn btn-primary btn-sm mb-4">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
                     @if (Auth::user()->role == 'Admin')                        
                         <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                             Tambah
