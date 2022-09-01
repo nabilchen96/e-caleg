@@ -6,12 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\ListPesertaInput;
 use Exception;
 use Illuminate\Http\Request;
+use DB;
 
 class ListPesertaInputController extends Controller
 {
     public function index($id)
     {
-        $data = ListPesertaInput::where('panitia_id', $id)->where('status', '0')->get();
+        // $data = ListPesertaInput::where('panitia_id', $id)->where('status', '0')->get();
+        $data = DB::table('list_peserta_inputs')
+        ->select('list_peserta_inputs.*', 'users.name')
+        ->join('users','users.id','list_peserta_inputs.peserta_id')
+        ->where('panitia_id', $id)->where('status', '0')
+        ->get();
 
         return response()->json([
             'success' => true,

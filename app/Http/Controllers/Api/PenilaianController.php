@@ -114,26 +114,66 @@ class PenilaianController extends Controller
     
             }
             
-    
-            Penilaian::updateOrCreate(
-                [
-                    'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
-                ],
-                [
-                    'jarak_lari'            => $request->jarak_lari, 
-                    'nilai_lari'            => $nilai_lari->nilai ?? $nilai_lari, 
-                    'jumlah_push_up'        => $request->jumlah_push_up, 
-                    'nilai_push_up'         => $nilai_pushup->nilai ?? $nilai_pushup, 
-                    'jumlah_sit_up'         => $request->jumlah_sit_up, 
-                    'nilai_sit_up'          => $nilai_situp->nilai ?? $nilai_situp, 
-                    'jumlah_shuttle_run'    => $request->jumlah_shuttle_run, 
-                    'nilai_shuttle_run'     => $nilai_shuttlerun->nilai ?? $nilai_shuttlerun,
-    
-                    'panitia_id'            => Auth::user()->id ?? 1,
-                    'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
-                ]
-            );
+            if($request->tipe == 'hitung_lari') {
+                Penilaian::updateOrCreate(
+                    [
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ],
+                    [
+                        'jarak_lari'            => $request->jarak_lari ?? null, 
+                        'nilai_lari'            => $nilai_lari->nilai ?? $nilai_lari,
+        
+                        'panitia_id'            => Auth::user()->id ?? 1,
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ]
+                );
+            } elseif($request->tipe == 'hitung_push_up') {
+                Penilaian::updateOrCreate(
+                    [
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ],
+                    [
+                        
+                        'jumlah_push_up'        => $request->jumlah_push_up ?? null, 
+                        'nilai_push_up'         => $nilai_pushup->nilai ?? $nilai_pushup, 
+        
+                        'panitia_id'            => Auth::user()->id ?? 1,
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ]
+                );
 
+            } elseif($request->tipe == 'hitung_sit_up') {
+                Penilaian::updateOrCreate(
+                    [
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ],
+                    [
+                        'jumlah_sit_up'         => $request->jumlah_sit_up ?? null, 
+                        'nilai_sit_up'          => $nilai_situp->nilai ?? $nilai_situp,
+        
+                        'panitia_id'            => Auth::user()->id ?? 1,
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ]
+                );
+
+            } elseif($request->tipe == 'hitung_shuttle_run') {
+                Penilaian::updateOrCreate(
+                    [
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ],
+                    [
+                        
+                        'jumlah_shuttle_run'    => $request->jumlah_shuttle_run ?? null, 
+                        'nilai_shuttle_run'     => $nilai_shuttlerun->nilai ?? $nilai_shuttlerun,
+        
+                        'panitia_id'            => Auth::user()->id ?? 1,
+                        'detail_grup_penilaian_id'  => $request->detail_grup_penilaian_id
+                    ]
+                );
+
+            }
+            
+            
             // UPDATE STATUS
             ListPesertaInput::where('detail_group_penilaian_id', $request->detail_grup_penilaian_id)->update([
                 'status' => '1'

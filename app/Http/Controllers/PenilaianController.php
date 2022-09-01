@@ -52,7 +52,7 @@ class PenilaianController extends Controller
     }
 
     public function store(Request $request){
-
+        dd($request->all());
         //YANG DITES
         $peserta = DB::table('users')
                     ->join('detail_grup_penilaians', 'detail_grup_penilaians.user_id', '=', 'users.id')
