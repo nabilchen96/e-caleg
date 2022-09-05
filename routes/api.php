@@ -31,4 +31,5 @@ Route::middleware('auth:sanctum')->post('/post-peserta', 'App\Http\Controllers\A
 
 //PENILAIAN
 Route::middleware('auth:sanctum')->get('/list-penilaian', 'App\Http\Controllers\Api\PenilaianController@index');
+Route::middleware('auth:sanctum')->get('/list-penilaian-panitia/{panitia_id}', 'App\Http\Controllers\Api\PenilaianController@nilaiByPanitiaID');
 Route::middleware('auth:sanctum')->post('/store-penilaian', 'App\Http\Controllers\Api\PenilaianController@store');
