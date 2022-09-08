@@ -61,10 +61,10 @@ class KalkulatorController extends Controller
         }
 
         return view('kalkulator', [
-            'nilai_lari'    => $nilai_lari, 
-            'nilai_pushup'  => $nilai_pushup, 
-            'nilai_situp'   => $nilai_situp, 
-            'nilai_shuttlerun'  => $nilai_shuttlerun
+            'nilai_lari'    => $nilai_lari ?? 0, 
+            'nilai_pushup'  => $nilai_pushup ?? 0, 
+            'nilai_situp'   => $nilai_situp ?? 0, 
+            'nilai_shuttlerun'  => $nilai_shuttlerun ?? 0
         ]);
     }
 }
