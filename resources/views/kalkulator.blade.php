@@ -63,11 +63,11 @@
                 <table class="table table-striped">
                     <tr>
                         <td><b>(A) Nilai Lari </b></td>
-                        <td>{{ @$nilai_lari ?? 0 }}</td>
+                        <td>{{ @$nilai_lari->nilai ?? 0 }}</td>
                     </tr>
                     <tr>
                         <td><b>(B) Nilai Push Up </b></td>
-                        <td>{{ @$nilai_pushup ?? 0 }}</td>
+                        <td>{{ @$nilai_pushup->nilai ?? 0 }}</td>
                     </tr>
                     <tr>
                         <td><b>(B) Nilai Sit Up </b></td>
@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td><b>(B) Nilai Shuttle Run </b></td>
-                        <td>{{ @$nilai_shuttlerun ?? 0 }}</td>
+                        <td>{{ @$nilai_shuttlerun->nilai ?? 0 }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" style="font-size: 14px;">
@@ -86,8 +86,8 @@
                         <td><b> Nilai Akhir </b></td>
                         <td>
                             @php
-                                $samaptaA = $nilai_lari * 70 / 100;
-                                $samaptaB = (($nilai_pushup + $nilai_situp + $nilai_shuttlerun) / 3) * 30 / 100;
+                                $samaptaA = @$nilai_lari->nilai * 70 / 100;
+                                $samaptaB = ((@$nilai_pushup->nilai + @$nilai_situp->nilai + @$nilai_shuttlerun->nilai) / 3) * 30 / 100;
 
                                 echo $samaptaA + $samaptaB;
                             @endphp

@@ -15,7 +15,12 @@ class KalkulatorController extends Controller
         $situp      = request('jumlah_sit_up');
         $shuttlerun = request('jumlah_shuttle_run');
 
-        if($jk == 'Laki-laki'){
+        //NILAI REF
+        $nilai = DB::table('aturan_nilai_samaptas')
+                    ->where('untuk', $jk == '1' ? 'Taruna' : 'Taruni')
+                    ->get();
+
+        if($jk == '1'){
 
             $nilai_lari         = $lari >= 3507.00 ? 
                                     100 : ($lari <= 1607.00 ? 
@@ -33,7 +38,10 @@ class KalkulatorController extends Controller
                                     100 : ( $shuttlerun > 25.80 ?
                                     0 : $nilai->where('jenis_samapta', 'Shuttle Run')->where('jumlah', $shuttlerun)->first());
 
-        }else{
+
+                                    // dd($nilai_shuttlerun);
+
+        }else if($jk == '0'){
 
             $nilai_lari         = $lari >= 2630.00 ? 
                                     100 : ($lari <= 1419.00 ? 
