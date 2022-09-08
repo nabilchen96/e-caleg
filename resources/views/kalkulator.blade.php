@@ -21,10 +21,11 @@
 <body>
     <div class="container mt-4">
         <h3 class="text-center">Kalkulator Samapta</h3>
+        <h5 class="text-center">Taruna Perhubungan</h5>
 
         <div class="row">
             <div class="col-lg-6">
-                <div class="card shadow mt-4" style="border: none; border-radius: 15px;">
+                <div class="card shadow mt-2" style="border: none; border-radius: 15px;">
                     <form action="{{ url('kalkulator') }}">
                         <div class="card-body">
                             <div class="form-group mb-4">
