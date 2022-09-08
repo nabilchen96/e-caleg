@@ -18,7 +18,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card tale-bg">
                 <div class="card-people mt-auto">
-                    <img src="{{ asset('skydash/images/dashboard/people.svg') }}" alt="people">
+                    <img src="{{ asset('skydash/images/dashboard/peoplenew.jpg') }}" alt="people">
                     <div class="weather-info">
                         <div class="m-4">
                             <div>
