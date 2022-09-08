@@ -15,6 +15,7 @@ class DetailGrupPenilaianController extends Controller
                     ->leftjoin('gruppenilaians', 'gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')
                     ->leftjoin('users', 'users.id', '=', 'detail_grup_penilaians.user_id')
                     ->where('gruppenilaians.id', $id)
+                    ->where('users.role', 'Peserta')
                     ->select(
                         'gruppenilaians.id as id_grup_penilaian',
                         'detail_grup_penilaians.user_id as id_user',
