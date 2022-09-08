@@ -20,11 +20,11 @@
                 <div class="card-people mt-auto">
                     <img src="{{ asset('skydash/images/dashboard/people.svg') }}" alt="people">
                     <div class="weather-info">
-                        <div class="d-flex">
+                        <div class="m-4">
                             <div>
-                                <p>Grup Aktif</p>
+                                <h5>Grup Aktif</h5>
                                 <h2 class="mb-0 font-weight-normal">
-                                    LOREM IPSUM
+                                    {{ DB::table('gruppenilaians')->where('status', 'Aktif')->value('nama_grup') }}
                                 </h2>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                     <div class="card card-tale">
                         <div class="card-body">
                             <p class="mb-4">Total Peserta <br> Terdaftar</p>
-                            <h2 class="mb-2">200</h3>
+                            <h2 class="mb-2">{{ DB::table('users')->where('role', 'Peserta')->count() }}</h3>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Total Panitia<br> Terdaftar</p>
-                            <h2 class="mb-2">100</h2>
+                            <h2 class="mb-2">{{ DB::table('users')->where('role', 'Panitia')->count() }}</h2>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">Total Grup<br> Penilaian</p>
-                            <h2 class="mb-2">10</h2>
+                            <h2 class="mb-2">{{ DB::table('gruppenilaians')->count() }}</h2>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="card card-light-danger">
                         <div class="card-body">
                             <p class="mb-4">Total Grup <br> Tidak Aktif</p>
-                            <h2 class="mb-2">3</h2>
+                            <h2 class="mb-2">{{ DB::table('gruppenilaians')->where('status', 'Tidak Aktif')->count() }}</h2>
                         </div>
                     </div>
                 </div>

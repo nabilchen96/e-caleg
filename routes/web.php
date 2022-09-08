@@ -24,6 +24,9 @@ Route::post('/loginProses', 'App\Http\Controllers\AuthController@loginProses');
 Route::get('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/registerProses', 'App\Http\Controllers\AuthController@registerProses');
 
+//KALKULATOR SAMAPTA
+Route::get('/kalkulator', 'App\Http\Controllers\KalkulatorController@index');
+
 //BACKEND
 Route::group(['middleware' => 'auth'], function () {
 

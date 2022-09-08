@@ -159,10 +159,10 @@
                     },
                     {
                         render: function(data, type, row, meta){
-                            let samaptaA = row.nilai_lari
-                            let samaptaB = (row.nilai_push_up + row.nilai_sit_up + row.nilai_shuttle_run) / 3
+                            let samaptaA = row.nilai_lari * 70 / 100
+                            let samaptaB = ((row.nilai_push_up + row.nilai_sit_up + row.nilai_shuttle_run) / 3) * 30 / 100
 
-                            return ((samaptaA + samaptaB) / 2).toFixed(2)
+                            return ((samaptaA + samaptaB)).toFixed(2)
                         }
                     },
                     {
