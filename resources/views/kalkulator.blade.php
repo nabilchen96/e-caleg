@@ -84,7 +84,14 @@
                     </tr>
                     <tr>
                         <td><b> Nilai Akhir </b></td>
-                        <td>{{ @$nilai_akhir ?? 0 }}</td>
+                        <td>
+                            @php
+                                $samaptaA = $nilai_lari * 70 / 100;
+                                $samaptaB = (($nilai_pushup + $nilai_situp + $nilai_shuttlerun) / 3) * 30 / 100;
+
+                                echo $samaptaA + $samaptaB;
+                            @endphp
+                        </td>
                     </tr>
                 </table>
             </div>
