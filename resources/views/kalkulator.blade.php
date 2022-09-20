@@ -109,7 +109,7 @@
                                 <td width="25%">
                                     @if ($samaptaA + $samaptaB >= 75)
                                         <span class="text-success">LULUS</span>
-                                    @else
+                                    @elseif(($samaptaA + $samaptaB) < 75 && ($samaptaA + $samaptaB) != 0)
                                         <span class="text-danger">BERLATIH LAGI</span>
                                     @endif
                                 </td>
