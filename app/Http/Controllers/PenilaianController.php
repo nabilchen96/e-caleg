@@ -8,6 +8,8 @@ use App\Models\Penilaian;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use PDF; //library pdf
+
 
 class PenilaianController extends Controller
 {
@@ -128,5 +130,42 @@ class PenilaianController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function laporanPDF(){
+
+        // dd('tes');
+
+        $laporan = DB::table('users')
+                    ->leftjoin('detail_grup_penilaians','detail_grup_penilaians.user_id', '=', 'users.id')
+                    ->leftjoin('gruppenilaians','gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')
+                    ->leftjoin('penilaians', 'penilaians.detail_grup_penilaian_id', '=', 'detail_grup_penilaians.id')
+                    ->select(
+                        'users.name',
+                        'users.jk', 
+                        'users.no_reg',
+                        
+                        'detail_grup_penilaians.id as detail_grup_penilaian_id',
+                        'penilaians.nilai_lari',
+                        'penilaians.jarak_lari',
+
+                        'penilaians.nilai_push_up',
+                        'penilaians.jumlah_push_up',
+
+                        'penilaians.nilai_sit_up',
+                        'penilaians.jumlah_sit_up',
+
+                        'penilaians.nilai_shuttle_run',
+                        'penilaians.jumlah_shuttle_run'
+                        
+                    )
+                    ->whereNotNull('detail_grup_penilaians.id')
+                    ->where('gruppenilaians.status', 'Aktif')
+                    ->where('users.role', 'Peserta')
+                    ->get();
+
+        $data = PDF::loadview('backend.penilaian.laporan_pdf', ['data' => $laporan]);
+
+    	return $data->download('laporan.pdf');
     }
 }

@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/back/list-penilaian', 'App\Http\Controllers\PenilaianController@index');
     Route::get('/back/data-penilaian', 'App\Http\Controllers\PenilaianController@data');
     Route::post('/back/store-penilaian', 'App\Http\Controllers\PenilaianController@store');
+    Route::get('/back/laporan-pdf-penilaian', 'App\Http\Controllers\PenilaianController@laporanPDF');
     // Route::post('/back/update-penilaian', 'App\Http\Controllers\PenilaianController@update');
 });
 

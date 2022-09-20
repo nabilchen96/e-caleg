@@ -32,7 +32,7 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    <button type="button" class="btn btn-danger btn-sm mb-4">
+                    <button onclick="window.location.replace('/back/laporan-pdf-penilaian');" type="button" class="btn btn-danger btn-sm mb-4">
                         Cetak PDF
                     </button>
                     <br>
