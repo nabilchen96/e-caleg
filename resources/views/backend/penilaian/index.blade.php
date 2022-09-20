@@ -162,7 +162,7 @@
                             let samaptaA = row.nilai_lari * 70 / 100
                             let samaptaB = ((row.nilai_push_up + row.nilai_sit_up + row.nilai_shuttle_run) / 3) * 30 / 100
 
-                            return ((samaptaA + samaptaB)).toFixed(2)
+                            return `${((samaptaA + samaptaB)).toFixed(2)} <br> ${((samaptaA + samaptaB)).toFixed(2) >= 75 ? '<span class="text-success">LULUS</span>' : '<span class="text-danger">BERLATIH LAGI</span>'}`
                         }
                     },
                     {

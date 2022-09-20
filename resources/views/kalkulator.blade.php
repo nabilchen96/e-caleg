@@ -8,10 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <style>
-        html{
+        html {
             height: 100%;
         }
-        body{
+
+        body {
             background: linear-gradient(white, #1c96ee);
             height: 100%;
         }
@@ -31,29 +32,35 @@
                             <div class="form-group mb-4">
                                 <label for="exampleInputPassword1">Jenis Kelamin</label>
                                 <select name="jenis_kelamin" class="form-select" id="jenis_kelamin" required>
-                                    <option {{ request('jenis_kelamin') == "1" ? "selected" : "" }} value="1">Laki-laki</option>
-                                    <option {{ request('jenis_kelamin') == "0" ? "selected" : "" }} value="0">Perempuan</option>
+                                    <option {{ request('jenis_kelamin') == '1' ? 'selected' : '' }} value="1">
+                                        Laki-laki</option>
+                                    <option {{ request('jenis_kelamin') == '0' ? 'selected' : '' }} value="0">
+                                        Perempuan</option>
                                 </select>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="exampleInputPassword1">Jarak Lari (Meter)</label>
-                                <input name="jarak_lari" id="jarak_lari" step="0.01" type="number" placeholder="Jarak Lari"
-                                    class="form-control form-control" value="{{ request('jarak_lari') }}">
+                                <input name="jarak_lari" id="jarak_lari" step="0.01" type="number"
+                                    placeholder="Jarak Lari" class="form-control form-control"
+                                    value="{{ request('jarak_lari') }}">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="exampleInputPassword1">Jumlah Push Up (Jumlah)</label>
-                                <input name="jumlah_push_up" id="jumlah_push_up" step="0.01" type="number" placeholder="Jumlah Push Up"
-                                    class="form-control form-control" value="{{ request('jumlah_push_up') }}">
+                                <input name="jumlah_push_up" id="jumlah_push_up" step="0.01" type="number"
+                                    placeholder="Jumlah Push Up" class="form-control form-control"
+                                    value="{{ request('jumlah_push_up') }}">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="exampleInputPassword1">Jumlah Sit Up (Jumlah)</label>
-                                <input name="jumlah_sit_up" id="jumlah_sit_up" step="0.01" type="number" placeholder="Jumlah Sit Up"
-                                    class="form-control form-control" value="{{ request('jumlah_sit_up') }}">
+                                <input name="jumlah_sit_up" id="jumlah_sit_up" step="0.01" type="number"
+                                    placeholder="Jumlah Sit Up" class="form-control form-control"
+                                    value="{{ request('jumlah_sit_up') }}">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="exampleInputPassword1">Shuttle Run (Detik)</label>
-                                <input name="jumlah_shuttle_run" id="jumlah_shuttle_run" step="0.01" type="number" placeholder="Jumlah Shuttle Run"
-                                    class="form-control form-control" value="{{ request('jumlah_shuttle_run') }}">
+                                <input name="jumlah_shuttle_run" id="jumlah_shuttle_run" step="0.01" type="number"
+                                    placeholder="Jumlah Shuttle Run" class="form-control form-control"
+                                    value="{{ request('jumlah_shuttle_run') }}">
                             </div>
                             <button type="submit" class="btn btn-primary" style="border-radius: 25px;">Submit</button>
                             {{-- <button type="submit" class="btn btn-danger" style="border-radius: 25px;">Kembali</button> --}}
@@ -83,18 +90,28 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="font-size: 14px;">
-                                    <span> Nilai Samapta = (A + B) / 2 </span> 
+                                    <span> Nilai Samapta = (A + B) / 2 </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b> Nilai Akhir </b></td>
                                 <td>
                                     @php
-                                        $samaptaA = @$nilai_lari * 70 / 100;
-                                        $samaptaB = ((@$nilai_pushup + @$nilai_situp + @$nilai_shuttlerun) / 3) * 30 / 100;
-        
+                                        $samaptaA = (@$nilai_lari * 70) / 100;
+                                        $samaptaB = (((@$nilai_pushup + @$nilai_situp + @$nilai_shuttlerun) / 3) * 30) / 100;
+                                        
                                         echo $samaptaA + $samaptaB;
                                     @endphp
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>STATUS</b></td>
+                                <td width="25%">
+                                    @if ($samaptaA + $samaptaB >= 75)
+                                        <span class="text-success">LULUS</span>
+                                    @else
+                                        <span class="text-danger">BERLATIH LAGI</span>
+                                    @endif
                                 </td>
                             </tr>
                         </table>

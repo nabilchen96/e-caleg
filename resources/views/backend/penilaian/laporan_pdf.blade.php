@@ -38,7 +38,7 @@
         <tbody>
             @foreach ($data as $k => $item)
                 <tr>
-                    <td>{{ $k+1 }}</td>
+                    <td>{{ $k + 1 }}</td>
                     <td>
                         {{ $item->name }} <br>
                         <b>No Reg / NIT: </b> {{ $item->no_reg }} <br>
@@ -62,11 +62,16 @@
                     </td>
                     <td>
                         @php
-                            $samaptaA = $item->nilai_lari * 70 / 100;
-                            $samaptaB = (($item->nilai_push_up + $item->nilai_sit_up + $item->nilai_shuttle_run)/3)*30/100;
+                            $samaptaA = ($item->nilai_lari * 70) / 100;
+                            $samaptaB = ((($item->nilai_push_up + $item->nilai_sit_up + $item->nilai_shuttle_run) / 3) * 30) / 100;
                         @endphp
 
-                        {{ round($samaptaA + $samaptaB) }}
+                        {{ round($samaptaA + $samaptaB) }} <br>
+                        @if (round($samaptaA + $samaptaB) >= 75)
+                            <span class="text-success">LULUS</span>
+                        @else
+                            <span class="text-danger">BERLATIH LAGI</span>
+                        @endif
                     </td>
                 </tr>
             @endforeach
