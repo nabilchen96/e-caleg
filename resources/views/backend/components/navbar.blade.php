@@ -32,5 +32,11 @@
                 <span class="menu-title">Penilaian</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/pengaturan') }}">
+                <i class="bi bi-person-fill menu-icon"></i>
+                <span class="menu-title">Pengaturan</span>
+            </a>
+        </li>
     </ul>
 </nav>
