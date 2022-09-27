@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PDF; //library pdf
+use Illuminate\Support\Facades\Http;
 
 
 class PenilaianController extends Controller
@@ -124,9 +125,18 @@ class PenilaianController extends Controller
             ]
         );
 
+        $response = Http::post(config('app.sika_url').'/api/store-samapta', [
+            'no_reg'            => $peserta->no_reg, 
+            'jarak_lari'        => $request->jarak_lari ?? 0,
+            'jumlah_push_up'    => $request->jumlah_push_up ?? 0, 
+            'jumlah_sit_up'     => $request->jumlah_sit_up ?? 0, 
+            'jumlah_shuttle_run'=> $request->jumlah_shuttle_run ?? 0, 
+        ]);
+
         $data = [
             'responCode'    => 1,
-            'respon'        => 'Data Sukses Ditambah'
+            'respon'        => 'Data Sukses Ditambah',
+            'host'          => config('app.sika_url')
         ];
 
         return response()->json($data);

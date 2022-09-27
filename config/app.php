@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'sika_url'  => env('SIKA_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

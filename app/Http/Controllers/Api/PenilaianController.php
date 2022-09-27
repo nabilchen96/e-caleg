@@ -11,6 +11,7 @@ use App\Models\Penilaian;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class PenilaianController extends Controller
 {
@@ -213,6 +214,14 @@ class PenilaianController extends Controller
                 );
             }
 
+
+            $response = Http::post(env('SIKA_URL').'/api/store-samapta', [
+                'no_reg'            => $peserta->no_reg, 
+                'jarak_lari'        => $request->jarak_lari ?? 0,
+                'jumlah_push_up'    => $request->jumlah_push_up ?? 0, 
+                'jumlah_sit_up'     => $request->jumlah_sit_up ?? 0, 
+                'jumlah_shuttle_run'=> $request->jumlah_shuttle_run ?? 0, 
+            ]);
 
             $data = [
                 'responCode'    => 1,
