@@ -73,8 +73,119 @@
                     <div class="card-body">
                         <table class="table table-striped">
                             <tr>
+                                <td width="45%">
+                                    <h6 class="mb-3">(A) Nilai Lari</h6>
+                                    <h1>{{ $nilai_lari }}</h1>
+                                </td>
+                                <td>
+                                    <h6 class="mb-3">Catatan:</h6>
+                                    <span>
+                                        @if ($nilai_lari < 75)
+                                            @if (request('jenis_kelamin') == '1')
+                                                {{ request('jarak_lari') }}/3507 meter, passing grade 3032 meter
+                                            @elseif(request('jenis_kelamin') == '0')
+                                                {{ request('jarak_lari') }}/2630 meter, passing grade 2355 meter
+                                            @endif
+                                        @else
+                                            Anda lolos, jaga atau tingkatkan lagi nilai lari anda
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">
+                                    <h6 class="mb-3">(B.1) Nilai Push Up</h6>
+                                    <h1>{{ $nilai_pushup }}</h1>
+                                </td>
+                                <td>
+                                    <h6>Catatan:</h6>
+                                    <span>
+                                        @if ($nilai_pushup < 75)
+                                            @if (request('jenis_kelamin') == '1')
+                                                {{ request('jumlah_push_up') }}/43 kali, passing grade 38 kali
+                                            @elseif(request('jenis_kelamin') == '0')
+                                                {{ request('jumlah_push_up') }}/28 kali, passing grade 23 kali
+                                            @endif
+                                        @else
+                                            Anda lolos, jaga atau tingkatkan lagi nilai push up anda
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">
+                                    <h6 class="mb-3">(B.2) Nilai Sit Up</h6>
+                                    <h1>{{ $nilai_situp }}</h1>
+                                </td>
+                                <td>
+                                    <h6>Catatan:</h6>
+                                    <span>
+                                        @if ($nilai_situp < 75)
+                                            @if (request('jenis_kelamin') == '1')
+                                                {{ request('jumlah_sit_up') }}/41 kali, passing grade 36
+                                                kali
+                                            @elseif(request('jenis_kelamin') == '0')
+                                                {{ request('jumlah_sit_up') }}/43 kali, passing grade 37
+                                                kali
+                                            @endif
+                                        @else
+                                            Anda lolos, jaga atau tingkatkan lagi nilai sit up anda
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">
+                                    <h6>(B.3) Nilai Shuttle Run</h6>
+                                    <h1>{{ $nilai_shuttlerun }}</h1>
+                                </td>
+                                <td>
+                                    <h6>Catatan:</h6>
+                                    <span>
+                                        @if ($nilai_shuttlerun < 75)
+                                            @if (request('jenis_kelamin') == '1')
+                                                {{ request('jumlah_sit_up') }}/15.9 detik, passing grade 18.4 detik
+                                            @elseif(request('jenis_kelamin') == '0')
+                                                {{ request('jumlah_sit_up') }}/17.2 detik, passing grade 19.7 detik
+                                                kali
+                                            @endif
+                                        @else
+                                            Anda lolos, jaga atau tingkatkan lagi nilai shuttle run anda
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">
+                                    <h6>Nilai Akhir</h6>
+                                    <h1>
+                                        @php
+                                            $samaptaA = (@$nilai_lari * 70) / 100;
+                                            $samaptaB = (((@$nilai_pushup + @$nilai_situp + @$nilai_shuttlerun) / 3) * 30) / 100;
+                                            
+                                            echo round($samaptaA + $samaptaB, 2);
+                                        @endphp
+                                    </h1>
+                                </td>
+                                <td>
+                                    <h6>Status:</h6>
+                                    @if ($samaptaA + $samaptaB >= 75)
+                                        <h3 class="text-success">ANDA LOLOS</h3>
+                                    @else
+                                        <h3 class="text-danger">BERLATIH LAGI</h3>
+                                    @endif
+                                </td>
+                            </tr>
+                        </table>
+                        {{-- <table class="table table-striped">
+                            <tr>
                                 <td><b>(A) Nilai Lari </b></td>
-                                <td>{{ @$nilai_lari ?? 0 }}</td>
+                                <td>{{ @$nilai_lari ?? 0 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>NILAI MINUM 75</td>
+                                <td>{{ $nilai_lari }}</td>
                             </tr>
                             <tr>
                                 <td><b>(B) Nilai Push Up </b></td>
@@ -109,12 +220,12 @@
                                 <td width="25%">
                                     @if ($samaptaA + $samaptaB >= 75)
                                         <span class="text-success">LULUS</span>
-                                    @elseif(($samaptaA + $samaptaB) < 75 && ($samaptaA + $samaptaB) != 0)
+                                    @elseif($samaptaA + $samaptaB < 75 && $samaptaA + $samaptaB != 0)
                                         <span class="text-danger">BERLATIH LAGI</span>
                                     @endif
                                 </td>
                             </tr>
-                        </table>
+                        </table> --}}
                     </div>
                 </div>
             </div>
