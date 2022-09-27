@@ -89,6 +89,47 @@ class PenilaianController extends Controller
         ]);
     }
 
+    public function searchNilaiByPanitiaID($panitia_id)
+    {
+
+        $keyword = request('keyword');
+        $data = DB::table('users')
+            ->leftjoin('detail_grup_penilaians', 'detail_grup_penilaians.user_id', '=', 'users.id')
+            ->leftjoin('gruppenilaians', 'gruppenilaians.id', '=', 'detail_grup_penilaians.gruppenilaian_id')
+            ->leftjoin('penilaians', 'penilaians.detail_grup_penilaian_id', '=', 'detail_grup_penilaians.id')
+            ->select(
+                'users.name',
+                'users.jk',
+                'users.no_reg',
+
+                'detail_grup_penilaians.id as detail_grup_penilaian_id',
+                'penilaians.nilai_lari',
+                'penilaians.jarak_lari',
+
+                'penilaians.nilai_push_up',
+                'penilaians.jumlah_push_up',
+
+                'penilaians.nilai_sit_up',
+                'penilaians.jumlah_sit_up',
+
+                'penilaians.nilai_shuttle_run',
+                'penilaians.jumlah_shuttle_run'
+
+            )
+            ->whereNotNull('detail_grup_penilaians.id')
+            ->where('gruppenilaians.status', 'Aktif')
+            ->where('users.role', 'Peserta')
+            ->where('users.name', 'like', '%' . $keyword . '%')
+            ->orWhere('users.no_reg', 'like', '%' . $keyword . '%')
+            ->where('penilaians.panitia_id', $panitia_id)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data'  => $data
+        ]);
+    }
+
     public function store(Request $request)
     {
 
