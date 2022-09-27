@@ -235,6 +235,7 @@ class PenilaianController extends Controller
             $data = [
                 'responCode'    => 1,
                 'success' => true,
+                'respon'        => 'Data Sukses Ditambah',
             ];
         }
 
