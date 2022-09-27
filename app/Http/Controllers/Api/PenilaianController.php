@@ -215,7 +215,7 @@ class PenilaianController extends Controller
             }
 
 
-            $response = Http::post(config('app.sika_url').'api/store-samapta', [
+            $response = Http::post(config('app.sika_url').'/api/store-samapta', [
                 'no_reg'            => $peserta->no_reg, 
                 'jarak_lari'        => $request->jarak_lari ?? 0,
                 'jumlah_push_up'    => $request->jumlah_push_up ?? 0, 
