@@ -147,7 +147,6 @@
                                                 {{ request('jumlah_sit_up') }}/15.9 detik, passing grade 18.4 detik
                                             @elseif(request('jenis_kelamin') == '0')
                                                 {{ request('jumlah_sit_up') }}/17.2 detik, passing grade 19.7 detik
-                                                kali
                                             @endif
                                         @else
                                             Anda lolos, jaga atau tingkatkan lagi nilai shuttle run anda
