@@ -131,13 +131,13 @@ class PenilaianController extends Controller
                     100 : ($request->jumlah_sit_up <= 14.00 ?
                         0 : $nilai->where('jenis_samapta', 'Sit-up')->where('jumlah', $request->jumlah_sit_up)->first());
 
-                if($request->shuttle_run != NULL || $request->shuttle_run == 0){
+                if($request->jumlah_shuttle_run){
                     
                     $nilai_shuttlerun   = $request->jumlah_shuttle_run <= 15.90 ?
                         100 : ($request->jumlah_shuttle_run > 25.80 ?
                             0 : $nilai->where('jenis_samapta', 'Shuttle Run')->where('jumlah', $request->jumlah_shuttle_run)->first());
                 }else{
-                    $nilai_shuttle_run = 0;
+                    $nilai_shuttlerun = 0;
                 }
             } else {
 
@@ -153,13 +153,13 @@ class PenilaianController extends Controller
                     100 : ($request->jumlah_sit_up <= 14.00 ?
                         0 : $nilai->where('jenis_samapta', 'Sit-up')->where('jumlah', $request->jumlah_sit_up)->first());
 
-                if($request->shuttle_run != NULL || $request->shuttle_run == 0){
+                if($request->jumlah_shuttle_run){
 
                     $nilai_shuttlerun   = $request->jumlah_shuttle_run <= 17.20 ?
                         100 : ($request->jumlah_shuttle_run > 27.10 ?
                             0 : $nilai->where('jenis_samapta', 'Shuttle Run')->where('jumlah', $request->jumlah_shuttle_run)->first());
                 }else{
-                    $nilai_shuttle_run = 0;
+                    $nilai_shuttlerun   = 0;
                 }
             }
 
@@ -224,19 +224,19 @@ class PenilaianController extends Controller
                 );
             }
 
-
             $response = Http::post(config('app.sika_url').'/api/store-samapta', [
                 'no_reg'            => $peserta->no_reg, 
-                'jarak_lari'        => $request->jarak_lari ?? 0,
-                'jumlah_push_up'    => $request->jumlah_push_up ?? 0, 
-                'jumlah_sit_up'     => $request->jumlah_sit_up ?? 0, 
-                'jumlah_shuttle_run'=> $request->jumlah_shuttle_run ?? 0, 
+                'jarak_lari'        => $request->jarak_lari,
+                'jumlah_push_up'    => $request->jumlah_push_up, 
+                'jumlah_sit_up'     => $request->jumlah_sit_up, 
+                'jumlah_shuttle_run'=> $request->jumlah_shuttle_run, 
             ]);
 
             $data = [
                 'responCode'    => 1,
                 'success' => true,
-                'respon'        => 'Data Sukses Ditambah'
+                'respon'        => $response
+
             ];
         }
 

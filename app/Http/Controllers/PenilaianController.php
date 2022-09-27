@@ -81,13 +81,13 @@ class PenilaianController extends Controller
                                     100 : ( $request->jumlah_sit_up <= 14.00 ? 
                                     0 : $nilai->where('jenis_samapta', 'Sit-up')->where('jumlah', $request->jumlah_sit_up)->first());
 
-            if($request->shuttle_run != NULL || $request->shuttle_run == 0){
+            if($request->jumlah_shuttle_run){
                 
                 $nilai_shuttlerun   = $request->jumlah_shuttle_run <= 15.90 ?
                                         100 : ( $request->jumlah_shuttle_run > 25.80 ?
                                         0 : $nilai->where('jenis_samapta', 'Shuttle Run')->where('jumlah', $request->jumlah_shuttle_run)->first());
             }else{
-                $nilai_shuttle_run = 0;
+                $nilai_shuttlerun = 0;
             }
 
         }else if($peserta->jk == 'Perempuan'){
@@ -104,13 +104,13 @@ class PenilaianController extends Controller
                                     100 : ( $request->jumlah_sit_up <= 14.00 ? 
                                     0 : $nilai->where('jenis_samapta', 'Sit-up')->where('jumlah', $request->jumlah_sit_up)->first());
 
-            if($request->shuttle_run != NULL || $request->shuttle_run == 0){
+            if($request->jumlah_shuttle_run){
 
                 $nilai_shuttlerun   = $request->jumlah_shuttle_run <= 17.20 ?
                                         100 : ( $request->jumlah_shuttle_run > 27.10 ?
                                         0 : $nilai->where('jenis_samapta', 'Shuttle Run')->where('jumlah', $request->jumlah_shuttle_run)->first());
             }else{
-                $nilai_shuttle_run = 0;
+                $nilai_shuttlerun = 0;
             }
 
         }
