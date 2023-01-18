@@ -23,8 +23,8 @@ class SamaptaController extends Controller
     public function store(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'jenis'   => 'required',
-            'ukuran'  => 'required',
+            'jenis_samapta'   => 'required',
+            'ukuran_menit'  => 'required',
             'jumlah'  => 'required',
             'untuk'   => 'required',
             'nilai'   => 'required'
@@ -41,8 +41,8 @@ class SamaptaController extends Controller
                 'ukuran_menit'    => $request->ukuran_menit,
                 'jumlah'          => $request->jumlah,
                 'untuk'           => $request->untuk,
-                'nilai'           => $request->nilai
-
+                'nilai'           => $request->nilai,
+                'status'          => $request->status
             ]);
 
             $data = [
@@ -68,13 +68,16 @@ class SamaptaController extends Controller
         }else{
 
             $samapta = Aturan_nilai_samapta::find($request->id);
-            $data = $samapta::update([
+
+            // dd($samapta);
+
+            $data = $samapta->update([
                 'jenis_samapta'   => $request->jenis_samapta,
                 'ukuran_menit'    => $request->ukuran_menit,
                 'jumlah'          => $request->jumlah,
                 'untuk'           => $request->untuk,
-                'nilai'           => $request->nilai
-
+                'nilai'           => $request->nilai,
+                'status'          => $request->status
             ]);
 
             $data = [
@@ -96,5 +99,33 @@ class SamaptaController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+
+    public function aktivasiNilai(Request $request){
+
+        if($request->aktivasi_untuk == 'Taruna'){
+
+            Aturan_nilai_samapta::where('untuk', 'Taruna')->orWhere('untuk', 'Taruni')->update([
+                'status'    => 'Aktif'
+            ]);
+
+            Aturan_nilai_samapta::where('untuk', 'Calon Taruna')->orWhere('untuk', 'Calon Taruni')->update([
+                'status'    => 'Tidak Aktif'
+            ]);
+
+        }else{
+
+            Aturan_nilai_samapta::where('untuk', 'Taruna')->orWhere('untuk', 'Taruni')->update([
+                'status'    => 'Tidak Aktif'
+            ]);
+
+            Aturan_nilai_samapta::where('untuk', 'Calon Taruna')->orWhere('untuk', 'Calon Taruni')->update([
+                'status'    => 'Aktif'
+            ]);
+
+        }
+
+        return back();
     }
 }

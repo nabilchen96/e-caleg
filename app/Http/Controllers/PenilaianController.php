@@ -65,6 +65,8 @@ class PenilaianController extends Controller
         //NILAI REF
         $nilai = DB::table('aturan_nilai_samaptas')
                     ->where('untuk', $peserta->jk == 'Laki-laki' ? 'Taruna' : 'Taruni')
+                    ->orWhere('untuk', $peserta->jk == 'Laki-laki' ? 'Calon Taruna' : 'Calon Taruni')
+                    ->where('status', 'Aktif')
                     ->get();
 
         if($peserta->jk == 'Laki-laki'){

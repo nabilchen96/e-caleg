@@ -9,6 +9,6 @@ class Aturan_nilai_samapta extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nilai', 'untuk', 'password', 'jenis_samapta','ukuran_menit','jumlah'
+        'nilai', 'untuk', 'password', 'jenis_samapta','ukuran_menit','jumlah', 'status'
     ];
 }

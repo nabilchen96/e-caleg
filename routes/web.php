@@ -47,12 +47,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-gruppenilaian', 'App\Http\Controllers\GruppenilaianController@update');
     Route::post('/back/delete-gruppenilaian', 'App\Http\Controllers\GruppenilaianController@delete');
 
+
     //SAMAPTA
     Route::get('/back/referensi', 'App\Http\Controllers\SamaptaController@index');
     Route::get('/back/data-samapta', 'App\Http\Controllers\SamaptaController@data');
     Route::post('/back/store-samapta', 'App\Http\Controllers\SamaptaController@store');
     Route::post('/back/update-samapta', 'App\Http\Controllers\SamaptaController@update');
     Route::post('/back/delete-samapta', 'App\Http\Controllers\SamaptaController@delete');
+    Route::post('/back/aktivasi-nilai', 'App\Http\Controllers\SamaptaController@aktivasiNilai');
 
     //DETAIL GRUP
     Route::get('/back/detailgrup/{id_grup}', 'App\Http\Controllers\Detail_grup_penilaianController@index');

@@ -154,8 +154,15 @@ class PenilaianController extends Controller
                 ->first();
 
             //NILAI REF
+            // $nilai = DB::table('aturan_nilai_samaptas')
+            //     ->where('untuk', $peserta->jk == 'Laki-laki' ? 'Taruna' : 'Taruni')
+            //     ->get();
+
+                    //NILAI REF
             $nilai = DB::table('aturan_nilai_samaptas')
                 ->where('untuk', $peserta->jk == 'Laki-laki' ? 'Taruna' : 'Taruni')
+                ->orWhere('untuk', $peserta->jk == 'Laki-laki' ? 'Calon Taruna' : 'Calon Taruni')
+                ->where('status', 'Aktif')
                 ->get();
 
             if ($peserta->jk == 'Laki-laki') {

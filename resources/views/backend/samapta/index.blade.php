@@ -32,10 +32,24 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    @if (Auth::user()->role == 'Admin')                        
+                    @if (Auth::user()->role == 'Admin')
                         <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                             Tambah
                         </button>
+                        <form action="{{ url('/back/aktivasi-nilai') }}" method="POST">
+                            <div class="row">
+                                <div class="col-lg-2 mb-5">
+                                    @csrf
+                                    <select style="border-radius: 25px;" name="aktivasi_untuk" class="form-control" id="">
+                                        <option>Taruna</option>
+                                        <option>Calon Taruna</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 mb-5">
+                                    <button type="submit" class="btn btn-sm btn-info"> <i class="bi bi-unlock"></i> Aktivasi</button>
+                                </div>
+                            </div>
+                        </form>
                     @endif
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
@@ -47,6 +61,7 @@
                                     <th>Satuan</th>
                                     <th>Untuk</th>
                                     <th>Nilai</th>
+                                    <th>Status</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -87,13 +102,15 @@
                             <label for="exampleInputEmail1">Jumlah</label>
                             <input name="jumlah" id="jumlah" type="text" placeholder="jumlah"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                <span class="text-danger error" style="font-size: 12px;" id="jumlah_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="jumlah_alert"></span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Untuk</label>
+                            <label for="exampleInputPassword1">Status</label>
                             <select name="untuk" class="form-control" id="untuk">
                                 <option value="Taruna">Taruna</option>
                                 <option value="Taruni">Taruni</option>
+                                <option value="Calon Taruna">Calon Taruna</option>
+                                <option value="Calon Taruni">Calon Taruni</option>
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="untuk_alert"></span>
                         </div>
@@ -102,6 +119,14 @@
                             <input name="nilai" id="nilai" type="nilai" placeholder="nilai"
                                 class="form-control form-control-sm" id="exampleInputPassword1">
                             <span class="text-danger error" style="font-size: 12px;" id="nilai_alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Status</label>
+                            <select name="status" class="form-control" id="status" required>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Tidak Aktif">Tidak Aktif</option>
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="untuk_alert"></span>
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -143,11 +168,11 @@
                         render: function(data, type, row, meta) {
                             if (row.jenis_samapta == "Lari") {
                                 return "Meter"
-                            }else if (row.jenis_samapta == "Push-up") {
+                            } else if (row.jenis_samapta == "Push-up") {
                                 return "Kali"
-                            }else if (row.jenis_samapta == "Sit-up"){
+                            } else if (row.jenis_samapta == "Sit-up") {
                                 return "Kali"
-                            }else{
+                            } else {
                                 return "Detik"
                             }
                         }
@@ -157,6 +182,9 @@
                     },
                     {
                         data: "nilai"
+                    },
+                    {
+                        data: "status"
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -199,6 +227,7 @@
                 modal.find('#jumlah').val(cokData[0].jumlah)
                 modal.find('#nilai').val(cokData[0].nilai)
                 modal.find('#untuk').val(cokData[0].untuk)
+                modal.find('#status').val(cokData[0].status)
             }
         })
 
@@ -261,7 +290,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-user', {
+                    axios.post('/back/delete-samapta', {
                             id
                         })
                         .then((response) => {
