@@ -37,3 +37,6 @@ Route::middleware('auth:sanctum')->get('/search-penilaian-panitia/{panitia_id}',
 
 //PENGATURAN
 Route::middleware('auth:sanctum')->get('/pengaturan','App\Http\Controllers\Api\PengaturanController@index');
+
+//NILAI TANPA LOGIN
+Route::get('/get-nilai', 'App\Http\Controllers\Api\PenilaianController@index');
