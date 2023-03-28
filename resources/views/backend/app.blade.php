@@ -67,18 +67,18 @@
 </head>
 
 <body>
-    <div class="container-scroller sidebar-dark">
+    <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" style="color: white; font-size: 16px; margin-left: 20px;"
+                <a class="navbar-brand brand-logo mr-5" style="font-size: 16px; margin-left: 20px;"
                     href="{{ url('/') }}">
                     {{-- <img src="{{ asset('logosc.png') }}" class="mr-2" alt="logo" /> --}}
-                    SAMAPTA APP
+                    <h4><b> Smart Material Test </b></h4>
                 </a>
-                <a class="navbar-brand brand-logo-mini" style="color: white;" href="{{ url('/') }}">
+                <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
                     {{-- <img src="{{ asset('logosc.png') }}" alt="logo" /> --}}
-                    SA
+                    <h4><b>SA</b></h4> 
                 </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -113,7 +113,7 @@
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
             <div class="theme-setting-wrapper">
-
+                <div id="settings-trigger"><i class="ti-settings"></i></div>
             </div>
 
             <!-- partial -->
@@ -125,9 +125,10 @@
 
                 <div
                     style="
-                    background-image: url({{ asset('big-sur.jpg') }}); 
+                    /* background-image: url({{ asset('') }});  */
+                    background-image: linear-gradient(45deg, grey, transparent), url('https://cdn.pixabay.com/photo/2022/01/11/17/04/city-6931092_1280.jpg'); 
                     height: 200px; 
-                    background-position: bottom;
+                    background-position: center;
                     background-size: cover;
                     width: 100%;">
 

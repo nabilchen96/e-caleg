@@ -1,127 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sumsel Crafters</title>
-    <link rel="stylesheet" href="{{ asset('skydash/vendors/feather/feather.css') }}">
-    <link rel="stylesheet" href="{{ asset('skydash/vendors/ti-icons/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('skydash/vendors/css/vendor.bundle.base.css') }}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{ asset('skydash/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" href="{{ asset('skydash/vendors/ti-icons/css/themify-icons.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('skydash/js/select.dataTables.min.css') }}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('skydash/css/vertical-layout-light/style.css') }}">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('logosc.png') }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="login-form-02/https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-</head>
+    <link rel="stylesheet" href="login-form-02/fonts/icomoon/style.css">
 
-<body>
-    <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper d-flex align-items-center auth px-0">
-                <div class="row w-100 mx-0">
-                    <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <div class="brand-logo">
-                                <div class="text-center">
-                                    {{-- <img src="{{ url('logosc.png') }}" width="100" alt=""> --}}
-                                    <h3 class="mt-4">SAMPATA APP</h3>
-                                </div>
-                            </div>
-                            <form id="formLogin">
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input type="email" name="email" class="form-control form-control-lg" id="email"
-                                        placeholder="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Password</label>
-                                    <input type="password" name="password" class="form-control form-control-lg" id="password"
-                                        placeholder="Password">
-                                </div>
-                                <div class="mt-3">
-                                    <button id="btnLogin"
-                                        class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
-                                        SIGN IN
-                                    </button>
-                                </div>
-                                <div class="my-2 d-flex justify-content-between align-items-center">
+    <link rel="stylesheet" href="login-form-02/css/owl.carousel.min.css">
 
-                                </div>
-                                <div class="text-center mt-5 font-weight-light">
-                                    Don't have an account? <a href="{{ url('register') }}" class="text-primary">Create</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="login-form-02/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="login-form-02/css/style.css">
+
+    <title>CBT Sahretech</title>
+  </head>
+  <body>
+  
+
+  <div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style="background-image: url('natural.png');"></div>
+    <div class="contents order-2 order-md-1">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7">
+            <h3>Login to <br><strong>Smart Material Test</strong></h3>
+            <br>
+            <form id="formLogin">
+              <div class="form-group first">
+                <label for="username">Email</label>
+                <input type="text" class="form-control" placeholder="your-email@gmail.com" id="email" name="email">
+              </div>
+              <div class="form-group last mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Your Password" id="password">
+              </div>
+              
+              <div class="d-flex mb-5 align-items-center">
+                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                  <input type="checkbox" checked="checked"/>
+                  <div class="control__indicator"></div>
+                </label>
+                {{-- <span class="ml-auto"><a href="login-form-02/#" class="forgot-pass">Forgot Password</a></span>  --}}
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" id="btnLogin" class="btn btn-primary btn-lg btn-block">Sign in</button>
+
+                <button style="display: none; background: #0d6efd;" id="btnLoginLoading"
+                    class="btn btn-info btn-moodle text-white btn-lg btn-block" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+
+                </button>
             </div>
-            <!-- content-wrapper ends -->
+            </form>
+          </div>
         </div>
-        <!-- page-body-wrapper ends -->
+      </div>
     </div>
-    <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
-    <!-- End custom js for this page-->
-    <script>
-        formLogin.onsubmit = (e) => {
 
-            e.preventDefault();
+    
+  </div>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
 
-            const formData = new FormData(formLogin);
-            // document.getElementById(`btnLogin`).style.display = "disable";
-            // document.getElementById(`btnLoginLoading`).style.display = "block";
+  <script>
+    formLogin.onsubmit = (e) => {
 
-            axios({
-                    method: 'post',
-                    url: '/loginProses',
-                    data: formData,
-                })
-                .then(function(res) {
-                    //handle success
-                    if (res.data.responCode == 1) {
+        e.preventDefault();
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil Login',
-                            timer: 1000,
-                            showConfirmButton: false,
-                            // text: res.data.respon
-                        })
+        const formData = new FormData(formLogin);
+        document.getElementById(`btnLogin`).style.display = "none";
+        document.getElementById(`btnLoginLoading`).style.display = "block";
 
-                        setTimeout(() => {
-                            location.reload(res.data.respon);
-                        }, 1500);
+        axios({
+                method: 'post',
+                url: '/loginProses',
+                data: formData,
+            })
+            .then(function(res) {
+                //handle success
+                if (res.data.responCode == 1) {
 
-                    } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Login',
+                        timer: 1000,
+                        text: 'Anda akan diarahkan ke halaman dashboard',
+                        showConfirmButton: false,
+                        // text: res.data.respon
+                    })
 
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Ada kesalahan',
-                            text: `${res.data.respon}`,
-                        })
-                    }
-                })
-                .catch(function(res) {
-                    //handle error
-                    console.log(res);
-                }).then(function() {
-                    // always executed              
-                    document.getElementById(`btnLogin`).style.display = "block";
-                    document.getElementById(`btnLoginLoading`).style.display = "none";
+                    setTimeout(() => {
+                        location.reload(res.data.respon);
+                    }, 1500);
 
-                });
+                } else {
 
-        }
-    </script>
-</body>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Ada kesalahan',
+                        text: `${res.data.respon}`,
+                    })
+                }
+            })
+            .catch(function(res) {
+                //handle error
+                console.log(res);
+            }).then(function() {
+                // always executed              
+                document.getElementById(`btnLogin`).style.display = "block";
+                document.getElementById(`btnLoginLoading`).style.display = "none";
 
+            });
+
+    }
+</script>
+    
+  </body>
 </html>

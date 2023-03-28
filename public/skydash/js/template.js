@@ -11,7 +11,6 @@
     //Active class can be hard coded directly in html file also as required
 
     function addActiveClass(element) {
-
       if (current === "") {
         //for root url
         if (element.attr('href').indexOf("index.html") !== -1) {
@@ -21,18 +20,8 @@
             element.addClass('active');
           }
         }
-      } else if(location.pathname.split("/").slice(-2)[0].replace(/^\/|\/$/g, '') == "detailgrup"){
-
-        console.log(element.attr('href').split("/").slice(-1)[0]);
-
-        if(element.attr('href').split("/").slice(-1)[0] == 'gruppenilaian'){
-          
-          element.parents('.nav-item').last().addClass('active');
-        }
-          
       } else {
         //for other url
-        console.log('tes');
         if (element.attr('href').indexOf(current) !== -1) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
