@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListPesertaInputsTable extends Migration
+class CreateDokumenReferensisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateListPesertaInputsTable extends Migration
      */
     public function up()
     {
-        Schema::create('list_peserta_inputs', function (Blueprint $table) {
+        Schema::create('dokumen_referensis', function (Blueprint $table) {
             $table->id();
-            $table->integer('peserta_id')->nullable();
-            $table->integer('grup_penilaian_id')->nullable();
-            $table->enum('status',['0','1']);
-            $table->integer('panitia_id')->nullable();
+            $table->string('judul')->nullable();
+            $table->string('link_file')->nullable();
+            $table->enum('status_publish',['1','0']);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateListPesertaInputsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_peserta_inputs');
+        Schema::dropIfExists('dokumen_referensis');
     }
 }

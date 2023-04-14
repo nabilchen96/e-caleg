@@ -33,6 +33,13 @@ Route::group(['middleware' => 'auth'], function () {
     //DASHBOARD
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 
+    // BERAT ISI KASAR
+    Route::get('/back/berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@index');
+    Route::get('/back/data-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@data');
+    Route::post('/back/store-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@store');
+    Route::post('/back/update-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@update');
+    Route::get('/back/cetak-berat-isi-halus/{id}', 'App\Http\Controllers\PengujianBeratIsiController@cetakBerat');
+
     //USER
     Route::get('/back/user', 'App\Http\Controllers\UserController@index');
     Route::get('/back/data-user', 'App\Http\Controllers\UserController@data');

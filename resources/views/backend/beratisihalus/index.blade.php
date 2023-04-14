@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data User</h3>
+                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Satuan Agregat Halus/Pasir</h3>
                 </div>
             </div>
         </div>
@@ -42,9 +42,10 @@
                             <thead>
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Kode Uji</th>
+                                    <th>Berat Pasir</th>
+                                    <th>Berat Satuan Pasir</th>
+                                    <th width="5%"></th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -57,39 +58,56 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">User Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
                     <div class="modal-body">
+                        <h4>Benda Uji :</h4>
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input name="email" id="email" type="email" placeholder="email"
+                            <label for="exampleInputEmail1">a. Pasir Asal</label>
+                            <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Lengkap</label>
-                            <input name="name" id="name" type="text" placeholder="Nama Lengkap"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <label for="exampleInputEmail1">b. Diameter Maksimum</label>
+                            <input name="diameter_maksimum" id="diameter_maksimum" type="text" placeholder="Diameter Maksimum"
+                                class="form-control form-control-sm" id="diameter_maksimum" aria-describedby="emailHelp">
                         </div>
                     
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input name="password" id="password" type="password" placeholder="Password"
-                                class="form-control form-control-sm" id="exampleInputPassword1">
-                            <span class="text-danger error" style="font-size: 12px;" id="password_alert"></span>
+                            <label for="exampleInputPassword1">c. Keadaan Pasir</label>
+                            <select name="keadaan_pasir" class="form-control" id="keadaan_pasir">
+                                <option value="Kering Tungku">Kering Tungku</option>
+                                <option value="Agak Basah">Agak Basah</option>
+                                <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_pasir_alert"></span>
+                        </div>
+                        <h4>Hasil Pengujian</h4>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
+                            <input name="b1" id="b1" type="text" placeholder="Berat Bejana"
+                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Role</label>
-                            <select name="role" class="form-control" id="role">
-                                <option value="Admin">Admin</option>
-                                <option value="Verifikator">Verifikator</option>
-                                <option value="Pengguna">Pengguna</option>
-                            </select>
+                            <label for="exampleInputEmail1">b. Berat Pasir + Bejana (B2) Kg</label>
+                            <input name="b2" id="b2" type="text" placeholder="Berat Pasir + Bejana"
+                                class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
+                            <label for="exampleInputEmail1">diameter bagian dalam (mm)</label>
+                            <input name="diameter_dalam" id="diameter_dalam" type="text" placeholder="diameter bagian dalam"
+                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                                <br>
+                            <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
+                            <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam" type="text" placeholder="tinggi bejana dalam"
+                                class="form-control form-control-sm" aria-describedby="emailHelp">
                         </div>
                         
                     </div>
@@ -111,7 +129,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-user',
+                ajax: '/back/data-berat-isi-halus',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -123,21 +141,29 @@
                         }
                     },
                     {
-                        data: "name"
+                        data: "kode_uji"
                     },
+                    
                     {
-                        data: "email"
+                        data: "berat_pasir"
                     },
+
                     {
-                        render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">${row.role}</span>`
-                        }
+                        data: "berat_satuan_pasir"
                     },
+
                     {
                         render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
                                     data-bs-id=` + (row.id) + ` href="javascript:void(0)">
                                     <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
+                                </a>`
+                        }
+                    },
+                    {
+                        render: function(data, type, row, meta) {
+                            return `<a href=/back/cetak-berat-isi-halus/${row.id} target="_blank">
+                                    <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                                 </a>`
                         }
                     },
@@ -169,9 +195,13 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#email').val(cokData[0].email)
-                modal.find('#name').val(cokData[0].name)
-                modal.find('#role').val(cokData[0].role)
+                modal.find('#pasir_asal').val(cokData[0].pasir_asal)
+                modal.find('#diameter_maksimum').val(cokData[0].diameter_maksimum)
+                modal.find('#keadaan_pasir').val(cokData[0].keadaan_pasir)
+                modal.find('#b1').val(cokData[0].b1)
+                modal.find('#b2').val(cokData[0].b2)
+                modal.find('#diameter_dalam').val(cokData[0].diameter_dalam)
+                modal.find('#tinggi_bejana_dalam').val(cokData[0].tinggi_bejana_dalam)
             }
         })
 
@@ -185,7 +215,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-user' : '/back/update-user',
+                    url: formData.get('id') == '' ? '/back/store-berat-isi-halus' : '/back/update-berat-isi-halus',
                     data: formData,
                 })
                 .then(function(res) {

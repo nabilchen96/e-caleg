@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="login-form-02/css/style.css">
 
-    <title>CBT Sahretech</title>
+    <title>Smart Material Test</title>
   </head>
   <body>
   
