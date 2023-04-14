@@ -42,7 +42,7 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#">Berat Isi</a>
+                        <a class="nav-link" href="{{ url('/back/berat-isi-kasar') }}">Berat Isi</a>
                     </li>
                     <li class="nav-item"> 
                         <a class="nav-link" href="#">Analisa Saringan</a>
