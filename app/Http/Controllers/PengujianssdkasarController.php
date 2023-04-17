@@ -58,7 +58,7 @@ class PengujianssdkasarController extends Controller
             $berat_jenis_mutlak = $request->berat_kerikil_kering_tungku / ($request->berat_kerikil_kering_tungku - $request->berat_kerikil_air);
             $berat_jenis_kering_tungku = $request->berat_kerikil_kering_tungku / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
             $berat_jenis_ssd = $request->berat_kerikil_ssd / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
-            $persentase_penyerapan = $request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku / $request->berat_kerikil_kering_tungku * 10;
+            $persentase_penyerapan = ($request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku) * 100 / $request->berat_kerikil_kering_tungku;
 
             $data = PengujianSsdAgregateKasar::insert([
                 'kode_uji'              => "SSDK - " . $this->kode_uji(),
@@ -69,7 +69,7 @@ class PengujianssdkasarController extends Controller
                 'berat_jenis_mutlak' => $berat_jenis_mutlak,
                 'berat_jenis_kering_tungku' => $berat_jenis_kering_tungku,
                 'berat_jenis_ssd' => $berat_jenis_ssd,
-                'persentase_penyerapan' => $persentase_penyerapan,
+                'presentase_penyerapan' => $persentase_penyerapan,
                 'user_id'               => Auth::user()->id,
             ]);
 

@@ -48,7 +48,7 @@
                         <a class="nav-link" href="#">Analisa Saringan</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#">Pengujian SSD</a>
+                        <a class="nav-link" href="{{ url('/back/ssd-kasar') }}">Pengujian SSD</a>
                     </li>
                     <li class="nav-item"> 
                         <a class="nav-link" href="#">Gradasi</a>

@@ -40,12 +40,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@update');
     Route::get('/back/cetak-berat-isi-halus/{id}', 'App\Http\Controllers\PengujianBeratIsiController@cetakBerat');
 
-    // BERAT ISI KASAE
+    // BERAT ISI KASAR
     Route::get('/back/berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@index');
     Route::get('/back/data-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@data');
     Route::post('/back/store-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@store');
     Route::post('/back/update-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@update');
     Route::get('/back/cetak-berat-isi-kasar/{id}', 'App\Http\Controllers\PengujianberatisikasarController@cetakBerat');
+
+    // SSD KASAR
+    Route::get('/back/ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@index');
+    Route::get('/back/data-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@data');
+    Route::post('/back/store-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@store');
+    Route::post('/back/update-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@update');
+    Route::get('/back/cetak-ssd-kasar/{id}', 'App\Http\Controllers\PengujianssdkasarController@cetakBerat');
 
     //USER
     Route::get('/back/user', 'App\Http\Controllers\UserController@index');
