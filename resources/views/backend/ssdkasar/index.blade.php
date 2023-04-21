@@ -178,11 +178,8 @@
                 modal.find('#id').val(cokData[0].id)
                 modal.find('#kerikil_asal').val(cokData[0].kerikil_asal)
                 modal.find('#berat_kerikil_ssd').val(cokData[0].berat_kerikil_ssd)
-                modal.find('#keadaan_kerikil').val(cokData[0].keadaan_kerikil)
-                modal.find('#b1').val(cokData[0].b1)
-                modal.find('#b2').val(cokData[0].b2)
-                modal.find('#diameter_dalam').val(cokData[0].diameter_dalam)
-                modal.find('#tinggi_bejana_dalam').val(cokData[0].tinggi_bejana_dalam)
+                modal.find('#berat_kerikil_air').val(cokData[0].berat_kerikil_air)
+                modal.find('#berat_kerikil_kering_tungku').val(cokData[0].berat_kerikil_kering_tungku)
             }
         })
 
