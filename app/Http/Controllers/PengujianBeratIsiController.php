@@ -64,7 +64,7 @@ class PengujianBeratIsiController extends Controller
             $d_pangkat = $d_konvert ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $d_konvert2;
 
-            $data = PengujianBeratIsi::insert([
+            $data = PengujianBeratIsi::create([
                 'kode_uji'              => "BIH - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
                 'diameter_maksimum'     => $request->diameter_maksimum,

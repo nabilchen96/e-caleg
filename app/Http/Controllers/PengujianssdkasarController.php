@@ -60,7 +60,7 @@ class PengujianssdkasarController extends Controller
             $berat_jenis_ssd = $request->berat_kerikil_ssd / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
             $persentase_penyerapan = ($request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku) * 100 / $request->berat_kerikil_kering_tungku;
 
-            $data = PengujianSsdAgregateKasar::insert([
+            $data = PengujianSsdAgregateKasar::create([
                 'kode_uji'              => "SSDK - " . $this->kode_uji(),
                 'kerikil_asal'            => $request->kerikil_asal, 
                 'berat_kerikil_ssd'     => $request->berat_kerikil_ssd, //A

@@ -2,24 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DokumenReferensi;
 use Illuminate\Http\Request;
 use DB;
-use App\Models\User;
-use Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class DokumenReferensiController extends Controller
 {
     public function index(){
-        return view('backend.users.index');
+        return view('backend.dokumen_referensi.index');
     }
 
     public function data(){
         
-        $user = DB::table('users');
-
-        $data_user = Auth::user();
+        $user = DB::table('dokumen_referensis');
         $user = $user->get();
 
         
@@ -30,8 +26,8 @@ class UserController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'password'   => 'required|min:8',
-            'email'      => 'unique:users'
+            'judul'   => 'required',
+            'link_file'      => 'required'
         ]);
 
         if($validator->fails()){
@@ -40,11 +36,10 @@ class UserController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = User::create([
-                'name'          => $request->name,
-                'role'          => $request->role,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password)
+            $data = DokumenReferensi::create([
+                'judul'          => $request->judul,
+                'link_file'         => $request->link_file,
+                'status_publish'    => $request->status_publish
             ]);
 
             $data = [
@@ -69,14 +64,11 @@ class UserController extends Controller
             ];
         }else{
 
-            $user = User::find($request->id);
+            $user = DokumenReferensi::find($request->id);
             $data = $user->update([
-                'name'      => $request->name,
-                'role'      => $request->role,
-                'email'     => $request->email,
-                'jk'        => $request->jk,
-                'no_reg'        => $request->no_reg,
-                'password'  => $request->password ? Hash::make($request->password) : $user->password
+                'judul'      => $request->judul,
+                'link_file'     => $request->link_file,
+                'status_publish'    => $request->status_publish
             ]);
 
             $data = [
@@ -90,7 +82,7 @@ class UserController extends Controller
 
     public function delete(Request $request){
 
-        $data = User::find($request->id)->delete();
+        $data = DokumenReferensi::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

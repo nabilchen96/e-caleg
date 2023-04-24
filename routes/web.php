@@ -54,6 +54,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@update');
     Route::get('/back/cetak-ssd-kasar/{id}', 'App\Http\Controllers\PengujianssdkasarController@cetakBerat');
 
+    // DOKUMEN REFERENSI
+    Route::get('/back/dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@index');
+    Route::get('/back/data-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@data');
+    Route::post('/back/store-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@store');
+    Route::post('/back/update-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@update');
+    Route::post('/back/delete-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@delete');
+
     //USER
     Route::get('/back/user', 'App\Http\Controllers\UserController@index');
     Route::get('/back/data-user', 'App\Http\Controllers\UserController@data');

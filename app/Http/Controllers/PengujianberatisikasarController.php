@@ -62,7 +62,7 @@ class PengujianberatisikasarController extends Controller
             $d_pangkat = $request->diameter_dalam ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $request->tinggi_bejana_dalam;
 
-            $data = PengujianBeratIsiKasar::insert([
+            $data = PengujianBeratIsiKasar::create([
                 'kode_uji'              => "BIHK - " . $this->kode_uji(),
                 'kerikil_asal'          => $request->kerikil_asal,
                 'diameter_maksimum'     => $request->diameter_maksimum,

@@ -61,7 +61,7 @@
         </li>
         
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('back/user') }}">
+            <a class="nav-link" href="{{ url('back/dokumen-referensi') }}">
                 <i class="bi bi-file-earmark menu-icon"></i>
                 <span class="menu-title">Dokumen Ref</span>
             </a>

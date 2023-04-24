@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DokumenReferensi extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
 }
