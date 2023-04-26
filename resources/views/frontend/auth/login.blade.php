@@ -58,6 +58,8 @@
 
                 </button>
             </div>
+            <br>
+            Dont Have an account? <a href="{{ url('register') }}" class="text-primary">Register</a>
             </form>
           </div>
         </div>

@@ -91,4 +91,15 @@ class DokumenReferensiController extends Controller
 
         return response()->json($data);
     }
+
+    public function referensi(){
+
+
+        $data = DB::table('dokumen_referensis')->where('status_publish', '1');
+        $data = $data->get();
+
+        return view('frontend.referensi', [
+            'data'  => $data
+        ]);
+    }
 }

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //LANDING
 // Route::get('/', 'App\Http\Controllers\AuthController@login')->name('login');
 Route::get('/', function(){
-    return view('frontend.auth.welcome');
+    return view('frontend.welcome');
 });
 
 //LOGIN
@@ -29,6 +29,9 @@ Route::post('/registerProses', 'App\Http\Controllers\AuthController@registerPros
 
 //KALKULATOR SAMAPTA
 Route::get('/kalkulator', 'App\Http\Controllers\KalkulatorController@index');
+
+//REFERENSI
+Route::get('/referensi', 'App\Http\Controllers\DokumenReferensiController@referensi');
 
 //BACKEND
 Route::group(['middleware' => 'auth'], function () {
