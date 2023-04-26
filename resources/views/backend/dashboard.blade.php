@@ -21,7 +21,7 @@
                 <div class="card card-tale">
                   <div class="card-body">
                     <p class="mb-4">Agregate Kasar</p>
-                    <p class="fs-30 mb-2">4006</p>
+                    <p class="fs-30 mb-2">10</p>
                     <p>Pengujian Berat Isi</p>
                   </div>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="card card-dark-blue">
                   <div class="card-body">
                     <p class="mb-4">Agregate Kasar</p>
-                    <p class="fs-30 mb-2">61344</p>
+                    <p class="fs-30 mb-2">20</p>
                     <p>Pengujian Analisa Saringan</p>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="card card-light-blue">
                   <div class="card-body">
                     <p class="mb-4">Agregate Kasar</p>
-                    <p class="fs-30 mb-2">34040</p>
+                    <p class="fs-30 mb-2">0</p>
                     <p>Pengujian Los Angeles</p>
                   </div>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="card card-light-danger">
                   <div class="card-body">
                     <p class="mb-4">Agregate Halus</p>
-                    <p class="fs-30 mb-2">47033</p>
+                    <p class="fs-30 mb-2">20</p>
                     <p>Pengujian Berat Isi</p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
               <div class="card card-tale">
                 <div class="card-body">
                   <p class="mb-4">Agregate Kasar</p>
-                  <p class="fs-30 mb-2">4006</p>
+                  <p class="fs-30 mb-2">15</p>
                   <p>Pengujian SSD</p>
                 </div>
               </div>
@@ -72,7 +72,7 @@
               <div class="card card-dark-blue">
                 <div class="card-body">
                   <p class="mb-4">Agregate Kasar</p>
-                  <p class="fs-30 mb-2">61344</p>
+                  <p class="fs-30 mb-2">15</p>
                   <p>Pengujian Gradasi</p>
                 </div>
               </div>
@@ -83,7 +83,7 @@
               <div class="card card-light-blue">
                 <div class="card-body">
                   <p class="mb-4">Agregate Halus</p>
-                  <p class="fs-30 mb-2">34040</p>
+                  <p class="fs-30 mb-2">20</p>
                   <p>Pengujian Analisa Saringan</p>
                 </div>
               </div>
@@ -92,7 +92,7 @@
               <div class="card card-light-danger">
                 <div class="card-body">
                   <p class="mb-4">Agregate Halus</p>
-                  <p class="fs-30 mb-2">47033</p>
+                  <p class="fs-30 mb-2">12</p>
                   <p>Pengujian SSD</p>
                 </div>
               </div>

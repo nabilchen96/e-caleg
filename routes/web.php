@@ -57,6 +57,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@update');
     Route::get('/back/cetak-ssd-kasar/{id}', 'App\Http\Controllers\PengujianssdkasarController@cetakBerat');
 
+    // Analisa saringan halus
+    Route::get('/back/analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@index');
+    Route::get('/back/data-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@data');
+    Route::post('/back/store-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@store');
+    Route::post('/back/update-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@update');
+    Route::get('/back/cetak-analisa-saringan-halus/{id}', 'App\Http\Controllers\AnalisasaringanhalusController@cetakBerat');
+
     // DOKUMEN REFERENSI
     Route::get('/back/dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@index');
     Route::get('/back/data-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@data');

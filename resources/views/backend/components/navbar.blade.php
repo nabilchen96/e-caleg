@@ -25,7 +25,7 @@
                         <a class="nav-link" href="{{ url('/back/berat-isi-halus') }}">Berat Isi</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#">Analisa Saringan</a>
+                        <a class="nav-link" href="{{ url('/back/analisa-saringan-halus') }}">Analisa Saringan</a>
                     </li>
                     <li class="nav-item"> 
                         <a class="nav-link" href="#">Pengujian SSD</a>
