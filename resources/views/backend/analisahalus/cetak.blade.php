@@ -16,7 +16,7 @@
                     <td>Benda Uji :</td>
                 </tr>
                 <tr>
-                    <td>a. Kerikil Asal</td>
+                    <td>a. Pasir Asal</td>
                     <td>:</td>
                     <td>{{ $data->kerikil_asal }}</td>
                 </tr>
@@ -25,54 +25,59 @@
                     <td><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Kerikil SSD</td>
+                    <td>a. Berat Pasir yang diperiksa</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_ssd }} gr</td>
                     <td>(A)</td>
                 </tr>
+       
                 <tr>
-                    <td>b. Berat Kerikil di dalam air</td>
-                    <td>:</td>
-                    <td>{{ $data->berat_kerikil_air }} gr</td>
-                    <td>(B)</td>
-                </tr>
-                <tr>
-                    <td>c. Berat Kerikil kering tungku</td>
-                    <td>: </td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} gr</td>
-                    <td>(C)</td>
+                    <td><b>Hasil Pengujian : </b></td>
                 </tr>
                
+            </table>
+            <table class="table table-bordered">
                 <tr>
-                    <td><b>Perhitungan : </b></td>
+                    <th rowspan="2">Lubang Ayakan (mm)</th>
+                    <th colspan="2">Berat Tertinggal</th>
+                    <th rowspan="2">Berat Kumulatif <br> (%)</th>
+                    <th rowspan="2">Berat Kumulatif Lewat Ayakan <br> (%) </th>
                 </tr>
                 <tr>
-                    <td>a. Berat Jenis Mutlak</td>
-                    <td>C/(C-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} - {{ $data->berat_kerikil_air }} = </td>
-                    <td>{{ number_format($data->berat_jenis_mutlak,2) }}</td>
+                    <th>(gr)</th>
+                    <th>(%)</th>
                 </tr>
                 <tr>
-                    <td>b. Berat Jenis Kering Tungku</td>
-                    <td>C/(A-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_kering_tungku,2) }} </td>
+                    <td>4.75</td>
+                    <td>{{ $data->inputa_1 == 0 ? '-' : $data->inputa_1 }}</td>
                 </tr>
                 <tr>
-                    <td>c. Berat Jenis SSD</td>
-                    <td>A/(A-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_ssd,2) }} </td>
+                    <td>2.36</td>
+                    <td>{{ $data->inputa_2 == 0 ? '-' : $data->inputa_2 }}</td>
                 </tr>
                 <tr>
-                    <td>d. Persentase penyerapan <br> (absorption)</td>
-                    <td>A-C/C x 100</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} x 100% =</td>
-                    <td>{{  round($data->presentase_penyerapan,2) }} %</td>
+                    <td>1.18</td>
+                    <td>{{ $data->inputa_3 == 0 ? '-' : $data->inputa_3 }}</td>
+                </tr>
+                <tr>
+                    <td>0.60</td>
+                    <td>{{ $data->inputa_4 == 0 ? '-' : $data->inputa_4 }}</td>
+                </tr>
+                <tr>
+                    <td>0.30</td>
+                    <td>{{ $data->inputa_5 == 0 ? '-' : $data->inputa_5 }}</td>
+                </tr>
+                <tr>
+                    <td>0.15</td>
+                    <td>{{ $data->inputa_6 == 0 ? '-' : $data->inputa_6 }}</td>
+                </tr>
+                <tr>
+                    <td>Sisa</td>
+                    <td>{{ $data->sisa_inputa == 0 ? '-' : $data->sisa_inputa }}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah</td>
+                    <td>{{ $data->jumlah_inputa == 0 ? '-' : $data->jumlah_inputa }}</td>
                 </tr>
             </table>
         </div>

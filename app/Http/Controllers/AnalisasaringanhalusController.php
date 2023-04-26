@@ -267,7 +267,7 @@ class AnalisasaringanhalusController extends Controller
 
             $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'],3);
 
-            dd($jumlah_berat_kumu_inputa/100);
+            // dd($jumlah_berat_kumu_inputa/100);
 
             $user = AnalisaSaringanHalus::find($request->id);
             $data = $user->update([
