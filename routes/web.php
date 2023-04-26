@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //LANDING
-Route::get('/', 'App\Http\Controllers\AuthController@login')->name('login');
+// Route::get('/', 'App\Http\Controllers\AuthController@login')->name('login');
+Route::get('/', function(){
+    return view('frontend.auth.welcome');
+});
 
 //LOGIN
 Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
