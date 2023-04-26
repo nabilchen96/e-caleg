@@ -106,7 +106,7 @@ class AnalisasaringanhalusController extends Controller
                 'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
             );
 
-            $jumlah_berat_tinggal_inputa = $hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'];
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
 
             $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
             $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
@@ -234,7 +234,8 @@ class AnalisasaringanhalusController extends Controller
                 'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
             );
 
-            $jumlah_berat_tinggal_inputa = $hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'];
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
+
 
             $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
             $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
@@ -254,7 +255,7 @@ class AnalisasaringanhalusController extends Controller
             );
 
             $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'],2);
-
+           
             $hitung_berat_kumu_la = array(
                 'berat_kumu_la_1' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_1'],
                 'berat_kumu_la_2' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_2'],

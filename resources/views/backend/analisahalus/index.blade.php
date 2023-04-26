@@ -89,31 +89,31 @@
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_1" value="4.75" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_1"></td>
+                                <td><input type="text" class="form-control" name="inputa_1" id="inputa_1"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_2" value="2.36" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_2"></td>
+                                <td><input type="text" class="form-control" name="inputa_2" id="inputa_2"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_3" value="1.18" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_3"></td>
+                                <td><input type="text" class="form-control" name="inputa_3" id="inputa_3"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_4" value="0.60" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_4"></td>
+                                <td><input type="text" class="form-control" name="inputa_4" id="inputa_4"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_5" value="0.30" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_5"></td>
+                                <td><input type="text" class="form-control" name="inputa_5" id="inputa_5"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_6" value="0.15" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_6"></td>
+                                <td><input type="text" class="form-control" name="inputa_6" id="inputa_6"></td>
                             </tr>
                             <tr>
                                 <td>Sisa</td>
-                                <td><input type="text" class="form-control" name="sisa_inputa"></td>
+                                <td><input type="text" class="form-control" name="sisa_inputa" id="sisa_inputa"></td>
                             </tr>
                         </table>
                        
@@ -206,10 +206,15 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#kerikil_asal').val(cokData[0].kerikil_asal)
-                modal.find('#berat_kerikil_ssd').val(cokData[0].berat_kerikil_ssd)
-                modal.find('#berat_kerikil_air').val(cokData[0].berat_kerikil_air)
-                modal.find('#berat_kerikil_kering_tungku').val(cokData[0].berat_kerikil_kering_tungku)
+                modal.find('#pasir_asal').val(cokData[0].pasir_asal)
+                modal.find('#berat_pasir').val(cokData[0].berat_pasir)
+                modal.find('#inputa_1').val(cokData[0].inputa_1)
+                modal.find('#inputa_2').val(cokData[0].inputa_2)
+                modal.find('#inputa_3').val(cokData[0].inputa_3)
+                modal.find('#inputa_4').val(cokData[0].inputa_4)
+                modal.find('#inputa_5').val(cokData[0].inputa_5)
+                modal.find('#inputa_6').val(cokData[0].inputa_6)
+                modal.find('#sisa_inputa').val(cokData[0].sisa_inputa)
             }
         })
 

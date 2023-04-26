@@ -20,12 +20,9 @@
                     <td>:</td>
                     <td>{{ $data->pasir_asal }}</td>
                 </tr>
-               
+            
                 <tr>
-                    <td><b>Hasil Pengujian :</b></td>
-                </tr>
-                <tr>
-                    <td>a. Berat Pasir yang diperiksa</td>
+                    <td>b. Berat Pasir yang diperiksa</td>
                     <td>:</td>
                     <td>{{ $data->berat_pasir }} gr</td>
                 </tr>
@@ -108,7 +105,7 @@
                     <td><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>Modulus Halus :  {{ $data->modulus_halus }}</td>
+                    <td>Modulus Halus :  {{ number_format($data->modulus_halus,2) }}</td>
                 </tr>
             </table>
         </div>
