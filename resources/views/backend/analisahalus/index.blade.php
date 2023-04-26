@@ -43,8 +43,9 @@
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Kode Uji</th>
-                                    <th>Kerikil Asal</th>
-                                    <th>Berat Kerikil SSD</th>
+                                    <th>Pasir Asal</th>
+                                    <th>Berat Pasir</th>
+                                    <th>Modulus Halus</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
@@ -151,11 +152,15 @@
                     },
                     
                     {
-                        data: "kerikil_asal"
+                        data: "pasir_asal"
                     },
 
                     {
-                        data: "berat_kerikil_ssd"
+                        data: "berat_pasir"
+                    },
+
+                    {
+                        data: "modulus_halus"
                     },
 
                     {

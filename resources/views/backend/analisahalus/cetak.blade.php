@@ -105,8 +105,10 @@
             </table>
             <table>
                 <tr>
-                    <td><b>Hasil Pengujian : {{ $data->modulus_halus }}</b></td>
-                
+                    <td><b>Hasil Pengujian :</b></td>
+                </tr>
+                <tr>
+                    <td>Modulus Halus :  {{ $data->modulus_halus }}</td>
                 </tr>
             </table>
         </div>
