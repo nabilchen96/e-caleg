@@ -144,7 +144,7 @@ class GradasikasarController extends Controller
             // dd($hitung_berat_kumu_la);
 
             $data = GradasiKasar::create([
-                'kode_uji'              => "ASH - " . $this->kode_uji(),
+                'kode_uji'              => "GRK - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir'           => $request->berat_pasir,
                 'ukuran_butir'           => $request->ukuran_butir,
