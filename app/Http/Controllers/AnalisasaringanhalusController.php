@@ -303,7 +303,7 @@ class AnalisasaringanhalusController extends Controller
                 'berat_kumu_la_5' => $hitung_berat_kumu_la['berat_kumu_la_5'],
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
-                'modulus_halus' => $jumlah_berat_kumu_inputa/100,
+                'modulus_halus' =>  $jumlah_berat_kumu_inputa/100,
             ]);
 
             $data = [
