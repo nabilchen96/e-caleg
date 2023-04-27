@@ -88,6 +88,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@update');
     Route::get('/back/cetak-los-angeles/{id}', 'App\Http\Controllers\PengujianlosangelesController@cetakBerat');
 
+    // Kadar Lumpur
+    Route::get('/back/kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@index');
+    Route::get('/back/data-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@data');
+    Route::post('/back/store-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@store');
+    Route::post('/back/update-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@update');
+    Route::get('/back/cetak-kadar-lumpur-halus/{id}', 'App\Http\Controllers\PengujiankadarlumpurController@cetakBerat');
+
     // DOKUMEN REFERENSI
     Route::get('/back/dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@index');
     Route::get('/back/data-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@data');

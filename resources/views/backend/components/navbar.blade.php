@@ -30,6 +30,9 @@
                     <li class="nav-item"> 
                         <a class="nav-link" href="{{ url('/back/ssd-halus') }}">Pengujian SSD</a>
                     </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{{ url('/back/kadar-lumpur-halus') }}">Kadar Lumpur</a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -43,9 +46,6 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
                         <a class="nav-link" href="{{ url('/back/berat-isi-kasar') }}">Berat Isi</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="#">Analisa Saringan</a>
                     </li>
                     <li class="nav-item"> 
                         <a class="nav-link" href="{{ url('/back/ssd-kasar') }}">Pengujian SSD</a>
