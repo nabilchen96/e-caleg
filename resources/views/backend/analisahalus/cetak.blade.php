@@ -108,7 +108,10 @@
                     <td><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>Modulus Halus : {{ number_format($data->modulus_halus, 2) }}</td>
+                    <td>1. Modulus Halus : {{ number_format($data->modulus_halus, 2) }}</td>
+                </tr>
+                <tr>
+                    <td>2. Gradasi pasir masuk daerah : II Agak Kasar</td>
                 </tr>
             </table>
             {{-- <br><br><br><br> --}}
