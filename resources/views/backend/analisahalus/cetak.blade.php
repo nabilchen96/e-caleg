@@ -16,7 +16,7 @@
             <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT JENIS AGREGAT KASAR/KERIKIL </h4>
             <table>
                 <tr>
-                    <td>Benda Uji :</td>
+                    <td><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
                     <td>a. Pasir Asal</td>
@@ -105,7 +105,7 @@
             </table>
             <table>
                 <tr>
-                    <td><b>Hasil Pengujian :</b></td>
+                    <td><b>Kesimpulan :</b></td>
                 </tr>
                 <tr>
                     <td>1. Modulus Halus : {{ number_format($data->modulus_halus, 2) }}</td>
