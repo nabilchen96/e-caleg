@@ -81,6 +81,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@update');
     Route::get('/back/cetak-gradasi-kasar/{id}', 'App\Http\Controllers\GradasikasarController@cetakBerat');
 
+    // Los Angeles
+    Route::get('/back/los-angeles', 'App\Http\Controllers\PengujianlosangelesController@index');
+    Route::get('/back/data-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@data');
+    Route::post('/back/store-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@store');
+    Route::post('/back/update-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@update');
+    Route::get('/back/cetak-los-angeles/{id}', 'App\Http\Controllers\PengujianlosangelesController@cetakBerat');
+
     // DOKUMEN REFERENSI
     Route::get('/back/dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@index');
     Route::get('/back/data-dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@data');

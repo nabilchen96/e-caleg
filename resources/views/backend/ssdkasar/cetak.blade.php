@@ -10,41 +10,41 @@
 <body>
     <div class="container">
         <div class="row">
-            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT JENIS AGREGAT KASAR/KERIKIL </h4>
-            <table>
+            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN SSD AGREGAT KASAR/KERIKIL </h4>
+            <table class="table table-bordered">
                 <tr>
-                    <td>Benda Uji :</td>
+                    <td colspan="5"><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
                     <td>a. Kerikil Asal</td>
                     <td>:</td>
-                    <td>{{ $data->kerikil_asal }}</td>
+                    <td colspan="4">{{ $data->kerikil_asal }}</td>
                 </tr>
                
                 <tr>
-                    <td><b>Hasil Pengujian :</b></td>
+                    <td colspan="5"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Kerikil SSD</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_ssd }} gr</td>
-                    <td>(A)</td>
+                    <td colspan="2">(A)</td>
                 </tr>
                 <tr>
                     <td>b. Berat Kerikil di dalam air</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_air }} gr</td>
-                    <td>(B)</td>
+                    <td colspan="2">(B)</td>
                 </tr>
                 <tr>
                     <td>c. Berat Kerikil kering tungku</td>
                     <td>: </td>
                     <td>{{ $data->berat_kerikil_kering_tungku }} gr</td>
-                    <td>(C)</td>
+                    <td colspan="2">(C)</td>
                 </tr>
                
                 <tr>
-                    <td><b>Perhitungan : </b></td>
+                    <td colspan="5"><b>Perhitungan : </b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Jenis Mutlak</td>

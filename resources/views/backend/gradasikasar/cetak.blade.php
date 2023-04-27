@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT JENIS AGREGAT KASAR/KERIKIL </h4>
+            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN GRADASI AGREGAT KASAR </h4>
             <table>
                 <tr>
                     <td>Benda Uji :</td>
@@ -135,7 +135,7 @@
                     <td>a. Modulus Halus :  {{ number_format($data->modulus_halus,2) }}</td>
                 </tr>
                 <tr>
-                    <td>b. Gradasi Kerikil masuk daerah (*) :  </td>
+                    <td>b. Gradasi Kerikil masuk daerah (*) :  Area (Ukuran maks.40 mm)</td>
                 </tr>
             </table>
             <table>

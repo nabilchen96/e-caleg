@@ -11,28 +11,28 @@
     <div class="container">
         <div class="row">
             <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT SATUAN AGREGAT KASAR </h4>
-            <table>
+            <table class="table table-bordered">
                 <tr>
-                    <td>Benda Uji :</td>
+                    <td colspan="4"><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
                     <td>a. Kerikil Asal</td>
                     <td>:</td>
-                    <td>{{ $data->kerikil_asal }}</td>
+                    <td colspan="2">{{ $data->kerikil_asal }}</td>
                 </tr>
                 <tr>
                     <td>b. Diameter Maksimum</td>
                     <td>:</td>
-                    <td>{{ $data->diameter_maksimum }} mm</td>
+                    <td colspan="2">{{ $data->diameter_maksimum }} mm</td>
                 </tr>
                 <tr>
                     <td>c. Keadaan Kerikil</td>
                     <td>:</td>
-                    <td>{{ $data->keadaan_kerikil }}</td>
+                    <td colspan="2">{{ $data->keadaan_kerikil }}</td>
                 </tr>
                 
                 <tr>
-                    <td>Hasil Pengujian :</td>
+                    <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Bejana</td>
@@ -60,7 +60,7 @@
                 </tr>
 
                 <tr>
-                    <td>Kesimpulan : </td>
+                    <td colspan="4"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Kerikil</td>

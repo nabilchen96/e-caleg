@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{{ url('/back/gradasi-kasar') }}">Gradasi</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#">Los Angeles</a>
+                        <a class="nav-link" href="{{ url('/back/los-angeles') }}">Los Angeles</a>
                     </li>
                 </ul>
             </div>
