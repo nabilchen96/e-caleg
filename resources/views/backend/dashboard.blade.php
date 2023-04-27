@@ -31,7 +31,7 @@
                   <div class="card-body">
                     <p class="mb-4">Agregate Kasar</p>
                     <p class="fs-30 mb-2">20</p>
-                    <p>Pengujian Analisa Saringan</p>
+                    <p>Pengujian Gradasi</p>
                   </div>
                 </div>
               </div>
@@ -40,9 +40,9 @@
               <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                 <div class="card card-light-blue">
                   <div class="card-body">
-                    <p class="mb-4">Agregate Kasar</p>
-                    <p class="fs-30 mb-2">0</p>
-                    <p>Pengujian Los Angeles</p>
+                    <p class="mb-4">Agregate Halus</p>
+                    <p class="fs-30 mb-2">5</p>
+                    <p>Pengujian Kadar Lumpur</p>
                   </div>
                 </div>
               </div>
@@ -73,7 +73,7 @@
                 <div class="card-body">
                   <p class="mb-4">Agregate Kasar</p>
                   <p class="fs-30 mb-2">15</p>
-                  <p>Pengujian Gradasi</p>
+                  <p>Pengujian Los Angeles</p>
                 </div>
               </div>
             </div>
