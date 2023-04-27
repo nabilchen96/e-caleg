@@ -138,7 +138,127 @@
                     <td>b. Gradasi Kerikil masuk daerah (*) :  </td>
                 </tr>
             </table>
+            <table>
+                <tr>
+                    <td>
+
+                        <div id="container"></div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'GRADASI AGREGAT KASAR',
+                // align: 'left'
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Persen Butir Lewat Saringan'
+                },
+                min: 0, // batas bawah sumbu y
+                max: 100 // batas atas sumbu y
+            },
+
+            xAxis: {
+                title:{
+                    text: 'Lubang Ayakan (mm)'
+                },
+                categories: [
+                    1.18, 2.38, 4.76, 6.35, 9.50, 12.50, 19.00, 25.00, 38.00
+                ]
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    // pointStart: 2010
+                }
+            },
+
+            series: [
+                {
+                    name: 'Ukuran maks. 10 mm',
+                    data: [0, 0, 0, 10, 50, 85, 100, 100, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Ukuran maks. 10 mm',
+                    data: [0, 0, 10, 50, 85, 100, 100, 100, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Ukuran maks. 20 mm',
+                    data: [0, 0, 0, 10, 30, 60, 95, 100, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Ukuran maks. 20 mm',
+                    data: [0, 0, 10, 30, 60, 95, 100, 100, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Ukuran maks. 40 mm',
+                    data: [0, 0, 0, 5, 10, 25, 35, 95, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Ukuran maks. 40 mm',
+                    data: [0, 0, 5, 10, 40, 52.5, 70, 100, 100],
+                    dashStyle: 'dash'
+                },
+                {
+                    name: 'Hasil Pengujian',
+                    data: [
+                        {{ $data->berat_kumu_la_9 == 0 ? '-' : $data->berat_kumu_la_9 }},
+                        {{ $data->berat_kumu_la_8 == 0 ? '-' : $data->berat_kumu_la_8 }},
+                        {{ $data->berat_kumu_la_7 == 0 ? '-' : $data->berat_kumu_la_7 }},
+                        {{ $data->berat_kumu_la_6 == 0 ? '-' : $data->berat_kumu_la_6 }},
+                        {{ $data->berat_kumu_la_5 == 0 ? '-' : $data->berat_kumu_la_5 }},
+                        {{ $data->berat_kumu_la_4 == 0 ? '-' : $data->berat_kumu_la_4 }},
+                        {{ $data->berat_kumu_la_3 == 0 ? '-' : $data->berat_kumu_la_3 }},
+                        {{ $data->berat_kumu_la_2 == 0 ? '-' : $data->berat_kumu_la_2 }},
+                        {{ $data->berat_kumu_la_1 == 0 ? '-' : $data->berat_kumu_la_1 }},
+
+                    ],
+                    lineWidth: 5,
+                    color: '#CCCCCC',
+                    marker: {
+                        symbol: "square",
+                        radius: 5
+                    }
+                },
+            ],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    </script>
 </body>
 </html>
