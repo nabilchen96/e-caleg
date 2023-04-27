@@ -58,10 +58,16 @@ class PengujianssdhalusController extends Controller
             $A = $request->berat_pasir_tabung_air;
             $B = $request->berat_pasir_ssd;
             $C = $request->berat_tabung_air;
-            $D = $request->berat_jenis_tungku;
+            $D = $request->berat_pasir_kering_tungku;
 
             $berat_jenis_tungku = $D / (($C + $B) - $A);
-            $ssd_pasir_kering_tungku =$D / (($C + $B) - $A);
+            $ssd_pasir_kering_tungku =$B / (($C + $B) - $A);
+
+            if($berat_jenis_tungku && $ssd_pasir_kering_tungku >= 2.4 && $berat_jenis_tungku && $ssd_pasir_kering_tungku <= 2.9 ){
+                $kesimpulan = "Memenuhi";
+            } else {
+                $kesimpulan = "Tidak Memenuhi";
+            }
 
             $data = PengujianSsdAgregateHalus::create([
                 'kode_uji'              => "SSDH - " . $this->kode_uji(),
@@ -69,9 +75,10 @@ class PengujianssdhalusController extends Controller
                 'berat_pasir_tabung_air'     => $request->berat_pasir_tabung_air, //A
                 'berat_pasir_ssd'         => $request->berat_pasir_ssd, //B
                 'berat_tabung_air'                    => $request->berat_tabung_air, //C
-                'berat_jenis_tungku' => $berat_jenis_tungku, //D
-                'ssd_pasir_kering_tungku' => $ssd_pasir_kering_tungku,
-                'berat_jenis_tungku' => $berat_jenis_tungku,
+                'berat_pasir_kering_tungku' => $request->berat_pasir_kering_tungku, //D
+                'ssd_pasir_kering_tungku' => round($ssd_pasir_kering_tungku,2),
+                'berat_jenis_tungku' => round($berat_jenis_tungku,2),
+                'kesimpulan' => $kesimpulan,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -100,19 +107,26 @@ class PengujianssdhalusController extends Controller
             $A = $request->berat_pasir_tabung_air;
             $B = $request->berat_pasir_ssd;
             $C = $request->berat_tabung_air;
-            $D = $request->berat_jenis_tungku;
+            $D = $request->berat_pasir_kering_tungku;
 
             $berat_jenis_tungku = $D / (($C + $B) - $A);
-            $ssd_pasir_kering_tungku =$D / (($C + $B) - $A);
+            $ssd_pasir_kering_tungku =$B / (($C + $B) - $A);
+
+            if($berat_jenis_tungku && $ssd_pasir_kering_tungku >= 2.4 && $berat_jenis_tungku && $ssd_pasir_kering_tungku <= 2.9 ){
+                $kesimpulan = "Memenuhi";
+            } else {
+                $kesimpulan = "Tidak Memenuhi";
+            }
             
             $user = PengujianSsdAgregateHalus::find($request->id);
             $data = $user->update([
                 'berat_pasir_tabung_air'     => $request->berat_pasir_tabung_air, //A
                 'berat_pasir_ssd'         => $request->berat_pasir_ssd, //B
                 'berat_tabung_air'                    => $request->berat_tabung_air, //C
-                'berat_jenis_tungku' => $berat_jenis_tungku, //D
-                'ssd_pasir_kering_tungku' => $ssd_pasir_kering_tungku,
-                'berat_jenis_tungku' => $berat_jenis_tungku,
+                'berat_pasir_kering_tungku' => $request->berat_pasir_kering_tungku, //D
+                'ssd_pasir_kering_tungku' => round($ssd_pasir_kering_tungku,2),
+                'berat_jenis_tungku' => round($berat_jenis_tungku,2),
+                'kesimpulan' => $kesimpulan,
             ]);
 
             $data = [

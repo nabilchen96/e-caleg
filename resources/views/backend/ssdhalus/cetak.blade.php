@@ -10,70 +10,64 @@
 <body>
     <div class="container">
         <div class="row">
-            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT JENIS AGREGAT KASAR/KERIKIL </h4>
-            <table>
+            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN SSD HALUS </h4>
+            <table class="table table-bordered">
                 <tr>
-                    <td>Benda Uji :</td>
+                    <td colspan="4"><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Kerikil Asal</td>
+                    <td>a. Pasir Asal</td>
                     <td>:</td>
-                    <td>{{ $data->kerikil_asal }}</td>
+                    <td colspan="2">{{ $data->pasir_asal }}</td>
                 </tr>
                
                 <tr>
-                    <td><b>Hasil Pengujian :</b></td>
+                    <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Kerikil SSD</td>
+                    <td>a. Berat pasir + tabung ukur + air</td>
                     <td>:</td>
-                    <td>{{ $data->berat_kerikil_ssd }} gr</td>
+                    <td>{{ $data->berat_pasir_tabung_air }} gr</td>
                     <td>(A)</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Kerikil di dalam air</td>
+                    <td>b. Berat pasir SSD</td>
                     <td>:</td>
-                    <td>{{ $data->berat_kerikil_air }} gr</td>
+                    <td>{{ $data->berat_pasir_ssd }} gr</td>
                     <td>(B)</td>
                 </tr>
                 <tr>
-                    <td>c. Berat Kerikil kering tungku</td>
+                    <td>c. Berat tabung ukur + air</td>
                     <td>: </td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} gr</td>
+                    <td>{{ $data->berat_tabung_air }} gr</td>
                     <td>(C)</td>
+                </tr>
+                <tr>
+                    <td>d. Berat pasir kering tungku</td>
+                    <td>: </td>
+                    <td>{{ $data->berat_pasir_kering_tungku }} gr</td>
+                    <td>(D)</td>
                 </tr>
                
                 <tr>
-                    <td><b>Perhitungan : </b></td>
+                    <td colspan="4"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Jenis Mutlak</td>
-                    <td>C/(C-B)</td>
+                    <td>a. Berat Jenis Tungku</td>
+                    <td>D/((C+B)-A)</td>
                     <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} - {{ $data->berat_kerikil_air }} = </td>
-                    <td>{{ number_format($data->berat_jenis_mutlak,2) }}</td>
+                    <td>{{ number_format($data->berat_jenis_tungku,2) }}</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Jenis Kering Tungku</td>
-                    <td>C/(A-B)</td>
+                    <td>b. SSD Pasir kering tungku</td>
+                    <td>B/((C+B)-A)</td>
                     <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_kering_tungku,2) }} </td>
+                    <td>{{  number_format($data->ssd_pasir_kering_tungku,2) }} </td>
                 </tr>
                 <tr>
-                    <td>c. Berat Jenis SSD</td>
-                    <td>A/(A-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_ssd,2) }} </td>
+                    <td colspan="4">b. Menurut berat jenis dan SSD pasir, benda uji <b>{{ $data->kesimpulan }}</b> syarat, untuk berat jenis pasir SSD yang baik adalah 2,4 - 2,9</td>
                 </tr>
-                <tr>
-                    <td>d. Persentase penyerapan <br> (absorption)</td>
-                    <td>A-C/C x 100</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} x 100% =</td>
-                    <td>{{  round($data->presentase_penyerapan,2) }} %</td>
-                </tr>
+                
             </table>
         </div>
     </div>

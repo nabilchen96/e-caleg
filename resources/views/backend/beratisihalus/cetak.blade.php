@@ -11,28 +11,28 @@
     <div class="container">
         <div class="row">
             <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT SATUAN AGREGAT HALUS/PASIR </h4>
-            <table>
+            <table class="table table-bordered" border="1">
                 <tr>
-                    <td>Benda Uji :</td>
+                    <td colspan="4"><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
                     <td>a. Pasir Asal</td>
                     <td>:</td>
-                    <td>{{ $data->pasir_asal }}</td>
+                    <td colspan="2">{{ $data->pasir_asal }}</td>
                 </tr>
                 <tr>
                     <td>b. Diameter Maksimum</td>
                     <td>:</td>
-                    <td>{{ $data->diameter_maksimum }} mm</td>
+                    <td colspan="2">{{ $data->diameter_maksimum }} mm</td>
                 </tr>
                 <tr>
                     <td>c. Keadaan Pasir</td>
                     <td>:</td>
-                    <td>{{ $data->keadaan_pasir }}</td>
+                    <td colspan="2">{{ $data->keadaan_pasir }}</td>
                 </tr>
                 
                 <tr>
-                    <td>Hasil Pengujian :</td>
+                    <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Bejana</td>
@@ -60,7 +60,7 @@
                 </tr>
 
                 <tr>
-                    <td>Kesimpulan : </td>
+                    <td colspan="4"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Pasir</td>

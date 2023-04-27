@@ -69,9 +69,9 @@
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Pasir Asal</label>
-                            <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Pasir Asal"
+                            <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         
                         <h4>Hasil Pengujian</h4>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir SSD (gr)</label>
-                            <input name="Berat Pasir + tabung ukur + air" id="Berat Pasir + tabung ukur + air" type="text" placeholder="Berat Pasir SSD"
+                            <input name="berat_pasir_ssd" id="berat_pasir_ssd" type="text" placeholder="Berat Pasir SSD"
                                 class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
                         </div>
                         <div class="form-group">
@@ -115,7 +115,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-ssd-kasar',
+                ajax: '/back/data-ssd-halus',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -131,11 +131,11 @@
                     },
                     
                     {
-                        data: "kerikil_asal"
+                        data: "pasir_asal"
                     },
 
                     {
-                        data: "berat_kerikil_ssd"
+                        data: "berat_pasir_ssd"
                     },
 
                     {
@@ -148,7 +148,7 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/back/cetak-ssd-kasar/${row.id} target="_blank">
+                            return `<a href=/back/cetak-ssd-halus/${row.id} target="_blank">
                                     <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                                 </a>`
                         }
@@ -181,10 +181,12 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#kerikil_asal').val(cokData[0].kerikil_asal)
-                modal.find('#berat_kerikil_ssd').val(cokData[0].berat_kerikil_ssd)
-                modal.find('#berat_kerikil_air').val(cokData[0].berat_kerikil_air)
-                modal.find('#berat_kerikil_kering_tungku').val(cokData[0].berat_kerikil_kering_tungku)
+                modal.find('#pasir_asal').val(cokData[0].pasir_asal)
+                modal.find('#berat_pasir_ssd').val(cokData[0].berat_pasir_ssd)
+                modal.find('#berat_pasir_air').val(cokData[0].berat_pasir_air)
+                modal.find('#berat_tabung_air').val(cokData[0].berat_tabung_air)
+                modal.find('#berat_pasir_tabung_air').val(cokData[0].berat_pasir_tabung_air)
+                modal.find('#berat_pasir_kering_tungku').val(cokData[0].berat_pasir_kering_tungku)
             }
         })
 
@@ -198,7 +200,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-ssd-kasar' : '/back/update-ssd-kasar',
+                    url: formData.get('id') == '' ? '/back/store-ssd-halus' : '/back/update-ssd-halus',
                     data: formData,
                 })
                 .then(function(res) {
