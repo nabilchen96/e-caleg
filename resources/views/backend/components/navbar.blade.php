@@ -7,12 +7,15 @@
             </a>
 
         </li>
+        @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ url('back/user') }}">
                 <i class="bi bi-person-fill menu-icon"></i>
                 <span class="menu-title">User</span>
             </a>
         </li>
+        @endif
+      
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
                 <i class="icon-layout menu-icon"></i>
@@ -59,12 +62,13 @@
                 </ul>
             </div>
         </li>
-        
+        @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ url('back/dokumen-referensi') }}">
                 <i class="bi bi-file-earmark menu-icon"></i>
                 <span class="menu-title">Dokumen Ref</span>
             </a>
         </li>
+        @endif
     </ul>
 </nav>

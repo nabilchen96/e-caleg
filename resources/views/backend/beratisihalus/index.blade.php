@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Satuan Agregat Halus/Pasir</h3>
+                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Halus/Pasir</h3>
                 </div>
             </div>
         </div>

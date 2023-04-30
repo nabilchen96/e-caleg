@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT SATUAN AGREGAT KASAR </h4>
+            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT ISI AGREGAT KASAR </h4>
             <table class="table table-bordered">
                 <tr>
                     <td colspan="4"><b>Benda Uji :</b></td>
