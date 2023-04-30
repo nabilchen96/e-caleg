@@ -70,18 +70,18 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Pasir Asal</label>
                             <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"  required>
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Diameter Maksimum</label>
                             <input name="diameter_maksimum" id="diameter_maksimum" type="text" placeholder="Diameter Maksimum"
-                                class="form-control form-control-sm" id="diameter_maksimum" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                     
                         <div class="form-group">
                             <label for="exampleInputPassword1">c. Keadaan Pasir</label>
-                            <select name="keadaan_pasir" class="form-control" id="keadaan_pasir">
+                            <select name="keadaan_pasir" class="form-control" id="keadaan_pasir" required>
                                 <option value="Kering Tungku">Kering Tungku</option>
                                 <option value="Agak Basah">Agak Basah</option>
                                 <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
@@ -92,22 +92,22 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
                             <input name="b1" id="b1" type="text" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir + Bejana (B2) Kg</label>
                             <input name="b2" id="b2" type="text" placeholder="Berat Pasir + Bejana"
-                                class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
                             <label for="exampleInputEmail1">diameter bagian dalam (mm)</label>
-                            <input name="diameter_dalam" id="diameter_dalam" type="text" placeholder="diameter bagian dalam"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <input name="diameter_dalam" id="diameter_dalam" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="diameter bagian dalam"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                                 <br>
                             <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
-                            <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam" type="text" placeholder="tinggi bejana dalam"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="tinggi bejana dalam"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         
                     </div>

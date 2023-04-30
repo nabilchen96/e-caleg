@@ -73,12 +73,12 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Kerikil/ batu pecah asal</label>
                             <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Kerikil/ batu pecah asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Gradasi</label>
-                            <select name="gradasi" id="gradasi" class="form-control">
+                            <select name="gradasi" id="gradasi" class="form-control" required>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -89,17 +89,17 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Benda Uji (gr)</label>
                             <input name="berat_benda_uji" id="berat_benda_uji" type="text" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Benda Uji sesudah diuji pertama (gr)</label>
                             <input name="berat_benda_uji_sesudah_pertama" id="berat_benda_uji_sesudah_pertama" type="text" placeholder="Berat Benda Uji sesudah diuji pertama (gr)"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Berat Benda Uji sesudah diuji kedua (gr)</label>
                             <input name="berat_benda_uji_sesudah_kedua" id="berat_benda_uji_sesudah_kedua" type="text" placeholder="Berat Benda Uji sesudah diuji kedua (gr)"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
                         
                     </div>

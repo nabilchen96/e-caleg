@@ -68,24 +68,24 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input name="email" id="email" type="email" placeholder="email"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Lengkap</label>
                             <input name="name" id="name" type="text" placeholder="Nama Lengkap"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                     
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input name="password" id="password" type="password" placeholder="Password"
-                                class="form-control form-control-sm" id="exampleInputPassword1">
+                                class="form-control form-control-sm" required>
                             <span class="text-danger error" style="font-size: 12px;" id="password_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Role</label>
-                            <select name="role" class="form-control" id="role">
+                            <select name="role" class="form-control" id="role" required>
                                 <option value="Admin">Admin</option>
                                 <option value="Verifikator">Verifikator</option>
                                 <option value="Pengguna">Pengguna</option>

@@ -70,30 +70,30 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Pasir Asal</label>
                             <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Pasir + tabung ukur + air (gr)</label>
-                            <input name="berat_pasir_tabung_air" id="berat_pasir_tabung_air" type="text" placeholder="Berat Pasir + tabung ukur + air"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp">
+                            <input name="berat_pasir_tabung_air" id="berat_pasir_tabung_air" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir + tabung ukur + air"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir SSD (gr)</label>
-                            <input name="berat_pasir_ssd" id="berat_pasir_ssd" type="text" placeholder="Berat Pasir SSD"
-                                class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
+                            <input name="berat_pasir_ssd" id="berat_pasir_ssd" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir SSD"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Berat tabung ukur + air (gr)</label>
-                            <input name="berat_tabung_air" id="berat_tabung_air" type="text" placeholder="Berat tabung ukur + air"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <input name="berat_tabung_air" id="berat_tabung_air" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat tabung ukur + air"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">d. Berat Pasir kering tungku (gr)</label>
-                            <input name="berat_pasir_kering_tungku" id="berat_pasir_kering_tungku" type="text" placeholder="Berat Pasir kering tungku"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <input name="berat_pasir_kering_tungku" id="berat_pasir_kering_tungku" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir kering tungku"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                        
                     </div>

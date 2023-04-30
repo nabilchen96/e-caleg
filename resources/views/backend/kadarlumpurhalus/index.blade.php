@@ -71,20 +71,20 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Pasir Asal</label>
                             <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                        
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Pasir sebelum dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_1" id="berat_pasir_1" type="text" placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp">
+                            <input name="berat_pasir_1" id="berat_pasir_1" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir setelah dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_2" id="berat_pasir_2" type="text" placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
-                                class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
+                            <input name="berat_pasir_2" id="berat_pasir_2" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         
                     </div>

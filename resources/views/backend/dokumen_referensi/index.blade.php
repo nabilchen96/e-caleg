@@ -67,18 +67,18 @@
                         <div class="form-group">
                             <label for="judul">Judul Dokumen</label>
                             <input name="judul" id="judul" type="text" placeholder="Judul"
-                                class="form-control form-control-sm" id="judul" aria-describedby="judulHelp">
+                                class="form-control form-control-sm" aria-describedby="judulHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="judul_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Link File</label>
                             <input name="link_file" id="link_file" type="text" placeholder="Link File"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="judulHelp">
+                                class="form-control form-control-sm" aria-describedby="judulHelp" required>
                         </div>
                     
                         <div class="form-group">
                             <label for="exampleInputPassword1">Publish?</label>
-                            <select name="status_publish" class="form-control" id="status_publish">
+                            <select name="status_publish" class="form-control" id="status_publish" required>
                                 <option value="1">Ya</option>
                                 <option value="0">Tidak</option>
                             </select>

@@ -64,6 +64,14 @@ class PengujianlosangelesController extends Controller
             $keausan_2 = ($a - $c) / $a * 100;
             $total = $keausan_1 + $keausan_2;
 
+            if($total == 27) {
+                $kelas_pubi_desk = "Kontruksi Berat/Beton Kelas III";
+            } else if($total >= 27 && $total <= 30) {
+                $kelas_pubi_desk = "Konstruksi Sedang/Beton Kelas II";
+            } else if($total >= 40 && $total <= 50) {
+                $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
+            }
+
             $data = PengujianLosAngeles::create([
                 'kode_uji'              => "LA - " . $this->kode_uji(),
                 'kerikil_asal'          => $request->kerikil_asal,
@@ -74,6 +82,7 @@ class PengujianlosangelesController extends Controller
                 'keausan_1' => $keausan_1,
                 'keausan_2' => $keausan_2,
                 'total_keausan' => $total,
+                'kelas_pubi_desk' => $kelas_pubi_desk,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -106,16 +115,26 @@ class PengujianlosangelesController extends Controller
             $keausan_2 = ($a - $c) / $a * 100;
             $total = $keausan_1 + $keausan_2;
 
+            if($total == 27) {
+                $kelas_pubi_desk = "Kontruksi Berat/Beton Kelas III";
+            } else if($total >= 27 && $total <= 30) {
+                $kelas_pubi_desk = "Konstruksi Sedang/Beton Kelas II";
+            } else if($total >= 40 && $total <= 50) {
+                $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
+            }
+
+
             $user = PengujianLosAngeles::find($request->id);
             $data = $user->update([
                 'kerikil_asal'          => $request->kerikil_asal,
                 'gradasi'               => $request->gradasi,
                 'berat_benda_uji'       => $request->berat_benda_uji,
-                'berat_benda_uji_sesudah_pertama'                    => $request->berat_benda_uji_sesudah_pertama,
-                'berat_benda_uji_sesudah_kedua'                    => $request->berat_benda_uji_sesudah_kedua,
+                'berat_benda_uji_sesudah_pertama'    => $request->berat_benda_uji_sesudah_pertama,
+                'berat_benda_uji_sesudah_kedua'      => $request->berat_benda_uji_sesudah_kedua,
                 'keausan_1' => $keausan_1,
                 'keausan_2' => $keausan_2,
-                'total_keausan' => $total
+                'total_keausan' => $total,
+                'kelas_pubi_desk' => $kelas_pubi_desk,
             ]);
 
             $data = [

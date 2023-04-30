@@ -70,25 +70,25 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Kerikil Asal</label>
                             <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Kerikil Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
                         </div>
                         
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Kerikil SSD</label>
-                            <input name="berat_kerikil_ssd" id="berat_kerikil_ssd" type="text" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp">
+                            <input name="berat_kerikil_ssd" id="berat_kerikil_ssd" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Bejana"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Kerikil di dalam air</label>
-                            <input name="berat_kerikil_air" id="berat_kerikil_air" type="text" placeholder="Berat Kerikil + Bejana"
-                                class="form-control form-control-sm" id="b2" aria-describedby="emailHelp">
+                            <input name="berat_kerikil_air" id="berat_kerikil_air" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Kerikil + Bejana"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Berat Kerikil kering tungku</label>
-                            <input name="berat_kerikil_kering_tungku" id="berat_kerikil_kering_tungku" type="text" placeholder="diameter bagian dalam"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <input name="berat_kerikil_kering_tungku" id="berat_kerikil_kering_tungku" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="diameter bagian dalam"
+                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                        
                     </div>

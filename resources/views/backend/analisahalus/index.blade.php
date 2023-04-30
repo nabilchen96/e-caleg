@@ -71,15 +71,15 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Pasir Asal</label>
                             <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm"  aria-describedby="emailHelp">
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat pasir yang diperiksa</label>
                             <input name="berat_pasir" id="berat_pasir" type="text" placeholder="Berat pasir yang diperiksa"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp">
                             <span class="text-danger error" style="font-size: 12px;" id="berat_pasir_alert"></span>
-                        </div>
+                        </div> required
                         
                         <h4>Hasil Pengujian</h4>
                         <table class="table table-bordered">
@@ -89,31 +89,31 @@
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_1" value="4.75" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_1" id="inputa_1"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_1" id="inputa_1" required></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_2" value="2.36" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_2" id="inputa_2"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_2" id="inputa_2" required></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_3" value="1.18" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_3" id="inputa_3"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_3" id="inputa_3" required></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_4" value="0.60" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_4" id="inputa_4"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_4" id="inputa_4" required></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_5" value="0.30" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_5" id="inputa_5"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_5" id="inputa_5" required></td>
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" name="inputan_6" value="0.15" readonly></td>
-                                <td><input type="text" class="form-control" name="inputa_6" id="inputa_6"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="inputa_6" id="inputa_6" required></td>
                             </tr>
                             <tr>
                                 <td>Sisa</td>
-                                <td><input type="text" class="form-control" name="sisa_inputa" id="sisa_inputa"></td>
+                                <td><input type="text" onKeyPress="return goodchars(event,'1234567890.',this)" class="form-control" name="sisa_inputa" id="sisa_inputa" required></td>
                             </tr>
                         </table>
                        
