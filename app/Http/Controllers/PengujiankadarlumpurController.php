@@ -19,7 +19,11 @@ class PengujiankadarlumpurController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('pengujian_kadar_lumpurs');
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('user_id', Auth::user()->id);
+        }
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -58,9 +62,9 @@ class PengujiankadarlumpurController extends Controller
                 'respon'        => $validator->errors()
             ];
         } else {
-            $kadar_lumpur = ($request->berat_pasir_1-$request->berat_pasir_2)/$request->berat_pasir_1*100;
-            
-            if($kadar_lumpur <= 5) {
+            $kadar_lumpur = ($request->berat_pasir_1 - $request->berat_pasir_2) / $request->berat_pasir_1 * 100;
+
+            if ($kadar_lumpur <= 5) {
                 $kesimpulan = "Sesuai";
             } else {
                 $kesimpulan = "Tidak Sesuai";
@@ -71,7 +75,7 @@ class PengujiankadarlumpurController extends Controller
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir_1'         => $request->berat_pasir_1,
                 'berat_pasir_2'         => $request->berat_pasir_2,
-                'hasil_kadar_lumpur'    => round($kadar_lumpur,2),
+                'hasil_kadar_lumpur'    => round($kadar_lumpur, 2),
                 'kesimpulan'            => $kesimpulan,
                 'user_id'               => Auth::user()->id,
             ]);
@@ -98,20 +102,20 @@ class PengujiankadarlumpurController extends Controller
                 'respon'        => $validator->errors()
             ];
         } else {
-            $kadar_lumpur = ($request->berat_pasir_1-$request->berat_pasir_2)/$request->berat_pasir_1*100;
-            
-            if($kadar_lumpur <= 5) {
+            $kadar_lumpur = ($request->berat_pasir_1 - $request->berat_pasir_2) / $request->berat_pasir_1 * 100;
+
+            if ($kadar_lumpur <= 5) {
                 $kesimpulan = "Sesuai";
             } else {
                 $kesimpulan = "Tidak Sesuai";
             }
-            
+
             $user = PengujianKadarLumpur::find($request->id);
             $data = $user->update([
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir_1'         => $request->berat_pasir_1,
                 'berat_pasir_2'         => $request->berat_pasir_2,
-                'hasil_kadar_lumpur'    => round($kadar_lumpur,2),
+                'hasil_kadar_lumpur'    => round($kadar_lumpur, 2),
                 'kesimpulan'            => $kesimpulan,
             ]);
 
@@ -142,6 +146,6 @@ class PengujiankadarlumpurController extends Controller
 
         $data = PengujianKadarLumpur::find($request->id);
 
-        return view('backend.kadarlumpurhalus.cetak',compact('data'));
+        return view('backend.kadarlumpurhalus.cetak', compact('data'));
     }
 }

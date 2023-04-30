@@ -18,7 +18,11 @@ class PengujianberatisikasarController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('pengujian_berat_isi_kasars');
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_berat_isi_kasars');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_berat_isi_kasars')->where('user_id', Auth::user()->id);
+        }
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -57,8 +61,8 @@ class PengujianberatisikasarController extends Controller
             ];
         } else {
             $b3 = $request->b2 - $request->b1;
-            $d_konvert = $request->diameter_dalam/10;
-            $d_konvert2 = $request->tinggi_bejana_dalam/10;
+            $d_konvert = $request->diameter_dalam / 10;
+            $d_konvert2 = $request->tinggi_bejana_dalam / 10;
             $d_pangkat = $request->diameter_dalam ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $request->tinggi_bejana_dalam;
 
@@ -72,7 +76,7 @@ class PengujianberatisikasarController extends Controller
                 'diameter_dalam'        => $request->diameter_dalam,
                 'tinggi_bejana_dalam'   => $request->tinggi_bejana_dalam,
                 'berat_kerikil_tumbuk'  => $b3,
-                'berat_satuan_kerikil_tumbuk'  => number_format($b3 / $v_bejana,6),
+                'berat_satuan_kerikil_tumbuk'  => number_format($b3 / $v_bejana, 6),
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -99,8 +103,8 @@ class PengujianberatisikasarController extends Controller
             ];
         } else {
             $b3 = $request->b2 - $request->b1;
-            $d_konvert = $request->diameter_dalam/10;
-            $d_konvert2 = $request->tinggi_bejana_dalam/10;
+            $d_konvert = $request->diameter_dalam / 10;
+            $d_konvert2 = $request->tinggi_bejana_dalam / 10;
             $d_pangkat = $d_konvert ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $d_konvert2;
             $user = PengujianBeratIsiKasar::find($request->id);
@@ -113,7 +117,7 @@ class PengujianberatisikasarController extends Controller
                 'diameter_dalam'        => $request->diameter_dalam,
                 'tinggi_bejana_dalam'   => $request->tinggi_bejana_dalam,
                 'berat_kerikil_tumbuk'  => $b3,
-                'berat_satuan_kerikil_tumbuk'  => number_format($b3 / $v_bejana,6),
+                'berat_satuan_kerikil_tumbuk'  => number_format($b3 / $v_bejana, 6),
             ]);
 
             $data = [
@@ -143,6 +147,6 @@ class PengujianberatisikasarController extends Controller
 
         $data = PengujianBeratIsiKasar::find($request->id);
 
-        return view('backend.beratisikasar.cetak',compact('data'));
+        return view('backend.beratisikasar.cetak', compact('data'));
     }
 }

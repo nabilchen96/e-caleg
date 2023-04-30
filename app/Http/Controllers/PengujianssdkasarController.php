@@ -18,7 +18,11 @@ class PengujianssdkasarController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('pengujian_ssd_agregate_kasars');
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_ssd_agregate_kasars');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_ssd_agregate_kasars')->where('user_id', Auth::user()->id);
+        }
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -62,7 +66,7 @@ class PengujianssdkasarController extends Controller
 
             $data = PengujianSsdAgregateKasar::create([
                 'kode_uji'              => "SSDK - " . $this->kode_uji(),
-                'kerikil_asal'            => $request->kerikil_asal, 
+                'kerikil_asal'            => $request->kerikil_asal,
                 'berat_kerikil_ssd'     => $request->berat_kerikil_ssd, //A
                 'berat_kerikil_air'         => $request->berat_kerikil_air, //B
                 'berat_kerikil_kering_tungku'                    => $request->berat_kerikil_kering_tungku, //C
@@ -99,10 +103,10 @@ class PengujianssdkasarController extends Controller
             $berat_jenis_kering_tungku = $request->berat_kerikil_kering_tungku / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
             $berat_jenis_ssd = $request->berat_kerikil_ssd / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
             $persentase_penyerapan = $request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku / $request->berat_kerikil_kering_tungku * 10;
-            
+
             $user = PengujianSsdAgregateKasar::find($request->id);
             $data = $user->update([
-                'kerikil_asal'            => $request->kerikil_asal, 
+                'kerikil_asal'            => $request->kerikil_asal,
                 'berat_kerikil_ssd'     => $request->berat_kerikil_ssd, //A
                 'berat_kerikil_air'         => $request->berat_kerikil_air, //B
                 'berat_kerikil_kering_tungku'                    => $request->berat_kerikil_kering_tungku, //C
@@ -139,6 +143,6 @@ class PengujianssdkasarController extends Controller
 
         $data = PengujianSsdAgregateKasar::find($request->id);
 
-        return view('backend.ssdkasar.cetak',compact('data'));
+        return view('backend.ssdkasar.cetak', compact('data'));
     }
 }

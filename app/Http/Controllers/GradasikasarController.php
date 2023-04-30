@@ -18,7 +18,11 @@ class GradasikasarController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('gradasi_kasars');
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('gradasi_kasars');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('gradasi_kasars')->where('user_id', Auth::user()->id);
+        }
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -41,7 +45,7 @@ class GradasikasarController extends Controller
 
         return $rep;
     }
-    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -82,35 +86,35 @@ class GradasikasarController extends Controller
                 'inputa_9' => $request->inputa_9,
                 'sisa_inputa' => $request->sisa_inputa
             );
-    
+
             $jumlah_input_a = $inputan2['inputa_1'] + $inputan2['inputa_2'] + $inputan2['inputa_3'] + $inputan2['inputa_4'] + $inputan2['inputa_5'] + $inputan2['inputa_6'] + $inputan2['inputa_7'] + $inputan2['inputa_8'] + $inputan2['inputa_9'] + $inputan2['sisa_inputa'];
 
             $hitung_tertinggal = array(
-                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_7' => round($inputan2['inputa_7'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_8' => round($inputan2['inputa_8'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_9' => round($inputan2['inputa_9'] / $jumlah_input_a * 100,3),
-                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
+                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_7' => round($inputan2['inputa_7'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_8' => round($inputan2['inputa_8'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_9' => round($inputan2['inputa_9'] / $jumlah_input_a * 100, 3),
+                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100, 3),
             );
 
-            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] +$hitung_tertinggal['berat_tinggal_inputa_7'] + $hitung_tertinggal['berat_tinggal_inputa_8'] + $hitung_tertinggal['berat_tinggal_inputa_9'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['berat_tinggal_inputa_7'] + $hitung_tertinggal['berat_tinggal_inputa_8'] + $hitung_tertinggal['berat_tinggal_inputa_9'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 2);
 
-            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
-            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
-            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'],3);
-            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'],3);
-            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'],3);
-            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'],3);
-            $berat_kumu_7 = round($berat_kumu_6 + $hitung_tertinggal['berat_tinggal_inputa_7'],3);
-            $berat_kumu_8 = round($berat_kumu_7 + $hitung_tertinggal['berat_tinggal_inputa_8'],3);
-            $berat_kumu_9 = round($berat_kumu_8 + $hitung_tertinggal['berat_tinggal_inputa_9'],3);
-            $sisa_berat_kumu = round($berat_kumu_9 + $hitung_tertinggal['sisa_berat_tinggal_inputa'],3);
- 
+            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'], 3);
+            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'], 3);
+            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'], 3);
+            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'], 3);
+            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'], 3);
+            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'], 3);
+            $berat_kumu_7 = round($berat_kumu_6 + $hitung_tertinggal['berat_tinggal_inputa_7'], 3);
+            $berat_kumu_8 = round($berat_kumu_7 + $hitung_tertinggal['berat_tinggal_inputa_8'], 3);
+            $berat_kumu_9 = round($berat_kumu_8 + $hitung_tertinggal['berat_tinggal_inputa_9'], 3);
+            $sisa_berat_kumu = round($berat_kumu_9 + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 3);
+
             $hitung_berat_kumu_inputa = array(
                 'berat_kumu_inputa_1' => $berat_kumu_1,
                 'berat_kumu_inputa_2' => $berat_kumu_2,
@@ -124,7 +128,7 @@ class GradasikasarController extends Controller
                 'sisa_berat_tinggal_inputa' => $sisa_berat_kumu
             );
 
-            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_7'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_8'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_9'] + $hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa']  ,2);
+            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_7'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_8'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_9'] + $hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'], 2);
 
             $hitung_berat_kumu_la = array(
                 'berat_kumu_la_1' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_1'],
@@ -139,7 +143,7 @@ class GradasikasarController extends Controller
 
             );
 
-            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'] + $hitung_berat_kumu_la['berat_kumu_la_7'] + $hitung_berat_kumu_la['berat_kumu_la_8'] + $hitung_berat_kumu_la['berat_kumu_la_9'] ,3);
+            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'] + $hitung_berat_kumu_la['berat_kumu_la_7'] + $hitung_berat_kumu_la['berat_kumu_la_8'] + $hitung_berat_kumu_la['berat_kumu_la_9'], 3);
 
             // dd($hitung_berat_kumu_la);
 
@@ -178,8 +182,8 @@ class GradasikasarController extends Controller
                 'berat_kumu_inputa_6'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_6'],
                 'berat_kumu_inputa_7'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_7'],
                 'berat_kumu_inputa_8'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_8'],
-                'berat_kumu_inputa_9'   => round($hitung_berat_kumu_inputa['berat_kumu_inputa_9'],2),
-                'sisa_berat_kumu_inputa' => round($hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'],2),
+                'berat_kumu_inputa_9'   => round($hitung_berat_kumu_inputa['berat_kumu_inputa_9'], 2),
+                'sisa_berat_kumu_inputa' => round($hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'], 2),
                 'jumlah_berat_kumu_inputa' => $jumlah_berat_kumu_inputa,
                 'berat_kumu_la_1' => $hitung_berat_kumu_la['berat_kumu_la_1'],
                 'berat_kumu_la_2' => $hitung_berat_kumu_la['berat_kumu_la_2'],
@@ -189,9 +193,9 @@ class GradasikasarController extends Controller
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'berat_kumu_la_7' => $hitung_berat_kumu_la['berat_kumu_la_7'],
                 'berat_kumu_la_8' => $hitung_berat_kumu_la['berat_kumu_la_8'],
-                'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'],2),
+                'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'], 2),
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
-                'modulus_halus' => $jumlah_berat_kumu_inputa/100,
+                'modulus_halus' => $jumlah_berat_kumu_inputa / 100,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -243,35 +247,35 @@ class GradasikasarController extends Controller
                 'inputa_9' => $request->inputa_9,
                 'sisa_inputa' => $request->sisa_inputa
             );
-    
+
             $jumlah_input_a = $inputan2['inputa_1'] + $inputan2['inputa_2'] + $inputan2['inputa_3'] + $inputan2['inputa_4'] + $inputan2['inputa_5'] + $inputan2['inputa_6'] + $inputan2['inputa_7'] + $inputan2['inputa_8'] + $inputan2['inputa_9'] + $inputan2['sisa_inputa'];
 
             $hitung_tertinggal = array(
-                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_7' => round($inputan2['inputa_7'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_8' => round($inputan2['inputa_8'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_9' => round($inputan2['inputa_9'] / $jumlah_input_a * 100,3),
-                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
+                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_7' => round($inputan2['inputa_7'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_8' => round($inputan2['inputa_8'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_9' => round($inputan2['inputa_9'] / $jumlah_input_a * 100, 3),
+                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100, 3),
             );
 
-            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] +$hitung_tertinggal['berat_tinggal_inputa_7'] + $hitung_tertinggal['berat_tinggal_inputa_8'] + $hitung_tertinggal['berat_tinggal_inputa_9'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['berat_tinggal_inputa_7'] + $hitung_tertinggal['berat_tinggal_inputa_8'] + $hitung_tertinggal['berat_tinggal_inputa_9'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 2);
 
-            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
-            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
-            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'],3);
-            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'],3);
-            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'],3);
-            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'],3);
-            $berat_kumu_7 = round($berat_kumu_6 + $hitung_tertinggal['berat_tinggal_inputa_7'],3);
-            $berat_kumu_8 = round($berat_kumu_7 + $hitung_tertinggal['berat_tinggal_inputa_8'],3);
-            $berat_kumu_9 = round($berat_kumu_8 + $hitung_tertinggal['berat_tinggal_inputa_9'],3);
-            $sisa_berat_kumu = round($berat_kumu_9 + $hitung_tertinggal['sisa_berat_tinggal_inputa'],3);
- 
+            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'], 3);
+            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'], 3);
+            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'], 3);
+            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'], 3);
+            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'], 3);
+            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'], 3);
+            $berat_kumu_7 = round($berat_kumu_6 + $hitung_tertinggal['berat_tinggal_inputa_7'], 3);
+            $berat_kumu_8 = round($berat_kumu_7 + $hitung_tertinggal['berat_tinggal_inputa_8'], 3);
+            $berat_kumu_9 = round($berat_kumu_8 + $hitung_tertinggal['berat_tinggal_inputa_9'], 3);
+            $sisa_berat_kumu = round($berat_kumu_9 + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 3);
+
             $hitung_berat_kumu_inputa = array(
                 'berat_kumu_inputa_1' => $berat_kumu_1,
                 'berat_kumu_inputa_2' => $berat_kumu_2,
@@ -284,9 +288,9 @@ class GradasikasarController extends Controller
                 'berat_kumu_inputa_9' => $berat_kumu_9,
                 'sisa_berat_tinggal_inputa' => $sisa_berat_kumu
             );
-            
 
-            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_7'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_8'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_9'] + $hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa']  ,2);
+
+            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_7'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_8'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_9'] + $hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'], 2);
 
             $hitung_berat_kumu_la = array(
                 'berat_kumu_la_1' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_1'],
@@ -301,7 +305,7 @@ class GradasikasarController extends Controller
 
             );
 
-            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'] + $hitung_berat_kumu_la['berat_kumu_la_7'] + $hitung_berat_kumu_la['berat_kumu_la_8'] + $hitung_berat_kumu_la['berat_kumu_la_9'] ,3);
+            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'] + $hitung_berat_kumu_la['berat_kumu_la_7'] + $hitung_berat_kumu_la['berat_kumu_la_8'] + $hitung_berat_kumu_la['berat_kumu_la_9'], 3);
 
             $user = GradasiKasar::find($request->id);
             $data = $user->update([
@@ -339,7 +343,7 @@ class GradasikasarController extends Controller
                 'berat_kumu_inputa_7'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_7'],
                 'berat_kumu_inputa_8'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_8'],
                 'berat_kumu_inputa_9'   => $hitung_berat_kumu_inputa['berat_kumu_inputa_9'],
-                'sisa_berat_kumu_inputa' => round($hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'],2),
+                'sisa_berat_kumu_inputa' => round($hitung_berat_kumu_inputa['sisa_berat_tinggal_inputa'], 2),
                 'jumlah_berat_kumu_inputa' => $jumlah_berat_kumu_inputa,
                 'berat_kumu_la_1' => $hitung_berat_kumu_la['berat_kumu_la_1'],
                 'berat_kumu_la_2' => $hitung_berat_kumu_la['berat_kumu_la_2'],
@@ -349,9 +353,9 @@ class GradasikasarController extends Controller
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'berat_kumu_la_7' => $hitung_berat_kumu_la['berat_kumu_la_7'],
                 'berat_kumu_la_8' => $hitung_berat_kumu_la['berat_kumu_la_8'],
-                'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'],2),
+                'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'], 2),
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
-                'modulus_halus' => $jumlah_berat_kumu_inputa/100,
+                'modulus_halus' => $jumlah_berat_kumu_inputa / 100,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -382,6 +386,6 @@ class GradasikasarController extends Controller
 
         $data = GradasiKasar::find($request->id);
 
-        return view('backend.gradasikasar.cetak',compact('data'));
+        return view('backend.gradasikasar.cetak', compact('data'));
     }
 }

@@ -18,7 +18,11 @@ class PengujianlosangelesController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('pengujian_los_angeles');
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_los_angeles');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_los_angeles')->where('user_id', Auth::user()->id);
+        }
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -56,7 +60,7 @@ class PengujianlosangelesController extends Controller
                 'respon'        => $validator->errors()
             ];
         } else {
-      
+
             $a = $request->berat_benda_uji;
             $b = $request->berat_benda_uji_sesudah_pertama;
             $c = $request->berat_benda_uji_sesudah_kedua;
@@ -64,11 +68,11 @@ class PengujianlosangelesController extends Controller
             $keausan_2 = ($a - $c) / $a * 100;
             $total = $keausan_1 + $keausan_2;
 
-            if($total == 27) {
+            if ($total == 27) {
                 $kelas_pubi_desk = "Kontruksi Berat/Beton Kelas III";
-            } else if($total >= 27 && $total <= 30) {
+            } else if ($total >= 27 && $total <= 30) {
                 $kelas_pubi_desk = "Konstruksi Sedang/Beton Kelas II";
-            } else if($total >= 40 && $total <= 50) {
+            } else if ($total >= 40 && $total <= 50) {
                 $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
             }
 
@@ -115,11 +119,11 @@ class PengujianlosangelesController extends Controller
             $keausan_2 = ($a - $c) / $a * 100;
             $total = $keausan_1 + $keausan_2;
 
-            if($total == 27) {
+            if ($total == 27) {
                 $kelas_pubi_desk = "Kontruksi Berat/Beton Kelas III";
-            } else if($total >= 27 && $total <= 30) {
+            } else if ($total >= 27 && $total <= 30) {
                 $kelas_pubi_desk = "Konstruksi Sedang/Beton Kelas II";
-            } else if($total >= 40 && $total <= 50) {
+            } else if ($total >= 40 && $total <= 50) {
                 $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
             }
 
@@ -164,6 +168,6 @@ class PengujianlosangelesController extends Controller
 
         $data = PengujianLosAngeles::find($request->id);
 
-        return view('backend.losangeles.cetak',compact('data'));
+        return view('backend.losangeles.cetak', compact('data'));
     }
 }

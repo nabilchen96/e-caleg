@@ -18,7 +18,12 @@ class AnalisasaringanhalusController extends Controller
     public function data()
     {
 
-        $beratisi = DB::table('analisa_saringan_haluses');
+        if(Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('analisa_saringan_haluses');
+        } else if(Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('user_id', Auth::user()->id );
+        }
+       
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
