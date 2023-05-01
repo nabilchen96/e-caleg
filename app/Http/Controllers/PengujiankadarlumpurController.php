@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class PengujiankadarlumpurController extends Controller
 {
@@ -20,9 +20,35 @@ class PengujiankadarlumpurController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_kadar_lumpurs');
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','0');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','0')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function dataacc()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','1');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','1')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function datatolak()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','2');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi','2')->where('user_id', Auth::user()->id);
         }
         $beratisi = $beratisi->get();
 
@@ -53,7 +79,8 @@ class PengujiankadarlumpurController extends Controller
 
         $validator = Validator::make($request->all(), [
             'pasir_asal'   => 'required',
-            'berat_pasir_1'      => 'required'
+            'berat_pasir_1'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -70,6 +97,9 @@ class PengujiankadarlumpurController extends Controller
                 $kesimpulan = "Tidak Sesuai";
             }
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-kadar-lumpur-halus');
+
             $data = PengujianKadarLumpur::create([
                 'kode_uji'              => "KL - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
@@ -77,6 +107,7 @@ class PengujiankadarlumpurController extends Controller
                 'berat_pasir_2'         => $request->berat_pasir_2,
                 'hasil_kadar_lumpur'    => round($kadar_lumpur, 2),
                 'kesimpulan'            => $kesimpulan,
+                'lampiran_bahan_uji'    => $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -93,7 +124,8 @@ class PengujiankadarlumpurController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -111,12 +143,26 @@ class PengujiankadarlumpurController extends Controller
             }
 
             $user = PengujianKadarLumpur::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-kadar-lumpur-halus');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir_1'         => $request->berat_pasir_1,
                 'berat_pasir_2'         => $request->berat_pasir_2,
                 'hasil_kadar_lumpur'    => round($kadar_lumpur, 2),
                 'kesimpulan'            => $kesimpulan,
+                'lampiran_bahan_uji'    => $pathGambar
             ]);
 
             $data = [
@@ -131,7 +177,15 @@ class PengujiankadarlumpurController extends Controller
     public function delete(Request $request)
     {
 
-        $data = PengujianKadarLumpur::find($request->id)->delete();
+        $data = PengujianKadarLumpur::find($request->id);
+
+        // hapus filenya jika ada
+        if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

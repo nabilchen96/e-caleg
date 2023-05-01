@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengujianBeratIsiController extends Controller
 {
@@ -20,9 +21,35 @@ class PengujianBeratIsiController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_berat_isis');
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','0');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function dataacc()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','1');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function datatolak()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','2');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->where('user_id', Auth::user()->id);
         }
         $beratisi = $beratisi->get();
 
@@ -53,7 +80,8 @@ class PengujianBeratIsiController extends Controller
 
         $validator = Validator::make($request->all(), [
             'pasir_asal'   => 'required',
-            'diameter_maksimum'      => 'required'
+            'diameter_maksimum'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -68,6 +96,9 @@ class PengujianBeratIsiController extends Controller
             $d_pangkat = $d_konvert ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $d_konvert2;
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-berat-isi-halus');
+
             $data = PengujianBeratIsi::create([
                 'kode_uji'              => "BIH - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
@@ -79,6 +110,7 @@ class PengujianBeratIsiController extends Controller
                 'tinggi_bejana_dalam'   => $request->tinggi_bejana_dalam,
                 'berat_pasir'           => $b3,
                 'berat_satuan_pasir'    => number_format($b3 / $v_bejana, 6),
+                'lampiran_bahan_uji'    =>  $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -95,7 +127,8 @@ class PengujianBeratIsiController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120'
         ]);
 
         if ($validator->fails()) {
@@ -110,6 +143,20 @@ class PengujianBeratIsiController extends Controller
             $d_pangkat = $d_konvert ** 2;
             $v_bejana = 1 / 4 * 3.14 * $d_pangkat * $d_konvert2;
             $user = PengujianBeratIsi::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-berat-isi-halus');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
+
             $data = $user->update([
                 'pasir_asal'            => $request->pasir_asal,
                 'diameter_maksimum'     => $request->diameter_maksimum,
@@ -119,6 +166,7 @@ class PengujianBeratIsiController extends Controller
                 'diameter_dalam'        => $request->diameter_dalam,
                 'tinggi_bejana_dalam'   => $request->tinggi_bejana_dalam,
                 'berat_pasir'           => $b3,
+                'lampiran_bahan_uji'    =>  $pathGambar,
                 'berat_satuan_pasir'    => round($b3 / $v_bejana, 6),
             ]);
 
@@ -134,7 +182,15 @@ class PengujianBeratIsiController extends Controller
     public function delete(Request $request)
     {
 
-        $data = PengujianBeratIsi::find($request->id)->delete();
+        $data = PengujianBeratIsi::find($request->id);
+
+         // hapus filenya jika ada
+         if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

@@ -21,6 +21,8 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('logosc.png') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
     @stack('style')
     <style>
         .btn {

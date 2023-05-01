@@ -103,7 +103,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-dokumen-referensi',
+                ajax: '/data-dokumen-referensi',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -183,7 +183,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-dokumen-referensi' : '/back/update-dokumen-referensi',
+                    url: formData.get('id') == '' ? '/store-dokumen-referensi' : '/update-dokumen-referensi',
                     data: formData,
                 })
                 .then(function(res) {
@@ -211,6 +211,7 @@
                     document.getElementById("tombol_kirim").disabled = false;
                 })
                 .catch(function(res) {
+                    document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
                 });
@@ -229,7 +230,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-dokumen-referensi', {
+                    axios.post('/delete-dokumen-referensi', {
                             id
                         })
                         .then((response) => {

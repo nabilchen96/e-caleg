@@ -111,7 +111,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-user',
+                ajax: '/data-user',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -130,9 +130,16 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">${row.role}</span>`
+                            if (row.role == "Admin") {
+                                return `<span class="badge badge-success">${row.role}</span>`
+                            } else if (row.role == "Pengguna") {
+                                return `<span class="badge badge-danger">${row.role}</span>`
+                            } else if (row.role == "Verifikator") {
+                                return `<span class="badge badge-primary">${row.role}</span>`
+                            } 
                         }
                     },
+                    
                     {
                         render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
@@ -185,7 +192,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-user' : '/back/update-user',
+                    url: formData.get('id') == '' ? '/store-user' : '/update-user',
                     data: formData,
                 })
                 .then(function(res) {
@@ -213,6 +220,7 @@
                     document.getElementById("tombol_kirim").disabled = false;
                 })
                 .catch(function(res) {
+                    document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
                 });
@@ -231,7 +239,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-user', {
+                    axios.post('/delete-user', {
                             id
                         })
                         .then((response) => {

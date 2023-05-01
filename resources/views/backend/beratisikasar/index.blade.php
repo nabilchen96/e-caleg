@@ -45,6 +45,7 @@
                                     <th>Kode Uji</th>
                                     <th>Berat Kerikil</th>
                                     <th>Berat Satuan Kerikil</th>
+                                    <th>Lampiran</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
@@ -109,6 +110,12 @@
                             <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="tinggi bejana dalam"
                                 class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
+                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file" placeholder="Lampiran Bahan Uji (.pdf)"
+                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <span class="text-danger error" style="font-size: 12px;" id="lampiran_bahan_uji_alert"></span>
+                        </div>
                         
                     </div>
                     <div class="modal-footer p-3">
@@ -129,7 +136,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-berat-isi-kasar',
+                ajax: '/data-berat-isi-kasar',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -154,6 +161,14 @@
 
                     {
                         render: function(data, type, row, meta) {
+                            return `<a href=storage/${row.lampiran_bahan_uji} target="_blank">
+                                  Lihat
+                                </a>`
+                        }
+                    },
+
+                    {
+                        render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
                                     data-bs-id=` + (row.id) + ` href="javascript:void(0)">
                                     <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
@@ -162,7 +177,7 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/back/cetak-berat-isi-kasar/${row.id} target="_blank">
+                            return `<a href=/cetak-berat-isi-kasar/${row.id} target="_blank">
                                     <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                                 </a>`
                         }
@@ -215,7 +230,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-berat-isi-kasar' : '/back/update-berat-isi-kasar',
+                    url: formData.get('id') == '' ? '/store-berat-isi-kasar' : '/update-berat-isi-kasar',
                     data: formData,
                 })
                 .then(function(res) {
@@ -236,13 +251,14 @@
 
                     } else {
                         //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
+                        document.getElementById('lampiran_bahan_uji_alert').innerHTML = res.data.respon.lampiran_bahan_uji ?? ''
                         document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
                     }
 
                     document.getElementById("tombol_kirim").disabled = false;
                 })
                 .catch(function(res) {
+                    document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
                 });
@@ -261,7 +277,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-user', {
+                    axios.post('/delete-berat-isi-kasar', {
                             id
                         })
                         .then((response) => {

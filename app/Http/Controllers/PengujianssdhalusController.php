@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengujianssdhalusController extends Controller
 {
@@ -19,9 +20,35 @@ class PengujianssdhalusController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_ssd_agregate_haluses');
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','0');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','0')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function dataacc()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','1');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','1')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+    
+    public function datatolak()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','2');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi','2')->where('user_id', Auth::user()->id);
         }
         $beratisi = $beratisi->get();
 
@@ -50,7 +77,8 @@ class PengujianssdhalusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'pasir_asal'   => 'required',
-            'berat_pasir_tabung_air'      => 'required'
+            'berat_pasir_tabung_air'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -73,6 +101,9 @@ class PengujianssdhalusController extends Controller
                 $kesimpulan = "Tidak Memenuhi";
             }
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-ssd-halus');
+
             $data = PengujianSsdAgregateHalus::create([
                 'kode_uji'              => "SSDH - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
@@ -83,6 +114,7 @@ class PengujianssdhalusController extends Controller
                 'ssd_pasir_kering_tungku' => round($ssd_pasir_kering_tungku, 2),
                 'berat_jenis_tungku' => round($berat_jenis_tungku, 2),
                 'kesimpulan' => $kesimpulan,
+                'lampiran_bahan_uji' => $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -99,7 +131,8 @@ class PengujianssdhalusController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -123,6 +156,19 @@ class PengujianssdhalusController extends Controller
             }
 
             $user = PengujianSsdAgregateHalus::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-ssd-halus');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'berat_pasir_tabung_air'     => $request->berat_pasir_tabung_air, //A
                 'berat_pasir_ssd'         => $request->berat_pasir_ssd, //B
@@ -131,6 +177,7 @@ class PengujianssdhalusController extends Controller
                 'ssd_pasir_kering_tungku' => round($ssd_pasir_kering_tungku, 2),
                 'berat_jenis_tungku' => round($berat_jenis_tungku, 2),
                 'kesimpulan' => $kesimpulan,
+                'lampiran_bahan_uji' => $pathGambar
             ]);
 
             $data = [
@@ -145,7 +192,15 @@ class PengujianssdhalusController extends Controller
     public function delete(Request $request)
     {
 
-        $data = PengujianSsdAgregateHalus::find($request->id)->delete();
+        $data = PengujianSsdAgregateHalus::find($request->id);
+
+        // hapus filenya jika ada
+        if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

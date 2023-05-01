@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengujianlosangelesController extends Controller
 {
@@ -51,7 +52,8 @@ class PengujianlosangelesController extends Controller
 
         $validator = Validator::make($request->all(), [
             'kerikil_asal'   => 'required',
-            'gradasi'      => 'required'
+            'gradasi'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -76,6 +78,9 @@ class PengujianlosangelesController extends Controller
                 $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
             }
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-los-angeles');
+
             $data = PengujianLosAngeles::create([
                 'kode_uji'              => "LA - " . $this->kode_uji(),
                 'kerikil_asal'          => $request->kerikil_asal,
@@ -87,6 +92,7 @@ class PengujianlosangelesController extends Controller
                 'keausan_2' => $keausan_2,
                 'total_keausan' => $total,
                 'kelas_pubi_desk' => $kelas_pubi_desk,
+                'lampiran_bahan_uji' => $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -103,7 +109,8 @@ class PengujianlosangelesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -129,6 +136,19 @@ class PengujianlosangelesController extends Controller
 
 
             $user = PengujianLosAngeles::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-los-angeles');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'kerikil_asal'          => $request->kerikil_asal,
                 'gradasi'               => $request->gradasi,
@@ -139,6 +159,7 @@ class PengujianlosangelesController extends Controller
                 'keausan_2' => $keausan_2,
                 'total_keausan' => $total,
                 'kelas_pubi_desk' => $kelas_pubi_desk,
+                'lampiran_bahan_uji' => $pathGambar
             ]);
 
             $data = [
@@ -153,7 +174,14 @@ class PengujianlosangelesController extends Controller
     public function delete(Request $request)
     {
 
-        $data = PengujianLosAngeles::find($request->id)->delete();
+        $data = PengujianLosAngeles::find($request->id);
+
+        if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

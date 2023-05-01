@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengujianssdkasarController extends Controller
 {
@@ -50,7 +51,8 @@ class PengujianssdkasarController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'kerikil_asal'   => 'required',
-            'berat_kerikil_ssd'      => 'required'
+            'berat_kerikil_ssd'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -64,6 +66,9 @@ class PengujianssdkasarController extends Controller
             $berat_jenis_ssd = $request->berat_kerikil_ssd / ($request->berat_kerikil_ssd - $request->berat_kerikil_air);
             $persentase_penyerapan = ($request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku) * 100 / $request->berat_kerikil_kering_tungku;
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-ssd-kasar');
+
             $data = PengujianSsdAgregateKasar::create([
                 'kode_uji'              => "SSDK - " . $this->kode_uji(),
                 'kerikil_asal'            => $request->kerikil_asal,
@@ -74,6 +79,7 @@ class PengujianssdkasarController extends Controller
                 'berat_jenis_kering_tungku' => $berat_jenis_kering_tungku,
                 'berat_jenis_ssd' => $berat_jenis_ssd,
                 'presentase_penyerapan' => $persentase_penyerapan,
+                'lampiran_bahan_uji' => $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -90,7 +96,8 @@ class PengujianssdkasarController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -105,6 +112,19 @@ class PengujianssdkasarController extends Controller
             $persentase_penyerapan = $request->berat_kerikil_ssd - $request->berat_kerikil_kering_tungku / $request->berat_kerikil_kering_tungku * 10;
 
             $user = PengujianSsdAgregateKasar::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-ssd-kasar');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'kerikil_asal'            => $request->kerikil_asal,
                 'berat_kerikil_ssd'     => $request->berat_kerikil_ssd, //A
@@ -114,6 +134,7 @@ class PengujianssdkasarController extends Controller
                 'berat_jenis_kering_tungku' => $berat_jenis_kering_tungku,
                 'berat_jenis_ssd' => $berat_jenis_ssd,
                 'persentase_penyerapan' => $persentase_penyerapan,
+                'lampiran_bahan_uji' => $pathGambar
             ]);
 
             $data = [

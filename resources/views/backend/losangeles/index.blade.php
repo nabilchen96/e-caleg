@@ -48,6 +48,7 @@
                                     <th>Keausan I</th>
                                     <th>Keausan II</th>
                                     <th>Total Keausan</th>
+                                    <th>Lampiran</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
@@ -63,7 +64,7 @@
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form">
+                <form id="form" enctype="multipart/form-data">
                     <div class="modal-header p-3">
                         <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
@@ -101,6 +102,12 @@
                             <input name="berat_benda_uji_sesudah_kedua" id="berat_benda_uji_sesudah_kedua" type="text" placeholder="Berat Benda Uji sesudah diuji kedua (gr)"
                                 class="form-control form-control-sm" onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp" required>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
+                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file" placeholder="Lampiran Bahan Uji (.pdf)"
+                                class="form-control form-control-sm" aria-describedby="emailHelp">
+                            <span class="text-danger error" style="font-size: 12px;" id="lampiran_bahan_uji_alert"></span>
+                        </div>
                         
                     </div>
                     <div class="modal-footer p-3">
@@ -121,7 +128,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-los-angeles',
+                ajax: '/data-los-angeles',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -158,6 +165,14 @@
 
                     {
                         render: function(data, type, row, meta) {
+                            return `<a href=storage/${row.lampiran_bahan_uji} target="_blank">
+                                  Lihat
+                                </a>`
+                        }
+                    },
+
+                    {
+                        render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
                                     data-bs-id=` + (row.id) + ` href="javascript:void(0)">
                                     <i style="font-size: 1.5rem;" class="text-success bi bi-grid"></i>
@@ -166,7 +181,7 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/back/cetak-los-angeles/${row.id} target="_blank">
+                            return `<a href=/cetak-los-angeles/${row.id} target="_blank">
                                     <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                                 </a>`
                         }
@@ -217,7 +232,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-los-angeles' : '/back/update-los-angeles',
+                    url: formData.get('id') == '' ? '/store-los-angeles' : '/update-los-angeles',
                     data: formData,
                 })
                 .then(function(res) {
@@ -238,13 +253,14 @@
 
                     } else {
                         //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
+                        document.getElementById('lampiran_bahan_uji_alert').innerHTML = res.data.respon.lampiran_bahan_uji ?? ''
                         document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
                     }
 
                     document.getElementById("tombol_kirim").disabled = false;
                 })
                 .catch(function(res) {
+                    document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
                 });
@@ -263,7 +279,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-user', {
+                    axios.post('/delete-user', {
                             id
                         })
                         .then((response) => {

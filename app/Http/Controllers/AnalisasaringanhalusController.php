@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AnalisasaringanhalusController extends Controller
 {
@@ -19,9 +20,37 @@ class AnalisasaringanhalusController extends Controller
     {
 
         if(Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('analisa_saringan_haluses');
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','0');
         } else if(Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('user_id', Auth::user()->id );
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','0')->where('user_id', Auth::user()->id );
+        }
+       
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function dataacc()
+    {
+
+        if(Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','1');
+        } else if(Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','1')->where('user_id', Auth::user()->id );
+        }
+       
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function datatolak()
+    {
+
+        if(Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','2');
+        } else if(Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','2')->where('user_id', Auth::user()->id );
         }
        
         $beratisi = $beratisi->get();
@@ -68,7 +97,8 @@ class AnalisasaringanhalusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inputan_1'   => 'required',
-            'inputan_2'      => 'required'
+            'inputan_2'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -145,7 +175,8 @@ class AnalisasaringanhalusController extends Controller
             $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'],3);
 
             // dd($hitung_berat_kumu_la);
-
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-analisa-saringan-halus');
             $data = AnalisaSaringanHalus::create([
                 'kode_uji'              => "ASH - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
@@ -181,6 +212,7 @@ class AnalisasaringanhalusController extends Controller
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
                 'modulus_halus' =>  $jumlah_berat_kumu_inputa/100,
+                'lampiran_bahan_uji'    =>  $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -197,7 +229,8 @@ class AnalisasaringanhalusController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -276,6 +309,19 @@ class AnalisasaringanhalusController extends Controller
             // dd($jumlah_berat_kumu_inputa/100);
 
             $user = AnalisaSaringanHalus::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-analisa-saringan-halus');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir'           => $request->berat_pasir,
@@ -309,6 +355,7 @@ class AnalisasaringanhalusController extends Controller
                 'berat_kumu_la_5' => $hitung_berat_kumu_la['berat_kumu_la_5'],
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
+                'lampiran_bahan_uji' => $pathGambar,
                 'modulus_halus' =>  $jumlah_berat_kumu_inputa/100,
             ]);
 
@@ -324,7 +371,15 @@ class AnalisasaringanhalusController extends Controller
     public function delete(Request $request)
     {
 
-        $data = AnalisaSaringanHalus::find($request->id)->delete();
+        $data = AnalisaSaringanHalus::find($request->id);
+
+         // hapus filenya jika ada
+         if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GradasikasarController extends Controller
 {
@@ -50,7 +51,8 @@ class GradasikasarController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inputan_1'   => 'required',
-            'inputan_2'      => 'required'
+            'inputan_2'      => 'required',
+            'lampiran_bahan_uji' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -147,6 +149,9 @@ class GradasikasarController extends Controller
 
             // dd($hitung_berat_kumu_la);
 
+            // upload file
+            $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-gradasi-kasar');
+
             $data = GradasiKasar::create([
                 'kode_uji'              => "GRK - " . $this->kode_uji(),
                 'pasir_asal'            => $request->pasir_asal,
@@ -196,6 +201,7 @@ class GradasikasarController extends Controller
                 'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'], 2),
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
                 'modulus_halus' => $jumlah_berat_kumu_inputa / 100,
+                'lampiran_bahan_uji' => $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
 
@@ -212,7 +218,8 @@ class GradasikasarController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'    => 'required',
+            'lampiran_bahan_uji' => 'mimes:pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -308,6 +315,19 @@ class GradasikasarController extends Controller
             $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'] + $hitung_berat_kumu_la['berat_kumu_la_7'] + $hitung_berat_kumu_la['berat_kumu_la_8'] + $hitung_berat_kumu_la['berat_kumu_la_9'], 3);
 
             $user = GradasiKasar::find($request->id);
+
+            if ($request->file('lampiran_bahan_uji')) {
+
+                // hapus file lamanya
+                Storage::delete($user->lampiran_bahan_uji);
+
+                // upload file baru
+                $pathGambar = $request->file('lampiran_bahan_uji')->store('lampiran-gradasi-kasar');
+            } else {
+                // kalo tidak upload, ambil nilai lama pd field lampiran_bahan_uji
+                $pathGambar = $user->lampiran_bahan_uji; //kota-images/namafile.ekstensi
+            }
+
             $data = $user->update([
                 'pasir_asal'            => $request->pasir_asal,
                 'berat_pasir'           => $request->berat_pasir,
@@ -356,7 +376,7 @@ class GradasikasarController extends Controller
                 'berat_kumu_la_9' => round($hitung_berat_kumu_la['berat_kumu_la_9'], 2),
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
                 'modulus_halus' => $jumlah_berat_kumu_inputa / 100,
-                'user_id'               => Auth::user()->id,
+                'lampiran_bahan_uji'   => $pathGambar,
             ]);
 
             $data = [
@@ -371,7 +391,14 @@ class GradasikasarController extends Controller
     public function delete(Request $request)
     {
 
-        $data = GradasiKasar::find($request->id)->delete();
+        $data = GradasiKasar::find($request->id);
+
+        if ($data->lampiran_bahan_uji) {
+            // hapus filenya
+            Storage::delete($data->lampiran_bahan_uji);
+        }
+
+        $data->delete();
 
         $data = [
             'responCode'    => 1,

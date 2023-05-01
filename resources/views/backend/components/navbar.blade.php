@@ -9,7 +9,7 @@
         </li>
         @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('back/user') }}">
+            <a class="nav-link" href="{{ url('user') }}">
                 <i class="bi bi-person-fill menu-icon"></i>
                 <span class="menu-title">User</span>
             </a>
@@ -25,16 +25,16 @@
             <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/berat-isi-halus') }}">Berat Isi</a>
+                        <a class="nav-link" href="{{ url('/berat-isi-halus') }}">Berat Isi</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/analisa-saringan-halus') }}">Analisa Saringan</a>
+                        <a class="nav-link" href="{{ url('/analisa-saringan-halus') }}">Analisa Saringan</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/ssd-halus') }}">Pengujian SSD</a>
+                        <a class="nav-link" href="{{ url('/ssd-halus') }}">Pengujian SSD</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/kadar-lumpur-halus') }}">Kadar Lumpur</a>
+                        <a class="nav-link" href="{{ url('/kadar-lumpur-halus') }}">Kadar Lumpur</a>
                     </li>
                 </ul>
             </div>
@@ -48,23 +48,23 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/berat-isi-kasar') }}">Berat Isi</a>
+                        <a class="nav-link" href="{{ url('/berat-isi-kasar') }}">Berat Isi</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/ssd-kasar') }}">Pengujian SSD</a>
+                        <a class="nav-link" href="{{ url('/ssd-kasar') }}">Pengujian SSD</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/gradasi-kasar') }}">Gradasi</a>
+                        <a class="nav-link" href="{{ url('/gradasi-kasar') }}">Gradasi</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/back/los-angeles') }}">Los Angeles</a>
+                        <a class="nav-link" href="{{ url('/los-angeles') }}">Los Angeles</a>
                     </li>
                 </ul>
             </div>
         </li>
         @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('back/dokumen-referensi') }}">
+            <a class="nav-link" href="{{ url('dokumen-referensi') }}">
                 <i class="bi bi-file-earmark menu-icon"></i>
                 <span class="menu-title">Dokumen Ref</span>
             </a>
