@@ -37,19 +37,21 @@
                         Tambah
                     </button>
                     {{-- @endif --}}
-
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home" role="tab" data-toggle="tab"
-                                onclick="getData()">Baru</a>
+                                onclick="getData()">Baru <sup><span
+                                        class="badge badge-warning">{{ $baru }}</span></sup></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"
-                                onclick="getData2()">Terverifikasi</a>
+                                onclick="getData2()">Terverifikasi <sup><span
+                                        class="badge badge-success">{{ $verif }}</span></sup></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#references" role="tab" data-toggle="tab"
-                                onclick="getData3()">Ditolak</a>
+                                onclick="getData3()">Ditolak <sup><span
+                                        class="badge badge-danger">{{ $tolak }}</span></sup></a>
                         </li>
                     </ul>
 
@@ -140,8 +142,8 @@
                             <label for="exampleInputEmail1">b. Diameter Maksimum</label>
                             <input name="diameter_maksimum" id="diameter_maksimum"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="Diameter Maksimum" class="form-control form-control-sm" id="diameter_maksimum"
-                                aria-describedby="emailHelp" required>
+                                placeholder="Diameter Maksimum" class="form-control form-control-sm"
+                                id="diameter_maksimum" aria-describedby="emailHelp" required>
                         </div>
 
                         <div class="form-group">
@@ -223,8 +225,8 @@
                             <label for="exampleInputEmail1">b. Diameter Maksimum</label>
                             <input name="diameter_maksimum" id="diameter_maksimum_tolak"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="Diameter Maksimum" class="form-control form-control-sm" id="diameter_maksimum"
-                                aria-describedby="emailHelp" readonly>
+                                placeholder="Diameter Maksimum" class="form-control form-control-sm"
+                                id="diameter_maksimum" aria-describedby="emailHelp" readonly>
                         </div>
 
                         <div class="form-group">

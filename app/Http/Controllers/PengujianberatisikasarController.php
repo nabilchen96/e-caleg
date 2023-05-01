@@ -13,7 +13,20 @@ class PengujianberatisikasarController extends Controller
 {
     public function index()
     {
-        return view('backend.beratisikasar.index');
+        if (Auth::user()->role == 'Admin') {
+            $baru = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','0')->get();
+            $verif = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','1')->get();
+            $tolak = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','2')->get();
+        } else if (Auth::user()->role == 'Pengguna') {
+            $baru = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','0')->where('user_id', Auth::user()->id)->get();
+            $verif = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','1')->where('user_id', Auth::user()->id)->get();
+            $tolak = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi','2')->where('user_id', Auth::user()->id)->get();
+        }
+        return view('backend.beratisikasar.index',[
+            'baru' => $baru->count(),
+            'verif' => $verif->count(),
+            'tolak' => $tolak->count(),
+        ]);
     }
 
     public function data()

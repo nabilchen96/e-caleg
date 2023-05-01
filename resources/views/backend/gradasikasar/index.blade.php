@@ -40,15 +40,18 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home" role="tab" data-toggle="tab"
-                                onclick="getData()">Baru</a>
+                                onclick="getData()">Baru <sup><span
+                                        class="badge badge-warning">{{ $baru }}</span></sup></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"
-                                onclick="getData2()">Terverifikasi</a>
+                                onclick="getData2()">Terverifikasi <sup><span
+                                        class="badge badge-success">{{ $verif }}</span></sup></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#references" role="tab" data-toggle="tab"
-                                onclick="getData3()">Ditolak</a>
+                                onclick="getData3()">Ditolak <sup><span
+                                        class="badge badge-danger">{{ $tolak }}</span></sup></a>
                         </li>
                     </ul>
                     <div class="tab-content">
