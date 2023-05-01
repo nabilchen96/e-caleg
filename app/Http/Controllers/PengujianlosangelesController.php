@@ -20,9 +20,35 @@ class PengujianlosangelesController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_los_angeles');
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','0');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_los_angeles')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','0')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function dataacc()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','1');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','1')->where('user_id', Auth::user()->id);
+        }
+        $beratisi = $beratisi->get();
+
+        return response()->json(['data' => $beratisi]);
+    }
+
+    public function datatolak()
+    {
+
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','2');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi','2')->where('user_id', Auth::user()->id);
         }
         $beratisi = $beratisi->get();
 

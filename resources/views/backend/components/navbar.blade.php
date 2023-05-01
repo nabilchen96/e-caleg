@@ -15,30 +15,7 @@
             </a>
         </li>
         @endif
-      
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Uji Agregate Halus</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic2">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/berat-isi-halus') }}">Berat Isi</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/analisa-saringan-halus') }}">Analisa Saringan</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/ssd-halus') }}">Pengujian SSD</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/kadar-lumpur-halus') }}">Kadar Lumpur</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
@@ -62,6 +39,31 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Uji Agregate Halus</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic2">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{{ url('/berat-isi-halus') }}">Berat Isi</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{{ url('/analisa-saringan-halus') }}">Analisa Saringan</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{{ url('/ssd-halus') }}">Pengujian SSD</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{{ url('/kadar-lumpur-halus') }}">Kadar Lumpur</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+       
         @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ url('dokumen-referensi') }}">

@@ -18,25 +18,24 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'Admin') {
-            $berat_isi_kasar = PengujianBeratIsiKasar::all();
-            $gradasi_kasar = GradasiKasar::all();
-            $ssd_kasar = PengujianSsdAgregateKasar::all();
-            $los_angeles_kasar = PengujianLosAngeles::all();
-            $kadar_lumpur_halus = PengujianKadarLumpur::all();
-            $berat_isi_halus = PengujianBeratIsi::all();
-            $analisa_saringan_halus = AnalisaSaringanHalus::all();
-            $ssd_halus = AnalisaSaringanHalus::all();
+            $berat_isi_kasar = PengujianBeratIsiKasar::where('status_verifikasi','1')->get();
+            $gradasi_kasar = GradasiKasar::where('status_verifikasi','1')->get();
+            $ssd_kasar = PengujianSsdAgregateKasar::where('status_verifikasi','1')->get();
+            $los_angeles_kasar = PengujianLosAngeles::where('status_verifikasi','1')->get();
+            $kadar_lumpur_halus = PengujianKadarLumpur::where('status_verifikasi','1')->get();
+            $berat_isi_halus = PengujianBeratIsi::where('status_verifikasi','1')->get();
+            $analisa_saringan_halus = AnalisaSaringanHalus::where('status_verifikasi','1')->get();
+            $ssd_halus = AnalisaSaringanHalus::where('status_verifikasi','1')->get();
         } else if(Auth::user()->role == "Pengguna") {
-            $berat_isi_kasar = PengujianBeratIsiKasar::where('user_id', Auth::user()->id )->get();
-            $gradasi_kasar = GradasiKasar::where('user_id', Auth::user()->id )->get();
-            $ssd_kasar = PengujianSsdAgregateKasar::where('user_id', Auth::user()->id )->get();
-            $los_angeles_kasar = PengujianLosAngeles::where('user_id', Auth::user()->id )->get();
-            $kadar_lumpur_halus = PengujianKadarLumpur::where('user_id', Auth::user()->id )->get();
-            $berat_isi_halus = PengujianBeratIsi::where('user_id', Auth::user()->id )->get();
-            $analisa_saringan_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->get();
-            $ssd_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->get();
+            $berat_isi_kasar = PengujianBeratIsiKasar::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $gradasi_kasar = GradasiKasar::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $ssd_kasar = PengujianSsdAgregateKasar::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $los_angeles_kasar = PengujianLosAngeles::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $kadar_lumpur_halus = PengujianKadarLumpur::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $berat_isi_halus = PengujianBeratIsi::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $analisa_saringan_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $ssd_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
         }
-
 
         return view('backend.dashboard', [
             'bi_kasar' => $berat_isi_kasar->count(),

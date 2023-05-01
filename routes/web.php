@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
     // BERAT ISI KASAR
     Route::get('/berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@index');
     Route::get('/data-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@data');
+    Route::get('/data-berat-isi-kasar-acc', 'App\Http\Controllers\PengujianberatisikasarController@dataacc');
+    Route::get('/data-berat-isi-kasar-tolak', 'App\Http\Controllers\PengujianberatisikasarController@datatolak');
     Route::post('/store-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@store');
     Route::post('/update-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@update');
     Route::get('/cetak-berat-isi-kasar/{id}', 'App\Http\Controllers\PengujianberatisikasarController@cetakBerat');
@@ -60,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     // SSD KASAR
     Route::get('/ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@index');
     Route::get('/data-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@data');
+    Route::get('/data-ssd-kasar-acc', 'App\Http\Controllers\PengujianssdkasarController@dataacc');
+    Route::get('/data-ssd-kasar-tolak', 'App\Http\Controllers\PengujianssdkasarController@datatolak');
     Route::post('/store-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@store');
     Route::post('/update-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@update');
     Route::get('/cetak-ssd-kasar/{id}', 'App\Http\Controllers\PengujianssdkasarController@cetakBerat');
@@ -88,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Gradasi kasar
     Route::get('/gradasi-kasar', 'App\Http\Controllers\GradasikasarController@index');
     Route::get('/data-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@data');
+    Route::get('/data-gradasi-kasar-acc', 'App\Http\Controllers\GradasikasarController@dataacc');
+    Route::get('/data-gradasi-kasar-tolak', 'App\Http\Controllers\GradasikasarController@datatolak');
     Route::post('/store-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@store');
     Route::post('/update-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@update');
     Route::get('/cetak-gradasi-kasar/{id}', 'App\Http\Controllers\GradasikasarController@cetakBerat');
@@ -96,6 +102,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Los Angeles
     Route::get('/los-angeles', 'App\Http\Controllers\PengujianlosangelesController@index');
     Route::get('/data-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@data');
+    Route::get('/data-los-angeles-acc', 'App\Http\Controllers\PengujianlosangelesController@dataacc');
+    Route::get('/data-los-angeles-tolak', 'App\Http\Controllers\PengujianlosangelesController@datatolak');
     Route::post('/store-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@store');
     Route::post('/update-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@update');
     Route::get('/cetak-los-angeles/{id}', 'App\Http\Controllers\PengujianlosangelesController@cetakBerat');
