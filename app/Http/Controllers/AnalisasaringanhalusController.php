@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnalisaSaringanHalus;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -248,6 +249,8 @@ class AnalisasaringanhalusController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Analisa Saringan Halus');
         }
 
         return response()->json($data);
@@ -412,7 +415,8 @@ class AnalisasaringanhalusController extends Controller
         } else {
 
             $user = AnalisaSaringanHalus::find($request->id);
-
+            $getEmail = User::find($user->user_id);
+            
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -423,6 +427,8 @@ class AnalisasaringanhalusController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Analisa Saringan Halus',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

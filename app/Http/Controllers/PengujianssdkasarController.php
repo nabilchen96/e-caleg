@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengujianSsdAgregateKasar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -143,6 +144,8 @@ class PengujianssdkasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('SSD Agregat Kasar');
         }
 
         return response()->json($data);
@@ -218,6 +221,7 @@ class PengujianssdkasarController extends Controller
         } else {
 
             $user = PengujianSsdAgregateKasar::find($request->id);
+            $getEmail = User::find($user->user_id);
 
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
@@ -229,6 +233,8 @@ class PengujianssdkasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('SSD Agregat Kasar',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

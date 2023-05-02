@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PengujianBaru;
 use App\Models\PengujianBeratIsiKasar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PengujianberatisikasarController extends Controller
 {
+
     public function index()
     {
         if (Auth::user()->role == 'Admin') {
@@ -150,6 +154,8 @@ class PengujianberatisikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Berat Isi Agregat Kasar');
         }
 
         return response()->json($data);
@@ -205,6 +211,7 @@ class PengujianberatisikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
         }
 
         return response()->json($data);
@@ -226,7 +233,8 @@ class PengujianberatisikasarController extends Controller
         } else {
 
             $user = PengujianBeratIsiKasar::find($request->id);
-
+            $getEmail = User::find($user->user_id);
+            
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -237,6 +245,8 @@ class PengujianberatisikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Berat Isi Agregat Kasar',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

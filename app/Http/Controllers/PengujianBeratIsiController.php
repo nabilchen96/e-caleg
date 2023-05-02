@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PengujianBaru;
 use App\Models\PengujianBeratIsi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PengujianBeratIsiController extends Controller
 {
+
+    public function kirimEmail($isian)
+    {
+        $data = ['jenis' => $isian];
+
+        $kirim = Mail::to("verifikator.lab@poltekbangplg.ac.id")->send(new PengujianBaru($data));
+        return response()->json($kirim);
+    }
+
     public function index()
     {
+        
         if (Auth::user()->role == 'Admin') {
             $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->get();
             $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->get();
@@ -150,6 +162,8 @@ class PengujianBeratIsiController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Berat Isi Agregate Halus');
         }
 
         return response()->json($data);
@@ -227,6 +241,7 @@ class PengujianBeratIsiController extends Controller
         } else {
 
             $user = PengujianBeratIsi::find($request->id);
+            $getEmail = User::find($user->user_id);
 
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
@@ -238,6 +253,8 @@ class PengujianBeratIsiController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Berat Isi Agregate Halus',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

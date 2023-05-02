@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengujianKadarLumpur;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -146,6 +147,8 @@ class PengujiankadarlumpurController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Kadar Lumpur');
         }
 
         return response()->json($data);
@@ -221,6 +224,7 @@ class PengujiankadarlumpurController extends Controller
         } else {
 
             $user = PengujianKadarLumpur::find($request->id);
+            $getEmail = User::find($user->user_id);
 
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
@@ -232,6 +236,10 @@ class PengujiankadarlumpurController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Kadar Lumpur',$getEmail->email,$request->status_verifikasi);
+
+            
         }
 
         return response()->json($data);

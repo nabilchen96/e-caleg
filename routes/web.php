@@ -33,6 +33,8 @@ Route::get('/kalkulator', 'App\Http\Controllers\KalkulatorController@index');
 //REFERENSI
 Route::get('/referensi', 'App\Http\Controllers\DokumenReferensiController@referensi');
 
+Route::get('/kirimemail','App\Http\Controllers\MalasngodingController@index');
+
 //BACKEND
 Route::group(['middleware' => 'auth'], function () {
 

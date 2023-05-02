@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengujianSsdAgregateHalus;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -154,6 +155,8 @@ class PengujianssdhalusController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('SSD Agregate Halus');
         }
 
         return response()->json($data);
@@ -237,7 +240,8 @@ class PengujianssdhalusController extends Controller
         } else {
 
             $user = PengujianSsdAgregateHalus::find($request->id);
-
+            $getEmail = User::find($user->user_id);
+            
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -248,6 +252,8 @@ class PengujianssdhalusController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('SSD Agregate Halus',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

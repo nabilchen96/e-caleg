@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengujianLosAngeles;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -157,6 +158,8 @@ class PengujianlosangelesController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Los Angeles Machine');
         }
 
         return response()->json($data);
@@ -244,7 +247,8 @@ class PengujianlosangelesController extends Controller
         } else {
 
             $user = PengujianLosAngeles::find($request->id);
-
+            $getEmail = User::find($user->user_id);
+            
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -255,6 +259,8 @@ class PengujianlosangelesController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Los Angeles Machine',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);

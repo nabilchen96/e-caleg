@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GradasiKasar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -268,6 +269,8 @@ class GradasikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Ditambah'
             ];
+
+            kirimEmail('Gradasi Agregat Kasar');
         }
 
         return response()->json($data);
@@ -463,6 +466,7 @@ class GradasikasarController extends Controller
         } else {
 
             $user = GradasiKasar::find($request->id);
+            $getEmail = User::find($user->user_id);
 
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
@@ -474,6 +478,8 @@ class GradasikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
+
+            kirimEmailUpdate('Gradasi Agregat Kasar',$getEmail->email,$request->status_verifikasi);
         }
 
         return response()->json($data);
