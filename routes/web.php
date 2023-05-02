@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@update');
     Route::get('/cetak-berat-isi-halus/{id}', 'App\Http\Controllers\PengujianBeratIsiController@cetakBerat');
     Route::post('/delete-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@delete');
+    Route::post('/verifikasi-berat-isi-halus', 'App\Http\Controllers\PengujianBeratIsiController@verifikasi');
     
     // BERAT ISI KASAR
     Route::get('/berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@index');
@@ -58,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@update');
     Route::get('/cetak-berat-isi-kasar/{id}', 'App\Http\Controllers\PengujianberatisikasarController@cetakBerat');
     Route::post('/delete-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@delete');
+    Route::post('/verifikasi-berat-isi-kasar', 'App\Http\Controllers\PengujianberatisikasarController@verifikasi');
 
     // SSD KASAR
     Route::get('/ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@index');
@@ -68,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@update');
     Route::get('/cetak-ssd-kasar/{id}', 'App\Http\Controllers\PengujianssdkasarController@cetakBerat');
     Route::post('/delete-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@delete');
+    Route::post('/verifikasi-ssd-kasar', 'App\Http\Controllers\PengujianssdkasarController@verifikasi');
 
     // SSD HALUS
     Route::get('/ssd-halus', 'App\Http\Controllers\PengujianssdhalusController@index');
@@ -78,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-ssd-halus', 'App\Http\Controllers\PengujianssdhalusController@update');
     Route::get('/cetak-ssd-halus/{id}', 'App\Http\Controllers\PengujianssdhalusController@cetakBerat');
     Route::post('/delete-ssd-halus', 'App\Http\Controllers\PengujianssdhalusController@delete');
+    Route::post('/verifikasi-ssd-halus', 'App\Http\Controllers\PengujianssdhalusController@verifikasi');
 
     // Analisa saringan halus
     Route::get('/analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@index');
@@ -87,7 +91,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/store-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@store');
     Route::post('/update-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@update');
     Route::get('/cetak-analisa-saringan-halus/{id}', 'App\Http\Controllers\AnalisasaringanhalusController@cetakBerat');
-    Route::post('/delete-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanController@delete');
+    Route::post('/delete-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@delete');
+    Route::post('/verifikasi-analisa-saringan-halus', 'App\Http\Controllers\AnalisasaringanhalusController@verifikasi');
 
     // Gradasi kasar
     Route::get('/gradasi-kasar', 'App\Http\Controllers\GradasikasarController@index');
@@ -98,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@update');
     Route::get('/cetak-gradasi-kasar/{id}', 'App\Http\Controllers\GradasikasarController@cetakBerat');
     Route::post('/delete-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@delete');
+    Route::post('/verifikasi-gradasi-kasar', 'App\Http\Controllers\GradasikasarController@verifikasi');
 
     // Los Angeles
     Route::get('/los-angeles', 'App\Http\Controllers\PengujianlosangelesController@index');
@@ -108,6 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@update');
     Route::get('/cetak-los-angeles/{id}', 'App\Http\Controllers\PengujianlosangelesController@cetakBerat');
     Route::post('/delete-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@delete');
+    Route::post('/verifikasi-los-angeles', 'App\Http\Controllers\PengujianlosangelesController@verifikasi');
 
     // Kadar Lumpur
     Route::get('/kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@index');
@@ -118,6 +125,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@update');
     Route::get('/cetak-kadar-lumpur-halus/{id}', 'App\Http\Controllers\PengujiankadarlumpurController@cetakBerat');
     Route::post('/delete-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@delete');
+    Route::post('/verifikasi-kadar-lumpur-halus', 'App\Http\Controllers\PengujiankadarlumpurController@verifikasi');
 
     // DOKUMEN REFERENSI
     Route::get('/dokumen-referensi', 'App\Http\Controllers\DokumenReferensiController@index');

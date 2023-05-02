@@ -35,6 +35,15 @@ class DashboardController extends Controller
             $berat_isi_halus = PengujianBeratIsi::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
             $analisa_saringan_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
             $ssd_halus = AnalisaSaringanHalus::where('user_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+        } else if(Auth::user()->role == "Verifikator") {
+            $berat_isi_kasar = PengujianBeratIsiKasar::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $gradasi_kasar = GradasiKasar::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $ssd_kasar = PengujianSsdAgregateKasar::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $los_angeles_kasar = PengujianLosAngeles::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $kadar_lumpur_halus = PengujianKadarLumpur::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $berat_isi_halus = PengujianBeratIsi::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $analisa_saringan_halus = AnalisaSaringanHalus::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();
+            $ssd_halus = AnalisaSaringanHalus::where('user_verifikator_id', Auth::user()->id )->where('status_verifikasi','1')->get();   
         }
 
         return view('backend.dashboard', [

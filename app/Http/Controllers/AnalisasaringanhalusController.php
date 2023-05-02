@@ -14,31 +14,43 @@ class AnalisasaringanhalusController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'Admin') {
-            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->get();
-            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->get();
-            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->get();
+            $baru = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0')->get();
+            $verif = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1')->get();
+            $tolak = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2')->get();
         } else if (Auth::user()->role == 'Pengguna') {
-            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->where('user_id', Auth::user()->id)->get();
-            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->where('user_id', Auth::user()->id)->get();
-            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->where('user_id', Auth::user()->id)->get();
+            $baru = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id)->get();
+            $verif = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1')->where('user_id', Auth::user()->id)->get();
+            $tolak = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id)->get();
+        } else if (Auth::user()->role == 'Verifikator') {
+            $baru = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0')->get();
+            $verif = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1')->where('user_verifikator_id', Auth::user()->id)->get();
+            $tolak = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id)->get();
         }
 
-        return view('backend.analisahalus.index',[
-            'baru' => $baru->count(),
-            'verif' => $verif->count(),
-            'tolak' => $tolak->count(),
-        ]);
+        if (Auth::user()->role != 'Verifikator') {
+            return view('backend.analisahalus.index', [
+                'baru' => $baru->count(),
+                'verif' => $verif->count(),
+                'tolak' => $tolak->count(),
+            ]);
+        } else {
+            return view('backend.verifikator.analisahalus.index', [
+                'baru' => $baru->count(),
+                'verif' => $verif->count(),
+                'tolak' => $tolak->count(),
+            ]);
+        }
     }
 
     public function data()
     {
 
-        if(Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','0');
-        } else if(Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','0')->where('user_id', Auth::user()->id );
+        if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
-       
+
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -47,12 +59,14 @@ class AnalisasaringanhalusController extends Controller
     public function dataacc()
     {
 
-        if(Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','1');
-        } else if(Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','1')->where('user_id', Auth::user()->id );
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1')->where('user_id', Auth::user()->id);
+        } else if (Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '1')->where('user_verifikator_id', Auth::user()->id);
         }
-       
+
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -61,12 +75,14 @@ class AnalisasaringanhalusController extends Controller
     public function datatolak()
     {
 
-        if(Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','2');
-        } else if(Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi','2')->where('user_id', Auth::user()->id );
+        if (Auth::user()->role == 'Admin') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2');
+        } else if (Auth::user()->role == 'Pengguna') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id);
+        } else if (Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id);
         }
-       
+
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -103,8 +119,6 @@ class AnalisasaringanhalusController extends Controller
         );
 
         $jumlah_input_a = $inputan['inputa_1'] + $inputan['inputa_2'] + $inputan['inputa_3'] + $inputan['inputa_4'] + $inputan['inputa_5'] + $inputan['inputa_6'] + $inputan['sisa_inputa'];
-        
-        
     }
 
     public function store(Request $request)
@@ -142,28 +156,28 @@ class AnalisasaringanhalusController extends Controller
                 'inputa_6' => $request->inputa_6,
                 'sisa_inputa' => $request->sisa_inputa
             );
-    
+
             $jumlah_input_a = $inputan2['inputa_1'] + $inputan2['inputa_2'] + $inputan2['inputa_3'] + $inputan2['inputa_4'] + $inputan2['inputa_5'] + $inputan2['inputa_6'] + $inputan2['sisa_inputa'];
 
             $hitung_tertinggal = array(
-                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100,3),
-                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
+                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100, 3),
+                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100, 3),
             );
 
-            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 2);
 
-            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
-            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
-            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'],3);
-            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'],3);
-            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'],3);
-            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'],3);
- 
+            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'], 3);
+            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'], 3);
+            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'], 3);
+            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'], 3);
+            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'], 3);
+            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'], 3);
+
             $hitung_berat_kumu_inputa = array(
                 'berat_kumu_inputa_1' => $berat_kumu_1,
                 'berat_kumu_inputa_2' => $berat_kumu_2,
@@ -174,7 +188,7 @@ class AnalisasaringanhalusController extends Controller
 
             );
 
-            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'],2);
+            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'], 2);
 
             $hitung_berat_kumu_la = array(
                 'berat_kumu_la_1' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_1'],
@@ -186,7 +200,7 @@ class AnalisasaringanhalusController extends Controller
 
             );
 
-            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'],3);
+            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'], 3);
 
             // dd($hitung_berat_kumu_la);
             // upload file
@@ -225,7 +239,7 @@ class AnalisasaringanhalusController extends Controller
                 'berat_kumu_la_5' => $hitung_berat_kumu_la['berat_kumu_la_5'],
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
-                'modulus_halus' =>  $jumlah_berat_kumu_inputa/100,
+                'modulus_halus' =>  $jumlah_berat_kumu_inputa / 100,
                 'lampiran_bahan_uji'    =>  $pathGambar,
                 'user_id'               => Auth::user()->id,
             ]);
@@ -253,7 +267,7 @@ class AnalisasaringanhalusController extends Controller
                 'respon'        => $validator->errors()
             ];
         } else {
-           // inputa_1 dst itu diinput
+            // inputa_1 dst itu diinput
             // berat_tinggal_inputa_1 dst itu dihitung
             $inputan = array(
                 'inputan_1' => $request->inputan_1,
@@ -273,29 +287,29 @@ class AnalisasaringanhalusController extends Controller
                 'inputa_6' => $request->inputa_6,
                 'sisa_inputa' => $request->sisa_inputa
             );
-    
+
             $jumlah_input_a = $inputan2['inputa_1'] + $inputan2['inputa_2'] + $inputan2['inputa_3'] + $inputan2['inputa_4'] + $inputan2['inputa_5'] + $inputan2['inputa_6'] + $inputan2['sisa_inputa'];
 
             $hitung_tertinggal = array(
-                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100,3),
-                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100,3),
-                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100,3),
+                'berat_tinggal_inputa_1' => round($inputan2['inputa_1'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_2' => round($inputan2['inputa_2'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_3' => round($inputan2['inputa_3'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_4' => round($inputan2['inputa_4'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_5' => round($inputan2['inputa_5'] / $jumlah_input_a * 100, 3),
+                'berat_tinggal_inputa_6' => round($inputan2['inputa_6'] / $jumlah_input_a * 100, 3),
+                'sisa_berat_tinggal_inputa' => round($inputan2['sisa_inputa'] / $jumlah_input_a * 100, 3),
             );
 
-            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'],2);
+            $jumlah_berat_tinggal_inputa = round($hitung_tertinggal['berat_tinggal_inputa_1'] + $hitung_tertinggal['berat_tinggal_inputa_2'] + $hitung_tertinggal['berat_tinggal_inputa_3'] + $hitung_tertinggal['berat_tinggal_inputa_4'] + $hitung_tertinggal['berat_tinggal_inputa_5'] + $hitung_tertinggal['berat_tinggal_inputa_6'] + $hitung_tertinggal['sisa_berat_tinggal_inputa'], 2);
 
 
-            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'],3);
-            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'],3);
-            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'],3);
-            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'],3);
-            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'],3);
-            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'],3);
- 
+            $berat_kumu_1 = round($hitung_tertinggal['berat_tinggal_inputa_1'], 3);
+            $berat_kumu_2 = round($berat_kumu_1 + $hitung_tertinggal['berat_tinggal_inputa_2'], 3);
+            $berat_kumu_3 = round($berat_kumu_2 + $hitung_tertinggal['berat_tinggal_inputa_3'], 3);
+            $berat_kumu_4 = round($berat_kumu_3 + $hitung_tertinggal['berat_tinggal_inputa_4'], 3);
+            $berat_kumu_5 = round($berat_kumu_4 + $hitung_tertinggal['berat_tinggal_inputa_5'], 3);
+            $berat_kumu_6 = round($berat_kumu_5 + $hitung_tertinggal['berat_tinggal_inputa_6'], 3);
+
             $hitung_berat_kumu_inputa = array(
                 'berat_kumu_inputa_1' => $berat_kumu_1,
                 'berat_kumu_inputa_2' => $berat_kumu_2,
@@ -306,8 +320,8 @@ class AnalisasaringanhalusController extends Controller
 
             );
 
-            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'],2);
-           
+            $jumlah_berat_kumu_inputa = round($berat_kumu_1 + $hitung_berat_kumu_inputa['berat_kumu_inputa_2'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_3'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_4'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_5'] + $hitung_berat_kumu_inputa['berat_kumu_inputa_6'], 2);
+
             $hitung_berat_kumu_la = array(
                 'berat_kumu_la_1' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_1'],
                 'berat_kumu_la_2' => 100 - $hitung_berat_kumu_inputa['berat_kumu_inputa_2'],
@@ -318,7 +332,7 @@ class AnalisasaringanhalusController extends Controller
 
             );
 
-            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'],3);
+            $jumlah_berat_kumu_la = round($hitung_berat_kumu_la['berat_kumu_la_1'] + $hitung_berat_kumu_la['berat_kumu_la_2'] + $hitung_berat_kumu_la['berat_kumu_la_3'] + $hitung_berat_kumu_la['berat_kumu_la_4'] + $hitung_berat_kumu_la['berat_kumu_la_5'] + $hitung_berat_kumu_la['berat_kumu_la_6'], 3);
 
             // dd($jumlah_berat_kumu_inputa/100);
 
@@ -370,7 +384,39 @@ class AnalisasaringanhalusController extends Controller
                 'berat_kumu_la_6' => $hitung_berat_kumu_la['berat_kumu_la_6'],
                 'jumlah_berat_kumu_la' => $jumlah_berat_kumu_la,
                 'lampiran_bahan_uji' => $pathGambar,
-                'modulus_halus' =>  $jumlah_berat_kumu_inputa/100,
+                'modulus_halus' =>  $jumlah_berat_kumu_inputa / 100,
+            ]);
+
+            $data = [
+                'responCode'    => 1,
+                'respon'        => 'Data Sukses Disimpan'
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function verifikasi(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'id'    => 'required',
+            'status_verifikasi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data = [
+                'responCode'    => 0,
+                'respon'        => $validator->errors()
+            ];
+        } else {
+
+            $user = AnalisaSaringanHalus::find($request->id);
+
+            $data = $user->update([
+                'status_verifikasi'         => $request->status_verifikasi,
+                'alasan'                    => $request->alasan,
+                'user_verifikator_id'       => Auth::user()->id,
             ]);
 
             $data = [
@@ -387,8 +433,8 @@ class AnalisasaringanhalusController extends Controller
 
         $data = AnalisaSaringanHalus::find($request->id);
 
-         // hapus filenya jika ada
-         if ($data->lampiran_bahan_uji) {
+        // hapus filenya jika ada
+        if ($data->lampiran_bahan_uji) {
             // hapus filenya
             Storage::delete($data->lampiran_bahan_uji);
         }
@@ -408,6 +454,6 @@ class AnalisasaringanhalusController extends Controller
 
         $data = AnalisaSaringanHalus::find($request->id);
 
-        return view('backend.analisahalus.cetak',compact('data'));
+        return view('backend.analisahalus.cetak', compact('data'));
     }
 }

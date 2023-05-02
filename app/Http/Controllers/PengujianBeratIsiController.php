@@ -15,29 +15,41 @@ class PengujianBeratIsiController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'Admin') {
-            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->get();
-            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->get();
-            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->get();
+            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->get();
+            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->get();
+            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2')->get();
         } else if (Auth::user()->role == 'Pengguna') {
-            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->where('user_id', Auth::user()->id)->get();
-            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->where('user_id', Auth::user()->id)->get();
-            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->where('user_id', Auth::user()->id)->get();
+            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id)->get();
+            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->where('user_id', Auth::user()->id)->get();
+            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id)->get();
+        } else if (Auth::user()->role == 'Verifikator') {
+            $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->get();
+            $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->where('user_verifikator_id', Auth::user()->id)->get();
+            $tolak = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id)->get();
         }
 
-        return view('backend.beratisihalus.index',[
-            'baru' => $baru->count(),
-            'verif' => $verif->count(),
-            'tolak' => $tolak->count(),
-        ]);
+        if (Auth::user()->role != 'Verifikator') {
+            return view('backend.beratisihalus.index', [
+                'baru' => $baru->count(),
+                'verif' => $verif->count(),
+                'tolak' => $tolak->count(),
+            ]);
+        } else {
+            return view('backend.verifikator.beratisihalus.index', [
+                'baru' => $baru->count(),
+                'verif' => $verif->count(),
+                'tolak' => $tolak->count(),
+            ]);
+        }
     }
 
     public function data()
     {
 
-        if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','0');
+        if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','0')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
         $beratisi = $beratisi->get();
 
@@ -48,10 +60,13 @@ class PengujianBeratIsiController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','1');
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','1')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->where('user_id', Auth::user()->id);
+        } else if (Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->where('user_verifikator_id', Auth::user()->id);
         }
+
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -61,10 +76,13 @@ class PengujianBeratIsiController extends Controller
     {
 
         if (Auth::user()->role == 'Admin') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','2');
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2');
         } else if (Auth::user()->role == 'Pengguna') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi','2')->where('user_id', Auth::user()->id);
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id);
+        } else if (Auth::user()->role == 'Verifikator') {
+            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id);
         }
+
         $beratisi = $beratisi->get();
 
         return response()->json(['data' => $beratisi]);
@@ -193,13 +211,45 @@ class PengujianBeratIsiController extends Controller
         return response()->json($data);
     }
 
+    public function verifikasi(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'id'    => 'required',
+            'status_verifikasi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data = [
+                'responCode'    => 0,
+                'respon'        => $validator->errors()
+            ];
+        } else {
+
+            $user = PengujianBeratIsi::find($request->id);
+
+            $data = $user->update([
+                'status_verifikasi'         => $request->status_verifikasi,
+                'alasan'                    => $request->alasan,
+                'user_verifikator_id'       => Auth::user()->id,
+            ]);
+
+            $data = [
+                'responCode'    => 1,
+                'respon'        => 'Data Sukses Disimpan'
+            ];
+        }
+
+        return response()->json($data);
+    }
+
     public function delete(Request $request)
     {
 
         $data = PengujianBeratIsi::find($request->id);
 
-         // hapus filenya jika ada
-         if ($data->lampiran_bahan_uji) {
+        // hapus filenya jika ada
+        if ($data->lampiran_bahan_uji) {
             // hapus filenya
             Storage::delete($data->lampiran_bahan_uji);
         }

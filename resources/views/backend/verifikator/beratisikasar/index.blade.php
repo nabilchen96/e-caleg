@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Kasar</h3>
+                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Kasars</h3>
                 </div>
             </div>
         </div>
@@ -32,11 +32,7 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    @if (Auth::user()->role != 'Verifikator')                        
-                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
-                        Tambah
-                    </button>
-                    @endif
+                 
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home" role="tab" data-toggle="tab"
@@ -135,7 +131,7 @@
                             <label for="exampleInputEmail1">a. Kerikil Asal</label>
                             <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Kerikil Asal"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                required>
+                                readonly>
                             <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
                         </div>
                         <div class="form-group">
@@ -143,12 +139,12 @@
                             <input name="diameter_maksimum" id="diameter_maksimum"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="Diameter Maksimum" class="form-control form-control-sm"
-                                id="diameter_maksimum" aria-describedby="emailHelp" required>
+                                id="diameter_maksimum" aria-describedby="emailHelp" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">c. Keadaan Kerikil</label>
-                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil" required>
+                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil" readonly>
                                 <option value="Kering Tungku">Kering Tungku</option>
                                 <option value="Agak Basah">Agak Basah</option>
                                 <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
@@ -161,14 +157,14 @@
                             <input name="b1" id="b1" type="text"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" placeholder="Berat Bejana"
                                 class="form-control form-control-sm" id="b1" aria-describedby="emailHelp"
-                                required>
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Kerikil + Bejana (B2) Kg</label>
                             <input name="b2" id="b2" type="text"
                                 onKeyPress="return goodchars(event,'1234567890.',this)"
                                 placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm" id="b2"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
@@ -176,21 +172,25 @@
                             <input name="diameter_dalam" id="diameter_dalam"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="diameter bagian dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                             <br>
                             <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
                             <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="tinggi bejana dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
-                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file"
-                                placeholder="Lampiran Bahan Uji (.pdf)" class="form-control form-control-sm"
-                                aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;"
-                                id="lampiran_bahan_uji_alert"></span>
+                            <label for="exampleInputPassword1">Status Verifikasi</label>
+                            <select name="status_verifikasi" class="form-control" id="status_verifikasi" required>
+                                <option value="1">Terverfikiasi</option>
+                                <option value="2">Ditolak</option>
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika status ditolak</span> </label>
+                            <textarea class="form-control" name="alasan" id="alasan_tolak" cols="30" rows="10"></textarea>
                         </div>
 
                     </div>
@@ -541,7 +541,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-berat-isi-kasar' : '/update-berat-isi-kasar',
+                    url: formData.get('id') == '' ? '/store-berat-isi-kasar' : '/verifikasi-berat-isi-kasar',
                     data: formData,
                 })
                 .then(function(res) {
@@ -556,9 +556,12 @@
                             showConfirmButton: false
                         })
 
-                        $("#modal").modal("hide");
-                        $('#myTable').DataTable().clear().destroy();
-                        getData()
+                        // $("#modal").modal("hide");
+                        // $('#myTable').DataTable().clear().destroy();
+                        // getData()
+                        setTimeout(() => {
+                            location.reload(res.data.respon);
+                        }, 1500);
 
                     } else {
                         //error validation

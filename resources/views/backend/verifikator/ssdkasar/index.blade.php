@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Kasar</h3>
+                    <h3 class="font-weight-bold text-white">Data Pengujian SSD Agregat Kasar</h3>
                 </div>
             </div>
         </div>
@@ -32,11 +32,7 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    @if (Auth::user()->role != 'Verifikator')                        
-                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
-                        Tambah
-                    </button>
-                    @endif
+
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home" role="tab" data-toggle="tab"
@@ -61,15 +57,17 @@
                                 <table id="myTable" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                        <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Kerikil Asal</th>
+                                            <th>Berat Kerikil SSD</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
                                             <th width="5%"></th>
                                             <th width="5%"></th>
+                                        </tr>
                                         </tr>
                                     </thead>
                                 </table>
@@ -81,14 +79,16 @@
                                 <table id="myTable2" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                        <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Kerikil Asal</th>
+                                            <th>Berat Kerikil SSD</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
                                             <th width="5%"></th>
+                                        </tr>
                                         </tr>
                                     </thead>
                                 </table>
@@ -100,14 +100,16 @@
                                 <table id="myTable3" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                        <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Kerikil Asal</th>
+                                            <th>Berat Kerikil SSD</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
                                             <th width="5%"></th>
+                                        </tr>
                                         </tr>
                                     </thead>
                                 </table>
@@ -124,7 +126,7 @@
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form">
+                <form id="form" enctype="multipart/form-data">
                     <div class="modal-header p-3">
                         <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
@@ -134,63 +136,44 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Kerikil Asal</label>
                             <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Kerikil Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                required>
+                                class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                             <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">b. Diameter Maksimum</label>
-                            <input name="diameter_maksimum" id="diameter_maksimum"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="Diameter Maksimum" class="form-control form-control-sm"
-                                id="diameter_maksimum" aria-describedby="emailHelp" required>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">c. Keadaan Kerikil</label>
-                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil" required>
-                                <option value="Kering Tungku">Kering Tungku</option>
-                                <option value="Agak Basah">Agak Basah</option>
-                                <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
-                            </select>
-                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_kerikil_alert"></span>
-                        </div>
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
-                            <input name="b1" id="b1" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp"
-                                required>
+                            <label for="exampleInputEmail1">a. Berat Kerikil SSD</label>
+                            <input name="berat_kerikil_ssd" id="berat_kerikil_ssd"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Bejana" class="form-control form-control-sm"
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">b. Berat Kerikil + Bejana (B2) Kg</label>
-                            <input name="b2" id="b2" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)"
-                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm" id="b2"
-                                aria-describedby="emailHelp" required>
+                            <label for="exampleInputEmail1">b. Berat Kerikil di dalam air</label>
+                            <input name="berat_kerikil_air" id="berat_kerikil_air"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm"
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
-                            <label for="exampleInputEmail1">diameter bagian dalam (mm)</label>
-                            <input name="diameter_dalam" id="diameter_dalam"
+                            <label for="exampleInputEmail1">c. Berat Kerikil kering tungku</label>
+                            <input name="berat_kerikil_kering_tungku" id="berat_kerikil_kering_tungku"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="diameter bagian dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
-                            <br>
-                            <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
-                            <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="tinggi bejana dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
-                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file"
-                                placeholder="Lampiran Bahan Uji (.pdf)" class="form-control form-control-sm"
-                                aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;"
-                                id="lampiran_bahan_uji_alert"></span>
+                            <label for="exampleInputPassword1">Status Verifikasi</label>
+                            <select name="status_verifikasi" class="form-control" id="status_verifikasi" required>
+                                <option value="1">Terverfikiasi</option>
+                                <option value="2">Ditolak</option>
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika
+                                    status ditolak</span> </label>
+                            <textarea class="form-control" name="alasan" id="alasan_tolak" cols="30" rows="10"></textarea>
                         </div>
 
                     </div>
@@ -203,11 +186,10 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="modal_tolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form_tolak">
+                <form id="form_tolak" enctype="multipart/form-data">
                     <div class="modal-header p-3">
                         <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
@@ -217,54 +199,30 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Kerikil Asal</label>
                             <input name="kerikil_asal" id="kerikil_asal_tolak" type="text" placeholder="Kerikil Asal"
-                                class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                readonly>
+                                class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                             <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">b. Diameter Maksimum</label>
-                            <input name="diameter_maksimum" id="diameter_maksimum_tolak"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="Diameter Maksimum" class="form-control form-control-sm"
-                                id="diameter_maksimum" aria-describedby="emailHelp" readonly>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">c. Keadaan Kerikil</label>
-                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil_tolak" readonly>
-                                <option value="Kering Tungku">Kering Tungku</option>
-                                <option value="Agak Basah">Agak Basah</option>
-                                <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
-                            </select>
-                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_kerikil_alert"></span>
-                        </div>
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
-                            <input name="b1" id="b1_tolak" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp"
-                                readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">b. Berat Kerikil + Bejana (B2) Kg</label>
-                            <input name="b2" id="b2_tolak" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)"
-                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm" id="b2"
+                            <label for="exampleInputEmail1">a. Berat Kerikil SSD</label>
+                            <input name="berat_kerikil_ssd" id="berat_kerikil_ssd_tolak"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Bejana" class="form-control form-control-sm"
                                 aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
-                            <label for="exampleInputEmail1">diameter bagian dalam (mm)</label>
-                            <input name="diameter_dalam" id="diameter_dalam_tolak"
+                            <label for="exampleInputEmail1">b. Berat Kerikil di dalam air</label>
+                            <input name="berat_kerikil_air" id="berat_kerikil_air_tolak"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm"
+                                aria-describedby="emailHelp" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">c. Berat Kerikil kering tungku</label>
+                            <input name="berat_kerikil_kering_tungku" id="berat_kerikil_kering_tungku_tolak"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="diameter bagian dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" readonly>
-                            <br>
-                            <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
-                            <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam_tolak"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
-                                placeholder="tinggi bejana dalam" class="form-control form-control-sm"
                                 aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
@@ -292,7 +250,7 @@
 
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar',
+                ajax: '/data-ssd-kasar',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -308,11 +266,11 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "kerikil_asal"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_kerikil_ssd"
                     },
 
                     {
@@ -359,7 +317,7 @@
 
             $("#myTable2").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar-acc',
+                ajax: '/data-ssd-kasar-acc',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -375,11 +333,11 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "kerikil_asal"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_kerikil_ssd"
                     },
 
                     {
@@ -399,7 +357,7 @@
 
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/cetak-berat-isi-kasar/${row.id} target="_blank">
+                            return `<a href=/cetak-ssd-kasar/${row.id} target="_blank">
                         <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                     </a>`
                         }
@@ -421,7 +379,7 @@
 
             $("#myTable3").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar-tolak',
+                ajax: '/data-ssd-kasar-tolak',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -437,11 +395,11 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "kerikil_asal"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_kerikil_ssd"
                     },
 
                     {
@@ -478,6 +436,8 @@
             })
         }
 
+
+
         $('#modal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('bs-id') // Extract info from data-* attributes
@@ -495,12 +455,9 @@
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
                 modal.find('#kerikil_asal').val(cokData[0].kerikil_asal)
-                modal.find('#diameter_maksimum').val(cokData[0].diameter_maksimum)
-                modal.find('#keadaan_kerikil').val(cokData[0].keadaan_kerikil)
-                modal.find('#b1').val(cokData[0].b1)
-                modal.find('#b2').val(cokData[0].b2)
-                modal.find('#diameter_dalam').val(cokData[0].diameter_dalam)
-                modal.find('#tinggi_bejana_dalam').val(cokData[0].tinggi_bejana_dalam)
+                modal.find('#berat_kerikil_ssd').val(cokData[0].berat_kerikil_ssd)
+                modal.find('#berat_kerikil_air').val(cokData[0].berat_kerikil_air)
+                modal.find('#berat_kerikil_kering_tungku').val(cokData[0].berat_kerikil_kering_tungku)
             }
         })
 
@@ -521,12 +478,9 @@
                 var modal = $(this)
                 modal.find('#id_tolak').val(cokData[0].id)
                 modal.find('#kerikil_asal_tolak').val(cokData[0].kerikil_asal)
-                modal.find('#diameter_maksimum_tolak').val(cokData[0].diameter_maksimum)
-                modal.find('#keadaan_kerikil').val(cokData[0].keadaan_kerikil)
-                modal.find('#b1_tolak').val(cokData[0].b1)
-                modal.find('#b2_tolak').val(cokData[0].b2)
-                modal.find('#diameter_dalam_tolak').val(cokData[0].diameter_dalam)
-                modal.find('#tinggi_bejana_dalam_tolak').val(cokData[0].tinggi_bejana_dalam)
+                modal.find('#berat_kerikil_ssd_tolak').val(cokData[0].berat_kerikil_ssd)
+                modal.find('#berat_kerikil_air_tolak').val(cokData[0].berat_kerikil_air)
+                modal.find('#berat_kerikil_kering_tungku_tolak').val(cokData[0].berat_kerikil_kering_tungku)
                 modal.find('#alasan_tolak').val(cokData[0].alasan)
             }
         })
@@ -541,7 +495,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-berat-isi-kasar' : '/update-berat-isi-kasar',
+                    url: formData.get('id') == '' ? '/store-ssd-kasar' : '/verifikasi-ssd-kasar',
                     data: formData,
                 })
                 .then(function(res) {
@@ -556,9 +510,12 @@
                             showConfirmButton: false
                         })
 
-                        $("#modal").modal("hide");
-                        $('#myTable').DataTable().clear().destroy();
-                        getData()
+                        // $("#modal").modal("hide");
+                        // $('#myTable').DataTable().clear().destroy();
+                        // getData()
+                        setTimeout(() => {
+                            location.reload(res.data.respon);
+                        }, 1500);
 
                     } else {
                         //error validation
@@ -573,6 +530,13 @@
                     document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Gagal',
+                        text: res.data.respon,
+                        timer: 3000,
+                        showConfirmButton: false
+                    })
                 });
         }
 
@@ -589,7 +553,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/delete-berat-isi-kasar', {
+                    axios.post('/delete-ssd-kasar', {
                             id
                         })
                         .then((response) => {

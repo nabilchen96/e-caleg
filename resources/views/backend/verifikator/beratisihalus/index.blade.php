@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Kasar</h3>
+                    <h3 class="font-weight-bold text-white">Data Pengujian Berat Isi Agregat Halus/Pasir</h3>
                 </div>
             </div>
         </div>
@@ -32,11 +32,12 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    @if (Auth::user()->role != 'Verifikator')                        
+                    {{-- @if (Auth::user()->role == 'Admin')                         --}}
                     <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                         Tambah
                     </button>
-                    @endif
+                    {{-- @endif --}}
+
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home" role="tab" data-toggle="tab"
@@ -55,6 +56,7 @@
                         </li>
                     </ul>
 
+                    <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade show active" id="home">
                             <div class="table-responsive">
@@ -63,8 +65,8 @@
                                         <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Berat Pasir</th>
+                                            <th>Berat Satuan Pasir</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
@@ -75,7 +77,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <div role="tabpanel" class="tab-pane fade" id="buzz">
                             <div class="table-responsive">
                                 <table id="myTable2" class="table table-striped" style="width: 100%;">
@@ -83,8 +84,8 @@
                                         <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Berat Pasir</th>
+                                            <th>Berat Satuan Pasir</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
@@ -94,7 +95,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <div role="tabpanel" class="tab-pane fade" id="references">
                             <div class="table-responsive">
                                 <table id="myTable3" class="table table-striped" style="width: 100%;">
@@ -102,8 +102,8 @@
                                         <tr>
                                             <th width="5%">No</th>
                                             <th>Kode Uji</th>
-                                            <th>Berat Kerikil</th>
-                                            <th>Berat Satuan Kerikil</th>
+                                            <th>Berat Pasir</th>
+                                            <th>Berat Satuan Pasir</th>
                                             <th>Lampiran</th>
                                             <th>Status</th>
                                             <th width="5%"></th>
@@ -113,9 +113,7 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -124,7 +122,7 @@
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form">
+                <form id="form" enctype="multipart/form-data">
                     <div class="modal-header p-3">
                         <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
@@ -132,43 +130,43 @@
                         <h4>Benda Uji :</h4>
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">a. Kerikil Asal</label>
-                            <input name="kerikil_asal" id="kerikil_asal" type="text" placeholder="Kerikil Asal"
+                            <label for="exampleInputEmail1">a. Pasir Asal</label>
+                            <input name="pasir_asal" id="pasir_asal" type="text" placeholder="Pasir Asal"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                required>
-                            <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
+                                readonly>
+                            <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Diameter Maksimum</label>
-                            <input name="diameter_maksimum" id="diameter_maksimum"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                            <input name="diameter_maksimum" id="diameter_maksimum" type="text"
                                 placeholder="Diameter Maksimum" class="form-control form-control-sm"
-                                id="diameter_maksimum" aria-describedby="emailHelp" required>
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
+                                readonly>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">c. Keadaan Kerikil</label>
-                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil" required>
+                            <label for="exampleInputPassword1">c. Keadaan Pasir</label>
+                            <select name="keadaan_pasir" class="form-control" id="keadaan_pasir" disabled>
                                 <option value="Kering Tungku">Kering Tungku</option>
                                 <option value="Agak Basah">Agak Basah</option>
                                 <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
                             </select>
-                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_kerikil_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_pasir_alert"></span>
                         </div>
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
-                            <input name="b1" id="b1" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp"
-                                required>
+                            <input name="b1" id="b1" type="text" placeholder="Berat Bejana"
+                                class="form-control form-control-sm"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
+                                readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">b. Berat Kerikil + Bejana (B2) Kg</label>
-                            <input name="b2" id="b2" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)"
-                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm" id="b2"
-                                aria-describedby="emailHelp" required>
+                            <label for="exampleInputEmail1">b. Berat Pasir + Bejana (B2) Kg</label>
+                            <input name="b2" id="b2" type="text" placeholder="Berat Pasir + Bejana"
+                                class="form-control form-control-sm"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
@@ -176,21 +174,26 @@
                             <input name="diameter_dalam" id="diameter_dalam"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="diameter bagian dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                             <br>
                             <label for="exampleInputEmail1">tinggi bejana bagian dalam (mm)</label>
                             <input name="tinggi_bejana_dalam" id="tinggi_bejana_dalam"
                                 onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
                                 placeholder="tinggi bejana dalam" class="form-control form-control-sm"
-                                aria-describedby="emailHelp" required>
+                                aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
-                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file"
-                                placeholder="Lampiran Bahan Uji (.pdf)" class="form-control form-control-sm"
-                                aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;"
-                                id="lampiran_bahan_uji_alert"></span>
+                            <label for="exampleInputPassword1">Status Verifikasi</label>
+                            <select name="status_verifikasi" class="form-control" id="status_verifikasi" required>
+                                <option value="1">Terverfikiasi</option>
+                                <option value="2">Ditolak</option>
+                            </select>
+                            <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika
+                                    status ditolak</span> </label>
+                            <textarea class="form-control" name="alasan" id="alasan_tolak" cols="30" rows="10"></textarea>
                         </div>
 
                     </div>
@@ -207,7 +210,7 @@
     <div class="modal fade" id="modal_tolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form_tolak">
+                <form id="form_tolak" enctype="multipart/form-data">
                     <div class="modal-header p-3">
                         <h5 class="modal-title m-2" id="exampleModalLabel">Form Uji</h5>
                     </div>
@@ -215,43 +218,43 @@
                         <h4>Benda Uji :</h4>
                         <input type="hidden" name="id" id="id_tolak">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">a. Kerikil Asal</label>
-                            <input name="kerikil_asal" id="kerikil_asal_tolak" type="text" placeholder="Kerikil Asal"
+                            <label for="exampleInputEmail1">a. Pasir Asal</label>
+                            <input name="pasir_asal" id="pasir_asal_tolak" type="text" placeholder="Pasir Asal"
                                 class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 readonly>
-                            <span class="text-danger error" style="font-size: 12px;" id="kerikil_asal_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Diameter Maksimum</label>
-                            <input name="diameter_maksimum" id="diameter_maksimum_tolak"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                            <input name="diameter_maksimum" id="diameter_maksimum_tolak" type="text"
                                 placeholder="Diameter Maksimum" class="form-control form-control-sm"
-                                id="diameter_maksimum" aria-describedby="emailHelp" readonly>
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
+                                readonly>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">c. Keadaan Kerikil</label>
-                            <select name="keadaan_kerikil" class="form-control" id="keadaan_kerikil_tolak" readonly>
+                            <label for="exampleInputPassword1">c. Keadaan Pasir</label>
+                            <select name="keadaan_pasir" class="form-control" id="keadaan_pasir_tolak" readonly>
                                 <option value="Kering Tungku">Kering Tungku</option>
                                 <option value="Agak Basah">Agak Basah</option>
                                 <option value="Jenuh Kering Muka">Jenuh Kering Muka</option>
                             </select>
-                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_kerikil_alert"></span>
+                            <span class="text-danger error" style="font-size: 12px;" id="keadaan_pasir_alert"></span>
                         </div>
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Bejana (B1) Kg</label>
-                            <input name="b1" id="b1_tolak" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)" placeholder="Berat Bejana"
-                                class="form-control form-control-sm" id="b1" aria-describedby="emailHelp"
+                            <input name="b1" id="b1_tolak" type="text" placeholder="Berat Bejana"
+                                class="form-control form-control-sm"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
                                 readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">b. Berat Kerikil + Bejana (B2) Kg</label>
-                            <input name="b2" id="b2_tolak" type="text"
-                                onKeyPress="return goodchars(event,'1234567890.',this)"
-                                placeholder="Berat Kerikil + Bejana" class="form-control form-control-sm" id="b2"
-                                aria-describedby="emailHelp" readonly>
+                            <label for="exampleInputEmail1">b. Berat Pasir + Bejana (B2) Kg</label>
+                            <input name="b2" id="b2_tolak" type="text" placeholder="Berat Pasir + Bejana"
+                                class="form-control form-control-sm"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" aria-describedby="emailHelp"
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">c. Ukuran Bejana</label><br>
@@ -288,11 +291,12 @@
         })
 
         function getData() {
+
             $('#myTable').DataTable().clear().destroy();
 
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar',
+                ajax: '/data-berat-isi-halus',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -308,11 +312,11 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "berat_pasir"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_satuan_pasir"
                     },
 
                     {
@@ -355,11 +359,12 @@
         }
 
         function getData2() {
+
             $('#myTable2').DataTable().clear().destroy();
 
             $("#myTable2").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar-acc',
+                ajax: '/data-berat-isi-halus-acc',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -375,18 +380,18 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "berat_pasir"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_satuan_pasir"
                     },
 
                     {
                         render: function(data, type, row, meta) {
                             return `<a href=storage/${row.lampiran_bahan_uji} target="_blank">
-                                  Lihat
-                                </a>`
+                      Lihat
+                    </a>`
                         }
                     },
 
@@ -399,7 +404,7 @@
 
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/cetak-berat-isi-kasar/${row.id} target="_blank">
+                            return `<a href=/cetak-berat-isi-halus/${row.id} target="_blank">
                         <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                     </a>`
                         }
@@ -417,11 +422,12 @@
         }
 
         function getData3() {
+
             $('#myTable3').DataTable().clear().destroy();
 
             $("#myTable3").DataTable({
                 "ordering": false,
-                ajax: '/data-berat-isi-kasar-tolak',
+                ajax: '/data-berat-isi-halus-tolak',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -437,18 +443,18 @@
                     },
 
                     {
-                        data: "berat_kerikil_tumbuk"
+                        data: "berat_pasir"
                     },
 
                     {
-                        data: "berat_satuan_kerikil_tumbuk"
+                        data: "berat_satuan_pasir"
                     },
 
                     {
                         render: function(data, type, row, meta) {
                             return `<a href=storage/${row.lampiran_bahan_uji} target="_blank">
-                                  Lihat
-                                </a>`
+          Lihat
+        </a>`
                         }
                     },
 
@@ -470,8 +476,9 @@
                     {
                         render: function(data, type, row, meta) {
                             return `<a href="javascript:void(0)" onclick="hapusData(` + (row
-                                    .id) +
-                                `)"><i style="font-size: 1.5rem;" class="text-danger bi bi-trash"></i></a>`
+                                .id) + `)">
+            <i style="font-size: 1.5rem;" class="text-danger bi bi-trash"></i>
+        </a>`
                         }
                     },
                 ]
@@ -494,9 +501,9 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#kerikil_asal').val(cokData[0].kerikil_asal)
+                modal.find('#pasir_asal').val(cokData[0].pasir_asal)
                 modal.find('#diameter_maksimum').val(cokData[0].diameter_maksimum)
-                modal.find('#keadaan_kerikil').val(cokData[0].keadaan_kerikil)
+                modal.find('#keadaan_pasir').val(cokData[0].keadaan_pasir)
                 modal.find('#b1').val(cokData[0].b1)
                 modal.find('#b2').val(cokData[0].b2)
                 modal.find('#diameter_dalam').val(cokData[0].diameter_dalam)
@@ -520,9 +527,9 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id_tolak').val(cokData[0].id)
-                modal.find('#kerikil_asal_tolak').val(cokData[0].kerikil_asal)
+                modal.find('#pasir_asal_tolak').val(cokData[0].pasir_asal)
                 modal.find('#diameter_maksimum_tolak').val(cokData[0].diameter_maksimum)
-                modal.find('#keadaan_kerikil').val(cokData[0].keadaan_kerikil)
+                modal.find('#keadaan_pasir_tolak').val(cokData[0].keadaan_pasir)
                 modal.find('#b1_tolak').val(cokData[0].b1)
                 modal.find('#b2_tolak').val(cokData[0].b2)
                 modal.find('#diameter_dalam_tolak').val(cokData[0].diameter_dalam)
@@ -541,7 +548,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-berat-isi-kasar' : '/update-berat-isi-kasar',
+                    url: formData.get('id') == '' ? '/store-berat-isi-halus' : '/verifikasi-berat-isi-halus',
                     data: formData,
                 })
                 .then(function(res) {
@@ -556,9 +563,13 @@
                             showConfirmButton: false
                         })
 
-                        $("#modal").modal("hide");
-                        $('#myTable').DataTable().clear().destroy();
-                        getData()
+                        // $("#modal").modal("hide");
+                        // $('#myTable').DataTable().clear().destroy();
+                        // getData()
+
+                        setTimeout(() => {
+                            location.reload(res.data.respon);
+                        }, 1500);
 
                     } else {
                         //error validation
@@ -589,7 +600,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/delete-berat-isi-kasar', {
+                    axios.post('/delete-berat-isi-halus', {
                             id
                         })
                         .then((response) => {
