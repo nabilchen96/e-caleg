@@ -59,6 +59,7 @@
             margin: 5px;
         }
     </style>
+    @stack('style')
 </head>
 
 <body class="index-page bg-gray-100">
