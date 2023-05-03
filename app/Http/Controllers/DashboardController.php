@@ -33,7 +33,7 @@ class DashboardController extends Controller
             $ssd_kasar_new = PengujianSsdAgregateKasar::where('status_verifikasi','0')->get();
             $los_angeles_kasar_new = PengujianLosAngeles::where('status_verifikasi','0')->get();
             $kadar_lumpur_halus_new = PengujianKadarLumpur::where('status_verifikasi','0')->get();
-            $berat_isi_halus = PengujianBeratIsi::where('status_verifikasi','0')->get();
+            $berat_isi_halus_new = PengujianBeratIsi::where('status_verifikasi','0')->get();
             $analisa_saringan_halus_new = AnalisaSaringanHalus::where('status_verifikasi','0')->get();
             $ssd_halus_new = PengujianSsdAgregateHalus::where('status_verifikasi','0')->get();
 
