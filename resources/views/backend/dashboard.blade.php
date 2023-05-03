@@ -21,7 +21,7 @@
                 <div class="card card-tale">
                   <a href="{{url('berat-isi-kasar')}}" style="text-decoration: none; color:white">
                   <div class="card-body">
-                    <p class="mb-4">Agregate Kasar @if($bi_kasar_new =! 0) <sup class="text-warning bi bi-info-circle"></sup> @endif </p>
+                    <p class="mb-4">Agregate Kasar @if($bi_kasar_new) <sup class="text-warning bi bi-info-circle"></sup> @endif </p>
                     <p class="fs-30 mb-2">{{ $bi_kasar }}</p>
                     <p>Pengujian Berat Isi</p>
                   </div>

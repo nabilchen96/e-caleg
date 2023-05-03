@@ -33,7 +33,7 @@
             <form id="formLogin">
               <div class="form-group first">
                 <label for="username">Email</label>
-                <input type="text" class="form-control" placeholder="your-email@gmail.com" id="email" name="email">
+                <input type="text" class="form-control" placeholder="Your active email" id="email" name="email">
               </div>
               <div class="form-group">
                 <label for="">Name</label>

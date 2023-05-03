@@ -107,21 +107,6 @@ class AnalisasaringanhalusController extends Controller
         return $rep;
     }
 
-    public function hitung(Request $request)
-    {
-        $inputan = array(
-            'inputa_1' => $request->inputa_1,
-            'inputa_2' => $request->inputa_2,
-            'inputa_3' => $request->inputa_3,
-            'inputa_4' => $request->inputa_4,
-            'inputa_5' => $request->inputa_5,
-            'inputa_6' => $request->inputa_6,
-            'sisa_inputa' => $request->sisa_inputa
-        );
-
-        $jumlah_input_a = $inputan['inputa_1'] + $inputan['inputa_2'] + $inputan['inputa_3'] + $inputan['inputa_4'] + $inputan['inputa_5'] + $inputan['inputa_6'] + $inputan['sisa_inputa'];
-    }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -250,7 +235,7 @@ class AnalisasaringanhalusController extends Controller
                 'respon'        => 'Data Sukses Ditambah'
             ];
 
-            kirimEmail('Analisa Saringan Halus');
+            kirimEmail('Analisa Saringan Agregate Halus');
         }
 
         return response()->json($data);
