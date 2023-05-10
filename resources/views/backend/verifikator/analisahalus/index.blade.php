@@ -99,7 +99,7 @@
                                     <thead>
                                         <tr>
                                             <th width="5%">No</th>
-                                            <th>Kode Uji</th>
+                                            <th>Kode Ujiss</th>
                                             <th>Pasir Asal</th>
                                             <th>Berat Pasir</th>
                                             <th>Modulus Halus</th>
@@ -625,12 +625,12 @@
                     //handle error
                     console.log(res);
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Gagal',
-                        text: res.data.respon,
-                        timer: 3000,
-                        showConfirmButton: false
-                    })
+                            icon: 'error',
+                            title: 'Perhitungan Error!',
+                            text: res.response.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        })
 
                 });
         }

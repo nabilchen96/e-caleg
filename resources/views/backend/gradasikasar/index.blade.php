@@ -695,7 +695,7 @@
 
                     } else {
                         //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
+                        document.getElementById('lampiran_bahan_uji_alert').innerHTML = res.data.respon.lampiran_bahan_uji ?? ''
                         document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
                     }
 
@@ -706,12 +706,12 @@
                     //handle error
                     console.log(res);
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Gagal',
-                        text: res.data.respon,
-                        timer: 3000,
-                        showConfirmButton: false
-                    })
+                            icon: 'error',
+                            title: 'Perhitungan Error!',
+                            text: res.response.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        })
 
                 });
         }

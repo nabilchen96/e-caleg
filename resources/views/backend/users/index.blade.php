@@ -133,7 +133,7 @@
                             if (row.role == "Admin") {
                                 return `<span class="badge badge-success">${row.role}</span>`
                             } else if (row.role == "Pengguna") {
-                                return `<span class="badge badge-danger">${row.role}</span>`
+                                return `<span class="badge badge-danger">Laboran</span>`
                             } else if (row.role == "Verifikator") {
                                 return `<span class="badge badge-primary">${row.role}</span>`
                             } 

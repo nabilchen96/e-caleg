@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT ISI AGREGAT KASAR </h4>
-            <table class="table table-bordered">
+            <table class="table table-bordered" width="600px">
                 <tr>
                     <td colspan="4"><b>Benda Uji :</b></td>
                 </tr>
@@ -35,42 +35,31 @@
                     <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Bejana</td>
-                    <td>(B1)</td>
+                    <td>a. Berat Bejana (B1)</td>
                     <td>:</td>
                     <td>{{ $data->b1 }} kg</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Kerikil + Bejana</td>
-                    <td>(B2)</td>
+                    <td>b. Berat Kerikil + Bejana (B2)</td>
                     <td>:</td>
                     <td>{{ $data->b2 }} kg</td>
                 </tr>
                 <tr>
-                    <td>c. Ukuran Bejana</td>
-                    <td>: diameter bagian dalam</td>
-                    <td>:</td>
-                    <td>{{ $data->diameter_dalam }}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>: tinggi bagian dalam</td>
-                    <td>:</td>
-                    <td>{{ $data->tinggi_bejana_dalam }}</td>
+                    <td>c. Ukuran Bejana <br> - diameter bagian dalam <br> - tinggi bagian dalam </td>
+                    <td><br>  : <br> : </td>
+                    <td><br>{{ $data->diameter_dalam }} <br> {{ $data->tinggi_bejana_dalam }} </td>
                 </tr>
 
                 <tr>
                     <td colspan="4"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Kerikil</td>
-                    <td>: B3 = B2 - B1</td>
+                    <td>a. Berat Kerikil (B3 = B2 - B1)</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_tumbuk }} kg</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Satuan Kerikil</td>
-                    <td>: B3 / (Volume Bejana = 1/4*ᴫ*D<sup>2</sup>*t)</td>
+                    <td>b. Berat Satuan Kerikil (B3 / (Volume Bejana = 1/4*ᴫ*D<sup>2</sup>*t))</td>
                     <td>:</td>
                     <td>{{ round($data->berat_satuan_kerikil_tumbuk,6) * 1000 }} x 10 <sup>-3</sup> kg/cm<sup>3</sup> </td>
                 </tr>

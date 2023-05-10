@@ -515,9 +515,9 @@
                     //handle error
                     console.log(res);
                     Swal.fire({
-                            icon: 'success',
-                            title: 'Gagal',
-                            text: res.data.respon,
+                            icon: 'error',
+                            title: 'Perhitungan Error!',
+                            text: res.response.data.message,
                             timer: 3000,
                             showConfirmButton: false
                         })

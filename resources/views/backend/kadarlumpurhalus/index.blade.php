@@ -33,9 +33,9 @@
             <div class="card w-100">
                 <div class="card-body">
                     {{-- @if (Auth::user()->role == 'Admin')                         --}}
-                        <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
-                            Tambah
-                        </button>
+                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
+                        Tambah
+                    </button>
                     {{-- @endif --}}
 
                     <ul class="nav nav-tabs" role="tablist">
@@ -120,7 +120,7 @@
 
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
@@ -142,25 +142,31 @@
                                 class="form-control form-control-sm" aria-describedby="emailHelp" required>
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
-                       
+
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Pasir sebelum dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_1" id="berat_pasir_1" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
+                            <input name="berat_pasir_1" id="berat_pasir_1"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
                                 class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir setelah dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_2" id="berat_pasir_2" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
+                            <input name="berat_pasir_2" id="berat_pasir_2"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
                                 class="form-control form-control-sm" aria-describedby="emailHelp" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Lampiran Bahan Uji (.pdf, max:5mb)</label>
-                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file" placeholder="Lampiran Bahan Uji (.pdf)"
-                                class="form-control form-control-sm" aria-describedby="emailHelp">
-                            <span class="text-danger error" style="font-size: 12px;" id="lampiran_bahan_uji_alert"></span>
+                            <input name="lampiran_bahan_uji" id="lampiran_bahan_uji" type="file"
+                                placeholder="Lampiran Bahan Uji (.pdf)" class="form-control form-control-sm"
+                                aria-describedby="emailHelp">
+                            <span class="text-danger error" style="font-size: 12px;"
+                                id="lampiran_bahan_uji_alert"></span>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer p-3">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -187,23 +193,27 @@
                                 class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                             <span class="text-danger error" style="font-size: 12px;" id="pasir_asal_alert"></span>
                         </div>
-                       
+
                         <h4>Hasil Pengujian</h4>
                         <div class="form-group">
                             <label for="exampleInputEmail1">a. Berat Pasir sebelum dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_1" id="berat_pasir_1_tolak" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
+                            <input name="berat_pasir_1" id="berat_pasir_1_tolak"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Pasir sebelum dicuci/dimasukan ke oven (gr)"
                                 class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">b. Berat Pasir setelah dicuci/dimasukan ke oven (gr)</label>
-                            <input name="berat_pasir_2" id="berat_pasir_2_tolak" onKeyPress="return goodchars(event,'1234567890.',this)" type="text" placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
+                            <input name="berat_pasir_2" id="berat_pasir_2_tolak"
+                                onKeyPress="return goodchars(event,'1234567890.',this)" type="text"
+                                placeholder="Berat Pasir setelah dicuci/dimasukan ke oven (gr)"
                                 class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Alasan Tolak</label>
                             <textarea class="form-control" readonly name="" id="alasan_tolak" cols="30" rows="10"></textarea>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer p-3">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -238,7 +248,7 @@
                     {
                         data: "kode_uji"
                     },
-                    
+
                     {
                         data: "berat_pasir_1"
                     },
@@ -293,7 +303,7 @@
 
         function getData2() {
             $('#myTable2').DataTable().clear().destroy();
-            
+
             $("#myTable2").DataTable({
                 "ordering": false,
                 ajax: '/data-kadar-lumpur-halus-acc',
@@ -310,7 +320,7 @@
                     {
                         data: "kode_uji"
                     },
-                    
+
                     {
                         data: "berat_pasir_1"
                     },
@@ -359,7 +369,7 @@
 
         function getData3() {
             $('#myTable3').DataTable().clear().destroy();
-            
+
             $("#myTable3").DataTable({
                 "ordering": false,
                 ajax: '/data-kadar-lumpur-halus-tolak',
@@ -376,7 +386,7 @@
                     {
                         data: "kode_uji"
                     },
-                    
+
                     {
                         data: "berat_pasir_1"
                     },
@@ -415,7 +425,8 @@
                     {
                         render: function(data, type, row, meta) {
                             return `<a href="javascript:void(0)" onclick="hapusData(` + (row
-                                .id) + `)"><i style="font-size: 1.5rem;" class="text-danger bi bi-trash"></i></a>`
+                                    .id) +
+                                `)"><i style="font-size: 1.5rem;" class="text-danger bi bi-trash"></i></a>`
                         }
                     },
                 ]
@@ -512,6 +523,13 @@
                     document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Perhitungan Error!',
+                        text: res.response.data.message,
+                        timer: 3000,
+                        showConfirmButton: false
+                    })
                 });
         }
 

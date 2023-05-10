@@ -578,6 +578,13 @@
                     document.getElementById("tombol_kirim").disabled = false;
                     //handle error
                     console.log(res);
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Perhitungan Error!',
+                            text: res.response.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        })
                 });
         }
 

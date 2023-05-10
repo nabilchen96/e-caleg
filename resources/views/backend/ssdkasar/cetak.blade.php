@@ -25,54 +25,43 @@
                     <td colspan="5"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Kerikil SSD</td>
+                    <td>a. Berat Kerikil SSD (A)</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_ssd }} gr</td>
-                    <td colspan="2">(A)</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Kerikil di dalam air</td>
+                    <td>b. Berat Kerikil di dalam air (B)</td>
                     <td>:</td>
                     <td>{{ $data->berat_kerikil_air }} gr</td>
-                    <td colspan="2">(B)</td>
                 </tr>
                 <tr>
-                    <td>c. Berat Kerikil kering tungku</td>
+                    <td>c. Berat Kerikil kering tungku (C)</td>
                     <td>: </td>
                     <td>{{ $data->berat_kerikil_kering_tungku }} gr</td>
-                    <td colspan="2">(C)</td>
                 </tr>
                
                 <tr>
                     <td colspan="5"><b>Perhitungan : </b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Jenis Mutlak</td>
-                    <td>C/(C-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} - {{ $data->berat_kerikil_air }} = </td>
-                    <td>{{ number_format($data->berat_jenis_mutlak,2) }}</td>
+                    <td>a. Berat Jenis Mutlak (C/(C-B)) <br> &nbsp;&nbsp;&nbsp;  {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} - {{ $data->berat_kerikil_air }} </td>
+                    <td><br> : </td>
+                    <td><br>{{ number_format($data->berat_jenis_mutlak,2) }}</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Jenis Kering Tungku</td>
-                    <td>C/(A-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_kering_tungku,2) }} </td>
+                    <td>b. Berat Jenis Kering Tungku (C/(A-B)) <br> &nbsp;&nbsp;&nbsp; {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }}</td>
+                    <td> <br> :</td>
+                    <td> <br> {{  number_format($data->berat_jenis_kering_tungku,2) }} </td>
                 </tr>
                 <tr>
-                    <td>c. Berat Jenis SSD</td>
-                    <td>A/(A-B)</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }} =</td>
-                    <td>{{  number_format($data->berat_jenis_ssd,2) }} </td>
+                    <td>c. Berat Jenis SSD (A/(A-B)) <br> &nbsp;&nbsp;&nbsp; {{ $data->berat_kerikil_ssd }} / {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_air }}</td>
+                    <td> <br> : </td>
+                    <td> <br> {{  number_format($data->berat_jenis_ssd,2) }} </td>
                 </tr>
                 <tr>
-                    <td>d. Persentase penyerapan <br> (absorption)</td>
-                    <td>A-C/C x 100</td>
-                    <td>=</td>
-                    <td>{{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} x 100% =</td>
-                    <td>{{  round($data->presentase_penyerapan,2) }} %</td>
+                    <td>d. Persentase penyerapan (absorption) (A-C/C x 100) <br> &nbsp;&nbsp;&nbsp; {{ $data->berat_kerikil_ssd }} - {{ $data->berat_kerikil_kering_tungku }} / {{ $data->berat_kerikil_kering_tungku }} x 100% </td>
+                    <td><br>:</td>
+                    <td><br>{{  round($data->presentase_penyerapan,2) }} %</td>
                 </tr>
             </table>
         </div>

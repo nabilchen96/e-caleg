@@ -576,7 +576,14 @@
                 .catch(function(res) {
                     document.getElementById("tombol_kirim").disabled = false;
                     //handle error
-                    console.log(res);
+                    console.log(res.response.data.message);
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Perhitungan Error!',
+                            text: res.response.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        })
                 });
         }
 
