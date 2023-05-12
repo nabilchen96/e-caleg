@@ -47,7 +47,10 @@ class PengujianlosangelesController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_los_angeles')
+                ->select('pengujian_los_angeles.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'pengujian_los_angeles.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_los_angeles')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -248,7 +251,7 @@ class PengujianlosangelesController extends Controller
 
             $user = PengujianLosAngeles::find($request->id);
             $getEmail = User::find($user->user_id);
-            
+
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -260,7 +263,7 @@ class PengujianlosangelesController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Los Angeles Machine',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('Los Angeles Machine', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

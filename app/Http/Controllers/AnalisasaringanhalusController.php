@@ -47,7 +47,10 @@ class AnalisasaringanhalusController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0');
+            $beratisi = DB::table('analisa_saringan_haluses')
+                ->select('analisa_saringan_haluses.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'analisa_saringan_haluses.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('analisa_saringan_haluses')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -401,7 +404,7 @@ class AnalisasaringanhalusController extends Controller
 
             $user = AnalisaSaringanHalus::find($request->id);
             $getEmail = User::find($user->user_id);
-            
+
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -413,7 +416,7 @@ class AnalisasaringanhalusController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Analisa Saringan Halus',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('Analisa Saringan Halus', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

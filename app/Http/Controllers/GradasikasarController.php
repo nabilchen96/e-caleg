@@ -47,7 +47,10 @@ class GradasikasarController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('gradasi_kasars')->where('status_verifikasi', '0');
+            $beratisi = DB::table('gradasi_kasars')
+                ->select('gradasi_kasars.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'gradasi_kasars.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('gradasi_kasars')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -80,7 +83,7 @@ class GradasikasarController extends Controller
             $beratisi = DB::table('gradasi_kasars')->where('status_verifikasi', '2');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('gradasi_kasars')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id);
-        }else if (Auth::user()->role == 'Verifikator') {
+        } else if (Auth::user()->role == 'Verifikator') {
             $beratisi = DB::table('gradasi_kasars')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id);
         }
 
@@ -479,7 +482,7 @@ class GradasikasarController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Gradasi Agregat Kasar',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('Gradasi Agregat Kasar', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

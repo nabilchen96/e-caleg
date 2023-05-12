@@ -25,7 +25,7 @@ class PengujianberatisikasarController extends Controller
             $baru = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id)->get();
             $verif = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '1')->where('user_id', Auth::user()->id)->get();
             $tolak = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id)->get();
-        } else if(Auth::user()->role == 'Verifikator'){
+        } else if (Auth::user()->role == 'Verifikator') {
             $baru = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '0')->get();
             $verif = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '1')->where('user_verifikator_id', Auth::user()->id)->get();
             $tolak = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '2')->where('user_verifikator_id', Auth::user()->id)->get();
@@ -50,11 +50,12 @@ class PengujianberatisikasarController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_berat_isi_kasars')
+                ->select('pengujian_berat_isi_kasars.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'pengujian_berat_isi_kasars.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
-        }  else if (Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '0')->where('user_verifikator_id', Auth::user()->id);
         }
 
         $beratisi = $beratisi->get();
@@ -80,7 +81,7 @@ class PengujianberatisikasarController extends Controller
     public function datatolak()
     {
 
-        if (Auth::user()->role == 'Admin' ) {
+        if (Auth::user()->role == 'Admin') {
             $beratisi = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '2');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_berat_isi_kasars')->where('status_verifikasi', '2')->where('user_id', Auth::user()->id);
@@ -211,7 +212,6 @@ class PengujianberatisikasarController extends Controller
                 'responCode'    => 1,
                 'respon'        => 'Data Sukses Disimpan'
             ];
-
         }
 
         return response()->json($data);
@@ -234,7 +234,7 @@ class PengujianberatisikasarController extends Controller
 
             $user = PengujianBeratIsiKasar::find($request->id);
             $getEmail = User::find($user->user_id);
-            
+
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -246,7 +246,7 @@ class PengujianberatisikasarController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Berat Isi Agregat Kasar',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('Berat Isi Agregat Kasar', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

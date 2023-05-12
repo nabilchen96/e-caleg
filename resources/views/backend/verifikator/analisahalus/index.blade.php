@@ -99,7 +99,7 @@
                                     <thead>
                                         <tr>
                                             <th width="5%">No</th>
-                                            <th>Kode Ujiss</th>
+                                            <th>Kode Uji</th>
                                             <th>Pasir Asal</th>
                                             <th>Berat Pasir</th>
                                             <th>Modulus Halus</th>
@@ -201,6 +201,11 @@
                                 <option value="2">Ditolak</option>
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Submited By</label>
+                            <input name="user_name" id="user_name" type="text" 
+                                class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika
@@ -545,6 +550,7 @@
                 modal.find('#inputa_5').val(cokData[0].inputa_5)
                 modal.find('#inputa_6').val(cokData[0].inputa_6)
                 modal.find('#sisa_inputa').val(cokData[0].sisa_inputa)
+                modal.find('#user_name').val(cokData[0].name)
             }
         })
 

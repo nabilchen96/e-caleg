@@ -47,7 +47,10 @@ class PengujiankadarlumpurController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_kadar_lumpurs')
+                ->select('pengujian_kadar_lumpurs.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'pengujian_kadar_lumpurs.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_kadar_lumpurs')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -237,9 +240,7 @@ class PengujiankadarlumpurController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Kadar Lumpur',$getEmail->email,$request->status_verifikasi);
-
-            
+            kirimEmailUpdate('Kadar Lumpur', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

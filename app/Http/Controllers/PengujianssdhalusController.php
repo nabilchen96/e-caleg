@@ -47,7 +47,10 @@ class PengujianssdhalusController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_ssd_agregate_haluses')
+                ->select('pengujian_ssd_agregate_haluses.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'pengujian_ssd_agregate_haluses.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_ssd_agregate_haluses')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -241,7 +244,7 @@ class PengujianssdhalusController extends Controller
 
             $user = PengujianSsdAgregateHalus::find($request->id);
             $getEmail = User::find($user->user_id);
-            
+
             $data = $user->update([
                 'status_verifikasi'         => $request->status_verifikasi,
                 'alasan'                    => $request->alasan,
@@ -253,7 +256,7 @@ class PengujianssdhalusController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('SSD Agregate Halus',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('SSD Agregate Halus', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

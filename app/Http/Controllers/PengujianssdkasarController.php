@@ -47,7 +47,10 @@ class PengujianssdkasarController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_ssd_agregate_kasars')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_ssd_agregate_kasars')
+                        ->select('pengujian_ssd_agregate_kasars.*','users.name')
+                        ->leftJoin('users','users.id','pengujian_ssd_agregate_kasars.user_id')
+                        ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_ssd_agregate_kasars')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }

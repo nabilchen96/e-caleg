@@ -173,6 +173,11 @@
                             <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Submited By</label>
+                            <input name="user_name" id="user_name" type="text" 
+                                class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika
                                     status ditolak</span> </label>
                             <textarea class="form-control" name="alasan" id="alasan_tolak" cols="30" rows="10"></textarea>
@@ -471,6 +476,7 @@
                 modal.find('#berat_tabung_air').val(cokData[0].berat_tabung_air)
                 modal.find('#berat_pasir_tabung_air').val(cokData[0].berat_pasir_tabung_air)
                 modal.find('#berat_pasir_kering_tungku').val(cokData[0].berat_pasir_kering_tungku)
+                modal.find('#user_name').val(cokData[0].name)
             }
         })
 

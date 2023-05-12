@@ -25,7 +25,7 @@ class PengujianBeratIsiController extends Controller
 
     public function index()
     {
-        
+
         if (Auth::user()->role == 'Admin') {
             $baru = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->get();
             $verif = DB::table('pengujian_berat_isis')->where('status_verifikasi', '1')->get();
@@ -59,7 +59,10 @@ class PengujianBeratIsiController extends Controller
     {
 
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikator') {
-            $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0');
+            $beratisi = DB::table('pengujian_berat_isis')
+                ->select('pengujian_berat_isis.*', 'users.name')
+                ->leftJoin('users', 'users.id', 'pengujian_berat_isis.user_id')
+                ->where('status_verifikasi', '0');
         } else if (Auth::user()->role == 'Pengguna') {
             $beratisi = DB::table('pengujian_berat_isis')->where('status_verifikasi', '0')->where('user_id', Auth::user()->id);
         }
@@ -254,7 +257,7 @@ class PengujianBeratIsiController extends Controller
                 'respon'        => 'Data Sukses Disimpan'
             ];
 
-            kirimEmailUpdate('Berat Isi Agregate Halus',$getEmail->email,$request->status_verifikasi);
+            kirimEmailUpdate('Berat Isi Agregate Halus', $getEmail->email, $request->status_verifikasi);
         }
 
         return response()->json($data);

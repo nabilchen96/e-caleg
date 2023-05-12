@@ -242,6 +242,11 @@
                             <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Submited By</label>
+                            <input name="user_name" id="user_name" type="text" 
+                                class="form-control form-control-sm" aria-describedby="emailHelp" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Alasan Tolak <br> <span class="text-info">*Isi alasan jika
                                     status ditolak</span> </label>
                             <textarea class="form-control" name="alasan" id="alasan_tolak" cols="30" rows="10"></textarea>
@@ -626,6 +631,7 @@
                 modal.find('#inputa_8').val(cokData[0].inputa_8)
                 modal.find('#inputa_9').val(cokData[0].inputa_9)
                 modal.find('#sisa_inputa').val(cokData[0].sisa_inputa)
+                modal.find('#user_name').val(cokData[0].name)
             }
         })
 
