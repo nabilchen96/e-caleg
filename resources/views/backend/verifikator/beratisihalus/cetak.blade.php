@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT ISI AGREGAT HALUS/PASIR </h4>
+            <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN BERAT ISI AGREGAT HALUS/PASIR ss</h4>
             <table class="table table-bordered" border="1">
                 <tr>
                     <td colspan="4"><b>Benda Uji :</b></td>
@@ -35,28 +35,19 @@
                     <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Bejana</td>
-                    <td>(B1)</td>
+                    <td>a. Berat Bejana (B1)</td>
                     <td>:</td>
                     <td>{{ $data->b1 }} kg</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Pasir + Bejana</td>
-                    <td>(B2)</td>
+                    <td>b. Berat Pasir + Bejana (B2)</td>
                     <td>:</td>
                     <td>{{ $data->b2 }} kg</td>
                 </tr>
                 <tr>
-                    <td>c. Ukuran Bejana</td>
-                    <td>: diameter bagian dalam</td>
+                    <td>c. Ukuran Bejana <br> diameter bagian dalam <br> tinggi bagian dalam</td>
                     <td>:</td>
-                    <td>{{ $data->diameter_dalam }}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>: tinggi bagian dalam</td>
-                    <td>:</td>
-                    <td>{{ $data->tinggi_bejana_dalam }}</td>
+                    <td> <br> {{ $data->diameter_dalam }} <br> {{ $data->tinggi_bejana_dalam }} </td>
                 </tr>
 
                 <tr>

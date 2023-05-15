@@ -35,44 +35,32 @@
                     <td colspan="4"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Bejana</td>
-                    <td>(B1)</td>
+                    <td>a. Berat Bejana (B1)</td>
                     <td>:</td>
                     <td>{{ $data->b1 }} kg</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Pasir + Bejana</td>
-                    <td>(B2)</td>
+                    <td>b. Berat Pasir + Bejana (B2)</td>
                     <td>:</td>
                     <td>{{ $data->b2 }} kg</td>
                 </tr>
                 <tr>
-                    <td>c. Ukuran Bejana</td>
-                    <td>: diameter bagian dalam</td>
-                    <td>:</td>
-                    <td>{{ $data->diameter_dalam }}</td>
+                    <td>c. Ukuran Bejana <br> - diameter bagian dalam <br> - tinggi bagian dalam</td>
+                    <td><br> : <br> :</td>
+                    <td><br>{{ $data->diameter_dalam }} <br> {{ $data->tinggi_bejana_dalam }}</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>: tinggi bagian dalam</td>
-                    <td>:</td>
-                    <td>{{ $data->tinggi_bejana_dalam }}</td>
-                </tr>
-
                 <tr>
                     <td colspan="4"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
-                    <td>a. Berat Pasir</td>
-                    <td>: B3 = B2 - B1</td>
-                    <td>:</td>
-                    <td>{{ $data->berat_pasir }} kg</td>
+                    <td>a. Berat Pasir <br> B3 = B2 - B1</td>
+                    <td> <br> :</td>
+                    <td><br> {{ $data->berat_pasir }} kg</td>
                 </tr>
                 <tr>
-                    <td>b. Berat Satuan Pasir</td>
-                    <td>: B3 / (Volume Bejana = 1/4*ᴫ*D<sup>2</sup>*t)</td>
-                    <td>:</td>
-                    <td>{{ round($data->berat_satuan_pasir,6) * 1000 }} x 10 <sup>-3</sup> kg/cm<sup>3</sup> </td>
+                    <td>b. Berat Satuan Pasir <br> B3 / (Volume Bejana = 1/4*ᴫ*D<sup>2</sup>*t) </td>
+                    <td><br>:</td>
+                    <td><br>{{ round($data->berat_satuan_pasir,6) * 1000 }} x 10 <sup>-3</sup> kg/cm<sup>3</sup> </td>
                 </tr>
             </table>
         </div>

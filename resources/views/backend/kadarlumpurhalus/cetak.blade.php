@@ -13,46 +13,41 @@
             <h4 class="text-center">LAPORAN SEMENTARA <br> PEMERIKSAAN KADAR LUMPUR </h4>
             <table class="table table-bordered" border="1">
                 <tr>
-                    <td colspan="4"><b>Benda Uji :</b></td>
+                    <td colspan="3"><b>Benda Uji :</b></td>
                 </tr>
                 <tr>
                     <td>a. Pasir Asal</td>
                     <td>:</td>
-                    <td colspan="2">{{ $data->pasir_asal }}</td>
+                    <td >{{ $data->pasir_asal }}</td>
                 </tr>
                
                 <tr>
-                    <td colspan="4"><b>Hasil Pengujian :</b></td>
+                    <td colspan="3"><b>Hasil Pengujian :</b></td>
                 </tr>
                 <tr>
                     <td>a. Berat Pasir sebelum dicuci/dimasukan ke oven</td>
-                    <td>=</td>
+                    <td>:</td>
                     <td>{{ $data->berat_pasir_1 }} gram</td>
                 </tr>
                 <tr>
                     <td>b. Berat Pasir setelah dicuci/dimasukan ke oven</td>
-                    <td>=</td>
+                    <td>:</td>
                     <td>{{ $data->berat_pasir_2 }} gram</td>
                 </tr>
 
                 <tr>
-                    <td colspan="4"><b>Perhitungan kadar Lumpur : </b></td>
+                    <td colspan="3"><b>Perhitungan kadar Lumpur : </b></td>
                 </tr>
                 <tr>
-                    <td>Kadar Lumpur</td>
-                    <td>= (a-b)/a x 100%</td>
+                    <td>Kadar Lumpur ((a-b)/a x 100%) <br> ({{ $data->berat_pasir_1 }}-{{ $data->berat_pasir_2 }})/{{ $data->berat_pasir_1 }} x 100% </td>
+                    <td><br>:</td>
+                    <td><br>{{ $data->hasil_kadar_lumpur }} %</td>
                 </tr>
                 <tr>
-                    <td colspan="1"></td>
-                    <td>= ({{ $data->berat_pasir_1 }}-{{ $data->berat_pasir_2 }})/{{ $data->berat_pasir_1 }} x 100%</td>
-                    <td>{{ $data->hasil_kadar_lumpur }} %</td>
-                </tr>
-
-                <tr>
-                    <td colspan="4"><b>Kesimpulan : </b></td>
+                    <td colspan="3"><b>Kesimpulan : </b></td>
                 </tr>
                 <tr>
-                    <td colspan="4">Kadar lumpur pasir normal yang diijinkan SK SNI S-04-1989-F maksimal 5 %. dari hasil pengujian didapat bahwa kadar lumpur terkandung telah <b>{{ $data->kesimpulan }}</b></td>
+                    <td colspan="3">Kadar lumpur pasir normal yang diijinkan SK SNI S-04-1989-F maksimal 5 %. dari hasil pengujian didapat bahwa kadar lumpur terkandung telah <b>{{ $data->kesimpulan }}</b></td>
                     
                 </tr>
             </table>
