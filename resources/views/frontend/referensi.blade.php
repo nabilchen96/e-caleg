@@ -1,13 +1,12 @@
 @extends('frontend.app')
 @section('content')
     <div class="container" style="margin-top: 100px;">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold">Data Dokumen Referensi</h3>
-                </div>
-            </div>
-        </div>
+        <a href="{{ url('/') }}">        
+            <h4 class="font-weight-bold mb-3">
+                <i class="bi bi-arrow-left"></i>
+                Dokumen Referensi
+            </h4>
+        </a>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">

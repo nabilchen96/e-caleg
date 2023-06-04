@@ -38,7 +38,7 @@
     <!-- CSS Files -->
 
     <link id="pagestyle" href="{{ asset('soft-ui/assets/css/soft-design-system.css?v=1.0.9') }}" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
         .table td {
             white-space: unset;
@@ -121,41 +121,50 @@
         <hr class="horizontal dark mb-5" />
         <div class="container">
             <div class="row">
+                
+                <div class="col-md-3 mb-4">
+                    <h6 class="text-gradient text-primary font-weight-bolder">
+                        Alamat
+                    </h6>
+                    <p style="font-size: 14px;">
+                        Jl. Adi Sucipto No.3012, Sukodadi, Kec. Sukarami, Palembang, Sumatera Selatan, 30961
+
+                        Telpon: 0711-410930 <br>
+
+                        Fax: 0711-420385
+                    </p>
+                </div>
+
                 <div class="col-md-3 mb-4 ms-auto">
                     <div>
                         <h6 class="text-gradient text-primary font-weight-bolder">
-                            Soft UI Design System
+                            Smart Material App
                         </h6>
                     </div>
                     <div>
-                        <h6 class="mt-3 mb-2 opacity-8">Social</h6>
+                        <h6 class="mt-3 mb-2 opacity-8">Social Media</h6>
                         <ul class="d-flex flex-row ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim/" target="_blank">
+                                <a class="nav-link pe-1" href="https://www.facebook.com/poltekbangplg/" target="_blank">
                                     <i class="fab fa-facebook text-lg opacity-8"></i>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
+                                <a class="nav-link pe-1" href="https://twitter.com" target="_blank">
                                     <i class="fab fa-twitter text-lg opacity-8"></i>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
-                                    <i class="fab fa-dribbble text-lg opacity-8"></i>
+                                <a class="nav-link pe-1" href="https://www.instagram.com/poltekbangplg/"
+                                    target="_blank">
+                                    <i class="fab fa-instagram text-lg opacity-8"></i>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
-                                    <i class="fab fa-github text-lg opacity-8"></i>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
+                                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UC_AW0-niVg52RtQB5NeG34g"
                                     target="_blank">
                                     <i class="fab fa-youtube text-lg opacity-8"></i>
                                 </a>
@@ -164,117 +173,56 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
-                        <h6 class="text-gradient text-primary text-sm">Company</h6>
+                        <h6 class="text-gradient text-primary text-sm">Akses Akademik</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
-                                    About Us
+                                <a class="nav-link" href="http://siakad.poltekbangplg.ac.id" target="_blank">
+                                    Sistem Informasi Akademik
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/free"
-                                    target="_blank">
-                                    Freebies
+                                <a class="nav-link" href="http://sikap.poltekbangplg.ac.id" target="_blank">
+                                    Sistem Informasi Ketarunaan
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/premium"
-                                    target="_blank">
-                                    Premium Tools
+                                <a class="nav-link" href="http://feeder.poltekbangplg.ac.id" target="_blank">
+                                    Feeder Dikti
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
-                                    Blog
+                                <a class="nav-link" href="http://sister.poltekbangplg.ac.id" target="_blank">
+                                    Sister
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
-                        <h6 class="text-gradient text-primary text-sm">Resources</h6>
+                        <h6 class="text-gradient text-primary text-sm">Akses plikasi Lainnya</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://iradesign.io/" target="_blank">
-                                    Illustrations
+                                <a class="nav-link" href="http://e-office.poltekbangplg.ac.id" target="_blank">
+                                    Sistem Informasi Kepegawaian
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
-                                    Bits & Snippets
+                                <a class="nav-link" href="http://skemaraja.dephub.go.id" target="_blank">
+                                    Skemaraja
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new"
-                                    target="_blank">
-                                    Affiliate Program
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-gradient text-primary text-sm">Help & Support</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
-                                    Contact Us
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center"
-                                    target="_blank">
-                                    Knowledge Center
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-soft-ui-footer"
-                                    target="_blank">
-                                    Custom Development
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
-                                    Sponsorships
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-                    <div>
-                        <h6 class="text-gradient text-primary text-sm">Legal</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/terms" target="_blank">
-                                    Terms &amp; Conditions
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/privacy" target="_blank">
-                                    Privacy Policy
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                    Licenses (EULA)
+                                <a class="nav-link" href="https://poltekbangplg.ac.id" target="_blank">
+                                    Official Website
                                 </a>
                             </li>
                         </ul>
@@ -288,8 +236,9 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            Soft UI Design System by
-                            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                            <a href="https://poltekbangplg.ac.id" target="_blank">
+                                Politeknik Penerbangan Palembang
+                            </a>.
                         </p>
                     </div>
                 </div>

@@ -16,8 +16,8 @@
                     <div class="col-lg-7 text-center mx-auto">
                         <h1 class="text-white pt-3 mt-n9">Smart Material Test</h1>
                         <p class="lead text-white mt-3">
-                            Free & Open Source Web UI Kit built over Bootstrap 5. <br />
-                            Join over 1.4 million developers around the world.
+                            Selamat Datang di Aplikasi Uji Coba Material <br />
+                            Politeknik Penerbangan Palembang
                         </p>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
         </div>
     </header>
 
-    <div class="container" style="margin-top: -190px;">
+    <div class="container" style="margin-top: -230px;">
         <div class="row nav">
             <div class="col-lg-4 mb-4">
                 <div class="card z-index-2 mx-auto py-3"
@@ -62,8 +62,8 @@
                         <div class="text-center">
                             <h2 style="color: white">👷 CIVIL</h2>
                             <p class="text-sm text-white">
-                                From buttons, to inputs, navbars, alerts or cards, you are
-                                covered
+                                {{-- From buttons, to inputs, navbars, alerts or cards, you are
+                                covered --}}
                             </p>
                             <a href="#konten" class="d-flex align-items-center justify-content-center">
                                 <!-- tes -->
@@ -92,8 +92,8 @@
                         <div class="text-center">
                             <h2 style="color: white">👨‍🔧 MECHANIC</h2>
                             <p class="text-sm text-white">
-                                From buttons, to inputs, navbars, alerts or cards, you are
-                                covered
+                                {{-- From buttons, to inputs, navbars, alerts or cards, you are
+                                covered --}}
                             </p>
                             <a href="#konten" class="d-flex align-items-center justify-content-center">
                                 <button style="border-radius: 25px;" class="btn btn-sm btn-primary nav-link"
@@ -121,8 +121,8 @@
                         <div class="text-center">
                             <h2 style="color: white">🔌 ELECTRIC</h2>
                             <p class="text-sm text-white">
-                                From buttons, to inputs, navbars, alerts or cards, you are
-                                covered
+                                {{-- From buttons, to inputs, navbars, alerts or cards, you are
+                                covered --}}
                             </p>
                             <a href="#konten" class="d-flex align-items-center justify-content-center">
                                 <button style="border-radius: 25px;" class="btn btn-sm btn-primary nav-link"
@@ -154,43 +154,14 @@
                                             rgba(0, 0, 0, 0.5),
                                             rgba(0, 0, 0, 0.5)
                                         ),
-                                        url('');
+                                        url('https://cdn.pixabay.com/photo/2014/08/05/03/15/bulldozer-410115_1280.jpg');
                                     ">
                                         <div class="card-body d-flex align-items-center justify-content-center">
                                             <div class="text-center">
-                                                <h2 style="color: white">CONCRETE</h2>
+                                                <h2 style="color: white">PENGUJIAN AGREGATE</h2>
                                                 <p class="text-sm text-white">
-                                                    From buttons, to inputs, navbars, alerts or cards, you
-                                                    are covered
-                                                </p>
-                                                <a href="{{ url('concrete') }}"
-                                                    class="d-flex align-items-center justify-content-center">
-                                                    <button style="border-radius: 25px;"
-                                                        class="btn btn-sm btn-primary">Detail</button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card z-index-2 mx-auto py-3"
-                                        style="
-                                        border: none;
-                                        height: 250px;
-                                        background-size: cover;
-                                        background-position: center;
-                                        background-image: linear-gradient(
-                                            rgba(0, 0, 0, 0.5),
-                                            rgba(0, 0, 0, 0.5)
-                                        ),
-                                        url('');
-                                    ">
-                                        <div class="card-body d-flex align-items-center justify-content-center">
-                                            <div class="text-center">
-                                                <h2 style="color: white">AGREGATE</h2>
-                                                <p class="text-sm text-white">
-                                                    From buttons, to inputs, navbars, alerts or cards, you
-                                                    are covered
+                                                    {{-- From buttons, to inputs, navbars, alerts or cards, you
+                                                    are covered --}}
                                                 </p>
                                                 <a href="{{ url('agregate') }}"
                                                     class="d-flex align-items-center justify-content-center">
@@ -201,6 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-6 mb-4">
                                     <div class="card z-index-2 mx-auto py-3"
                                         style="
@@ -212,14 +184,44 @@
                                             rgba(0, 0, 0, 0.5),
                                             rgba(0, 0, 0, 0.5)
                                         ),
-                                        url('');
+                                        url('https://cdn.pixabay.com/photo/2014/08/05/03/15/bulldozer-410115_1280.jpg');
                                     ">
                                         <div class="card-body d-flex align-items-center justify-content-center">
                                             <div class="text-center">
-                                                <h2 style="color: white">ASPHALT</h2>
+                                                <h2 style="color: white">PENGUJIAN CONCRETE</h2>
                                                 <p class="text-sm text-white">
-                                                    From buttons, to inputs, navbars, alerts or cards, you
-                                                    are covered
+                                                    {{-- From buttons, to inputs, navbars, alerts or cards, you
+                                                    are covered --}}
+                                                </p>
+                                                <a href="{{ url('concrete') }}"
+                                                    class="d-flex align-items-center justify-content-center">
+                                                    <button style="border-radius: 25px;"
+                                                        class="btn btn-sm btn-primary">Detail</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card z-index-2 mx-auto py-3"
+                                        style="
+                                        border: none;
+                                        height: 250px;
+                                        background-size: cover;
+                                        background-position: center;
+                                        background-image: linear-gradient(
+                                            rgba(0, 0, 0, 0.5),
+                                            rgba(0, 0, 0, 0.5)
+                                        ),
+                                        url('https://cdn.pixabay.com/photo/2014/08/05/03/15/bulldozer-410115_1280.jpg');
+                                    ">
+                                        <div class="card-body d-flex align-items-center justify-content-center">
+                                            <div class="text-center">
+                                                <h2 style="color: white">PENGUJIAN ASPHALT</h2>
+                                                <p class="text-sm text-white">
+                                                    {{-- From buttons, to inputs, navbars, alerts or cards, you
+                                                    are covered --}}
                                                 </p>
                                                 <a href="{{ url('asphalt') }}"
                                                     class="d-flex align-items-center justify-content-center">
@@ -241,14 +243,14 @@
                                             rgba(0, 0, 0, 0.5),
                                             rgba(0, 0, 0, 0.5)
                                         ),
-                                        url('');
+                                        url('https://cdn.pixabay.com/photo/2014/08/05/03/15/bulldozer-410115_1280.jpg');
                                     ">
                                         <div class="card-body d-flex align-items-center justify-content-center">
                                             <div class="text-center">
-                                                <h2 style="color: white">SOIL</h2>
+                                                <h2 style="color: white">PENGUJIAN <BR> SOIL</h2>
                                                 <p class="text-sm text-white">
-                                                    From buttons, to inputs, navbars, alerts or cards, you
-                                                    are covered
+                                                    {{-- From buttons, to inputs, navbars, alerts or cards, you
+                                                    are covered --}}
                                                 </p>
                                                 <a href="{{ url('soil') }}"
                                                     class="d-flex align-items-center justify-content-center">
@@ -273,8 +275,9 @@
                                     <div class="icon icon-lg up mb-3 mt-3"></div>
                                     <h2 style="color: white">👷 CIVIL</h2>
                                     <p class="text-sm text-white">
-                                        From buttons, to inputs, navbars, alerts or cards, you are
-                                        covered
+                                        {{-- From buttons, to inputs, navbars, alerts or cards, you are
+                                        covered --}}
+                                        PENGUJIAN CONCRETE, PENGUJIAN AGREGATE, PENGUJIAN ASPHALT, DAN PENGUJIAN SOIL
                                     </p>
                                 </div>
                             </div>

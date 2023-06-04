@@ -35,6 +35,10 @@ Route::get('/referensi', 'App\Http\Controllers\DokumenReferensiController@refere
 
 Route::get('/kirimemail','App\Http\Controllers\MalasngodingController@index');
 
+Route::get('/agregate', function(){
+    return view('frontend.agregate.index');
+});
+
 //BACKEND
 Route::group(['middleware' => 'auth'], function () {
 
