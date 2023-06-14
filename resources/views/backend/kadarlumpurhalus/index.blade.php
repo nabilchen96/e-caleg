@@ -350,7 +350,7 @@
 
                     {
                         render: function(data, type, row, meta) {
-                            return `<a href=/cetak-kadar-lumpur-halus/${row.id} target="_blank">
+                            return `<a href=/-kadar-lumpur-halcetakus/${row.id} target="_blank">
                         <i style="font-size: 1.5rem;" class="text-warning bi bi-file-pdf"></i>
                     </a>`
                         }
