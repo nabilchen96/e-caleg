@@ -137,6 +137,8 @@ class PengujianlosangelesController extends Controller
                 $kelas_pubi_desk = "Konstruksi Sedang/Beton Kelas II";
             } else if ($total >= 40 && $total <= 50) {
                 $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas I";
+            } else {
+                $kelas_pubi_desk = "Konstruksi Ringan/Beton Kelas III";   
             }
 
             // upload file
