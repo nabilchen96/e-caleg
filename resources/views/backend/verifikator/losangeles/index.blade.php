@@ -179,7 +179,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Status Verifikasi</label>
                             <select name="status_verifikasi" class="form-control" id="status_verifikasi" required>
-                                <option value="1">Terverfikiasi</option>
+                                <option value="1">Terverifikasi</option>
                                 <option value="2">Ditolak</option>
                             </select>
                             <span class="text-danger error" style="font-size: 12px;" id="status_verifikasi_alert"></span>
@@ -404,7 +404,7 @@
 
                     {
                         render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">Terverfikiasi</span>`
+                            return `<span class="badge badge-success">Terverifikasi</span>`
                         }
                     },
 

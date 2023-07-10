@@ -361,7 +361,7 @@
 
                     {
                         render: function(data, type, row, meta) {
-                            return `<span class="badge badge-success">Terverfikiasi</span>`
+                            return `<span class="badge badge-success">Terverifikasi</span>`
                         }
                     },
 
