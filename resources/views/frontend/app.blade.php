@@ -121,21 +121,33 @@
         <hr class="horizontal dark mb-5" />
         <div class="container">
             <div class="row">
-                
-                <div class="col-md-3 mb-4">
+
+                <div class="col-md-6 mb-4">
                     <h6 class="text-gradient text-primary font-weight-bolder">
                         Alamat
                     </h6>
                     <p style="font-size: 14px;">
                         Jl. Adi Sucipto No.3012, Sukodadi, Kec. Sukarami, Palembang, Sumatera Selatan, 30961
 
-                        Telpon: 0711-410930 <br>
+                        <br>Telpon: 0711-410930 <br>
 
                         Fax: 0711-420385
                     </p>
                 </div>
 
-                <div class="col-md-3 mb-4 ms-auto">
+                <div class="col-md-6 mb-4">
+                    <h6 class="text-gradient text-primary font-weight-bolder">
+                        Maps
+                    </h6>
+                    <p style="font-size: 14px;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.6773912127906!2d104.69701907480811!3d-2.9088981970675025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3b7379005c2f29%3A0x5e411b86b9a1b4e9!2sPoliteknik%20Penerbangan%20Palembang!5e0!3m2!1sen!2sid!4v1694335024777!5m2!1sen!2sid"
+                            width="600" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </p>
+                </div>
+
+                {{-- <div class="col-md-3 mb-4 ms-auto">
                     <div>
                         <h6 class="text-gradient text-primary font-weight-bolder">
                             Smart Material App
@@ -171,9 +183,9 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
+                {{-- <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
                         <h6 class="text-gradient text-primary text-sm">Akses Akademik</h6>
                         <ul class="flex-column ms-n3 nav">
@@ -202,9 +214,9 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
+                {{-- <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
                         <h6 class="text-gradient text-primary text-sm">Akses plikasi Lainnya</h6>
                         <ul class="flex-column ms-n3 nav">
@@ -227,7 +239,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-12">
                     <div class="text-center">
