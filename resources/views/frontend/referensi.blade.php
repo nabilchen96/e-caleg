@@ -24,7 +24,7 @@
                                     <td>{{ $k+1 }}</td>
                                     <td>{{ $item->judul }}</td>
                                     <td>
-                                        <a href="{{ $item->link_file }}">📥</a>
+                                        <a href="{{ $item->link_file }}" target="_blank">📥</a>
                                     </td>
                                 </tr>
                             @endforeach

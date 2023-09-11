@@ -93,7 +93,7 @@
                                         style="margin-top: 5px; margin-right: 20px">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('referensi') }}" target="_blank"
+                                    <a class="nav-link" href="{{ url('referensi') }}"
                                         style="margin-top: 5px; margin-right: 20px">References</a>
                                 </li>
                                 <li class="nav-item">
