@@ -7,70 +7,102 @@
             </a>
 
         </li>
-        @if (Auth::user()->role == 'Admin')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('user') }}">
-                <i class="bi bi-person-fill menu-icon"></i>
-                <span class="menu-title">User</span>
-            </a>
-        </li>
-        @endif
-        
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Uji Agregate Kasar</span>
+                <span class="menu-title">Master</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/berat-isi-kasar') }}">Berat Isi</a>
+                        <a class="nav-link" href="{{ url('user') }}">User</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/ssd-kasar') }}">Pengujian SSD</a>
+                        <a class="nav-link" href="#">Tahun</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/gradasi-kasar') }}">Gradasi</a>
+                        <a class="nav-link" href="{{ url('jadwal') }}">Jadwal</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/los-angeles') }}">Los Angeles</a>
+                        <a class="nav-link" href="#">Dosen</a>
                     </li>
                 </ul>
             </div>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Uji Agregate Halus</span>
+            <a class="nav-link" data-toggle="collapse" href="#tahap1" aria-expanded="false" aria-controls="ui-basic">
+                <i class="bi bi-box-seam menu-icon"></i>
+                <span class="menu-title">Pengusulan</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic2">
+            <div class="collapse" id="tahap1">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/berat-isi-halus') }}">Berat Isi</a>
+                        <a class="nav-link" href="{{url('judul')}}">Judul</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/analisa-saringan-halus') }}">Analisa Saringan</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/ssd-halus') }}">Pengujian SSD</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="{{ url('/kadar-lumpur-halus') }}">Kadar Lumpur</a>
+                        <a class="nav-link" href="{{ url('proposal') }}">Proposal</a>
                     </li>
                 </ul>
             </div>
         </li>
-       
-        @if (Auth::user()->role == 'Admin')
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('dokumen-referensi') }}">
-                <i class="bi bi-file-earmark menu-icon"></i>
-                <span class="menu-title">Dokumen Ref</span>
+            <a class="nav-link" data-toggle="collapse" href="#tahap2" aria-expanded="false" aria-controls="ui-basic">
+                <i class="bi bi-box-seam menu-icon"></i>
+                <span class="menu-title">Pelaksanaan</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="tahap2">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">RAB</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Kontrak</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Surat Izin</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Sem. Antara</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Luaran</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Sem. Hasil</a>
+                    </li>
+                </ul>
+            </div>
         </li>
-        @endif
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tahap3" aria-expanded="false" aria-controls="ui-basic">
+                <i class="bi bi-box-seam menu-icon"></i>
+                <span class="menu-title">Pengawasan</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tahap3">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Monev</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('notifikasi') }}">
+                <i class="bi bi-chat-left-text menu-icon"></i>
+                <span class="menu-title">Notifikasi</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="bi bi-sd-card menu-icon"></i>
+                <span class="menu-title">Database Dok</span>
+            </a>
+
+        </li>
     </ul>
 </nav>

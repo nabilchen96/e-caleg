@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Smart Material Test</title>
+    <title>SIPP </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('skydash/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('skydash/vendors/ti-icons/css/themify-icons.css') }}">
@@ -68,6 +68,10 @@
         table td {
             line-height: 1.5 !important;
         }
+
+        .navbar{
+            box-shadow: none !important;
+        }
     </style>
 
     <script language="javascript">
@@ -115,15 +119,14 @@
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" 
+            style="box-shadow: 0px 5px 21px -5px #CDD1E1;">
                 <a class="navbar-brand brand-logo mr-5" style="font-size: 16px; margin-left: 20px;"
                     href="{{ url('/') }}">
-                    {{-- <img src="{{ asset('logosc.png') }}" class="mr-2" alt="logo" /> --}}
-                    <h4><b> Smart Material Test </b></h4>
+                    <h3><b> 👍 SIPP </b></h3>
                 </a>
                 <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
-                    {{-- <img src="{{ asset('logosc.png') }}" alt="logo" /> --}}
-                    <h4><b>SA</b></h4>
+                    <h4><b>👍</b></h4>
                 </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -170,8 +173,9 @@
 
                 <div
                     style="
-                    /* background-image: url({{ asset('') }});  */
-                    background-image: linear-gradient(45deg, grey, transparent), url('https://cdn.pixabay.com/photo/2022/01/11/17/04/city-6931092_1280.jpg'); 
+                    background: #4b49ac;
+                    background-image:  
+                    url('https://cdn.pixabay.com/photo/2022/08/05/07/06/background-7366180_1280.jpg'); 
                     height: 200px; 
                     background-position: center;
                     background-size: cover;
@@ -185,11 +189,6 @@
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        {{-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Theme By<a
-                                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin
-                                template</a> from BootstrapDash. All rights reserved.</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
-                            with <i class="ti-heart text-danger ml-1"></i></span> --}}
                     </div>
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">

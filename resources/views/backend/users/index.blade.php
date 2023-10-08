@@ -39,7 +39,7 @@
                     {{-- @endif --}}
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
-                            <thead>
+                            <thead class="bg-dark text-white">
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Name</th>
