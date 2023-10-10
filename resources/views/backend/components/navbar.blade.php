@@ -62,9 +62,6 @@
                         <a class="nav-link" href="#">Kontrak</a>
                     </li>
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#">Surat Izin</a>
-                    </li>
-                    <li class="nav-item"> 
                         <a class="nav-link" href="#">Sem. Antara</a>
                     </li>
                     <li class="nav-item"> 
@@ -91,6 +88,26 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#lain" aria-expanded="false" aria-controls="ui-basic">
+                <i class="bi bi-box-seam menu-icon"></i>
+                <span class="menu-title">Keb. Dosen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="lain">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Publikasi</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Izin Penelitian</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="#">Pelatihan</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url('notifikasi') }}">
                 <i class="bi bi-chat-left-text menu-icon"></i>
                 <span class="menu-title">Notifikasi</span>
@@ -98,9 +115,16 @@
 
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi bi-sd-card menu-icon"></i>
-                <span class="menu-title">Database Dok</span>
+            <a class="nav-link" href="{{ url('library') }}">
+                <i class="bi bi-journals menu-icon"></i>
+                <span class="menu-title">Library</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('pengumuman') }}">
+                <i class="bi bi-megaphone menu-icon"></i>
+                <span class="menu-title">Pengumuman</span>
             </a>
 
         </li>

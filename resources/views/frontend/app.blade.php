@@ -202,7 +202,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="white-space: nowrap;" href="{{ url('front/template') }}">
+                            <a class="nav-link" style="white-space: nowrap;" href="{{ url('front/library') }}">
                                 📁 Library
                             </a>
                         </li>
@@ -319,6 +319,7 @@
 
         $("#myTable").DataTable({
             "ordering": false,
+            "pageLength": 4
         })
     </script>
     <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>

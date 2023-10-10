@@ -28,10 +28,11 @@ Route::get('/front/pengumuman', function(){
     return view('frontend.pengumuman');
 });
 
-//TEMPLATE
-Route::get('/front/template', function(){
-    return view('frontend.template');
-});
+//LIBRARY
+Route::get('/front/library', 'App\Http\Controllers\LibraryController@frontLibrary');
+
+//PENGUMUMAN
+Route::get('/front/pengumuman', 'App\Http\Controllers\PengumumanController@frontPengumuman');
 
 //FORMULIR
 Route::get('/front/aktivitas', function(){
@@ -85,6 +86,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/notifikasi', function(){
         return view('backend.notifikasi.index');
     });
+
+    //LIBRARY
+    Route::get('/library', 'App\Http\Controllers\LibraryController@index');
+    Route::get('/data-library', 'App\Http\Controllers\LibraryController@data');
+    Route::post('/store-library', 'App\Http\Controllers\LibraryController@store');
+    Route::post('/update-library', 'App\Http\Controllers\LibraryController@update');
+    Route::post('/delete-library', 'App\Http\Controllers\LibraryController@delete');
+
+    //PENGUMUMAN
+    Route::get('/pengumuman', 'App\Http\Controllers\PengumumanController@index');
+    Route::get('/data-pengumuman', 'App\Http\Controllers\PengumumanController@data');
+    Route::post('/store-pengumuman', 'App\Http\Controllers\PengumumanController@store');
+    Route::post('/update-pengumuman', 'App\Http\Controllers\PengumumanController@update');
+    Route::post('/delete-pengumuman', 'App\Http\Controllers\PengumumanController@delete');
+
 });
 
 //LOGOUT
