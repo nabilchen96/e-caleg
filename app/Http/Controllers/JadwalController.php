@@ -4,34 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\User;
+use App\Models\Jadwal;
 use Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class JadwalController extends Controller
 {
     public function index(){
-        return view('backend.users.index');
+        return view('backend.jadwal.index');
     }
 
     public function data(){
         
-        $user = DB::table('users');
+        $data = DB::table('jadwals')
+                ->join('users', 'users.id', '=', 'jadwals.id_pegawai')
+                ->join('shifts', 'shifts.id', '=', 'jadwals.id_shift')
+                ->select(
+                    'jadwals.*', 
+                    'users.name', 
+                    'shifts.nama_shift'
+                )
+                ->get();
 
-        $data_user = Auth::user();
-        $user = $user->get();
-
-        
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $data]);
     }
 
     public function store(Request $request){
 
 
         $validator = Validator::make($request->all(), [
-            'password'   => 'required',
-            'email'      => 'unique:users'
+            'id_pegawai'  => 'required',
         ]);
 
         if($validator->fails()){
@@ -40,12 +42,11 @@ class UserController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = User::create([
-                'name'          => $request->name,
-                'role'          => $request->role,
-                'email'         => $request->email,
-                'nip'           => $request->nip,
-                'password'      => Hash::make($request->password)
+            $data = Jadwal::create([
+                'id_pegawai'    => $request->id_pegawai, 
+                'id_shift'      => $request->id_shift, 
+                'tanggal_awal_shift'    => $request->tanggal_awal_shift, 
+                'tanggal_akhir_shift'   => $request->tanggal_akhir_shift
             ]);
 
             $data = [
@@ -60,7 +61,7 @@ class UserController extends Controller
     public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'        => 'required', 
         ]);
 
         if($validator->fails()){
@@ -70,13 +71,12 @@ class UserController extends Controller
             ];
         }else{
 
-            $user = User::find($request->id);
-            $data = $user->update([
-                'name'      => $request->name,
-                'role'      => $request->role,
-                'email'     => $request->email,
-                'nip'       => $request->nip,
-                'password'  => $request->password ? Hash::make($request->password) : $user->password
+            $jadwal = Jadwal::find($request->id);
+            $data = $jadwal->update([
+                'id_pegawai'    => $request->id_pegawai, 
+                'id_shift'      => $request->id_shift, 
+                'tanggal_awal_shift'    => $request->tanggal_awal_shift, 
+                'tanggal_akhir_shift'   => $request->tanggal_akhir_shift
             ]);
 
             $data = [
@@ -90,7 +90,7 @@ class UserController extends Controller
 
     public function delete(Request $request){
 
-        $data = User::find($request->id)->delete();
+        $data = jadwal::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

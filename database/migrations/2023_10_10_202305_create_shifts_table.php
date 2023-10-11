@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLibrariesTable extends Migration
+class CreateShiftsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateLibrariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('libraries', function (Blueprint $table) {
+        Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('file');
+            $table->string('nama_shift');
+            $table->Time('awal_masuk');
+            $table->Time('terlambat_masuk');
+            $table->Time('batas_masuk');
+            $table->Time('awal_pulang');
+            $table->Time('batas_pulang');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateLibrariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('libraries');
+        Schema::dropIfExists('shifts');
     }
 }

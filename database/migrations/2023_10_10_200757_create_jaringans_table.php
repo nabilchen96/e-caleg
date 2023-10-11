@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengumumenTable extends Migration
+class CreateJaringansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePengumumenTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengumumen', function (Blueprint $table) {
+        Schema::create('jaringans', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('file');
+            $table->string('jaringan');
+            $table->string('ip');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePengumumenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengumumen');
+        Schema::dropIfExists('jaringans');
     }
 }

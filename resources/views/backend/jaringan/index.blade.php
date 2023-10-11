@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold">Data Pengumuman</h3>
+                    <h3 class="font-weight-bold">Data Jaringan</h3>
                 </div>
             </div>
         </div>
@@ -35,14 +35,16 @@
                     <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                         Tambah
                     </button>
+                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal2">
+                        Cara Menambahkan IP
+                    </button>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
-                            <thead class="bg-info text-white">
+                            <thead class="bg-primary text-white">
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Pengumuman</th>
-                                    <th>Tanggal</th>
-                                    <th width="5%"></th>
+                                    <th>Jaringan</th>
+                                    <th>Ip Address</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -59,18 +61,18 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Pengumuman Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Jaringan Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label>Judul Pengumuman <sup class="text-danger">*</sup></label>
-                            <input name="judul" id="judul" type="judul" placeholder="Judul File"
+                            <label>Jaringan</label>
+                            <input name="jaringan" id="jaringan" type="text" placeholder="Jaringan"
                                 class="form-control form-control-sm" required>
                         </div>
                         <div class="form-group">
-                            <label>File <sup class="text-danger">*</sup></label>
-                            <input name="file" id="file" type="file" placeholder="file"
+                            <label>Ip Address</label>
+                            <input name="ip" id="ip" type="text" placeholder="Ip Address"
                                 class="form-control form-control-sm" required>
                         </div>
                     </div>
@@ -79,6 +81,22 @@
                         <button id="tombol_kirim" class="btn btn-primary btn-sm">Submit</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header p-3">
+                    <h5 class="modal-title m-2" id="exampleModalLabel">Cara Menambahkan IP</h5>
+                </div>
+                <div class="modal-body">
+                   Hubungkan perangkat anda ke jaringan kantor, kemudian buka http://api.bigdatacloud.net/data/client-info.
+                   Salin ipString dan masukan ke daftar jaringan.
+                </div>
+                <div class="modal-footer p-3">
+                    <button class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -92,7 +110,7 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/data-pengumuman',
+                ajax: '/data-jaringan',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -104,17 +122,10 @@
                         }
                     },
                     {
-                        data: "judul"
+                        data: "jaringan"
                     },
                     {
-                        data: "created_at"
-                    },
-                    {
-                        render: function(data, type, row, meta) {
-                            return `<a href="/file_pengumuman/${row.file}">
-                                    <i style="font-size: 1.5rem;" class="text-info bi bi-cloud-arrow-down"></i>
-                                </a>`
-                        }
+                        data: "ip"
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -152,7 +163,8 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#judul').val(cokData[0].judul)
+                modal.find('#jaringan').val(cokData[0].jaringan)
+                modal.find('#ip').val(cokData[0].ip)
             }
         })
 
@@ -166,7 +178,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-pengumuman' : '/update-pengumuman',
+                    url: formData.get('id') == '' ? '/store-jaringan' : '/update-jaringan',
                     data: formData,
                 })
                 .then(function(res) {
@@ -186,7 +198,7 @@
                         getData()
 
                     } else {
-                        //error validation
+
                         console.log('terjadi error');
                     }
 
@@ -212,7 +224,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/delete-pengumuman', {
+                    axios.post('/delete-jaringan', {
                             id
                         })
                         .then((response) => {

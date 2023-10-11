@@ -13,39 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//LANDING
-Route::get('/', function(){
-    return view('frontend.landing');
-});
-
-//JADWAL
-Route::get('/front/jadwal', function(){
-    return view('frontend.jadwal');
-});
-
-//PENGUMUMAN
-Route::get('/front/pengumuman', function(){
-    return view('frontend.pengumuman');
-});
-
-//LIBRARY
-Route::get('/front/library', 'App\Http\Controllers\LibraryController@frontLibrary');
-
-//PENGUMUMAN
-Route::get('/front/pengumuman', 'App\Http\Controllers\PengumumanController@frontPengumuman');
-
-//FORMULIR
-Route::get('/front/aktivitas', function(){
-    return view('frontend.aktivitas');
-});
-
-//KEBUTUHAN DOSEN
-Route::get('/front/kebutuhan_dosen', function(){
-    return view('frontend.kebutuhan_dosen');
-});
 
 //LOGIN
 Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
+Route::get('/', 'App\Http\Controllers\AuthController@login')->name('login');
 Route::post('/loginProses', 'App\Http\Controllers\AuthController@loginProses');
 
 //BACKEND
@@ -55,52 +26,37 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 
     //USER
-    Route::get('/user', 'App\Http\Controllers\UserController@index');
-    Route::get('/data-user', 'App\Http\Controllers\UserController@data');
-    Route::post('/store-user', 'App\Http\Controllers\UserController@store');
-    Route::post('/update-user', 'App\Http\Controllers\UserController@update');
-    Route::post('/delete-user', 'App\Http\Controllers\UserController@delete');
+    Route::get('/user', 'App\Http\Controllers\UserController@index')->middleware('checkRole:Admin');
+    Route::get('/data-user', 'App\Http\Controllers\UserController@data')->middleware('checkRole:Admin');
+    Route::post('/store-user', 'App\Http\Controllers\UserController@store')->middleware('checkRole:Admin');
+    Route::post('/update-user', 'App\Http\Controllers\UserController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-user', 'App\Http\Controllers\UserController@delete')->middleware('checkRole:Admin');
 
-    //TAHUN
+    //JARINGAN
+    Route::get('/jaringan', 'App\Http\Controllers\JaringanController@index')->middleware('checkRole:Admin');
+    Route::get('/data-jaringan', 'App\Http\Controllers\JaringanController@data')->middleware('checkRole:Admin');
+    Route::post('/store-jaringan', 'App\Http\Controllers\JaringanController@store')->middleware('checkRole:Admin');
+    Route::post('/update-jaringan', 'App\Http\Controllers\JaringanController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-jaringan', 'App\Http\Controllers\JaringanController@delete')->middleware('checkRole:Admin');
+
+    //SHIFT
+    Route::get('/shift', 'App\Http\Controllers\ShiftController@index')->middleware('checkRole:Admin');
+    Route::get('/data-shift', 'App\Http\Controllers\ShiftController@data')->middleware('checkRole:Admin');
+    Route::post('/store-shift', 'App\Http\Controllers\ShiftController@store')->middleware('checkRole:Admin');
+    Route::post('/update-shift', 'App\Http\Controllers\ShiftController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-shift', 'App\Http\Controllers\ShiftController@delete')->middleware('checkRole:Admin');
 
     //JADWAL
-    Route::get('/jadwal', function(){
-        return view('backend.jadwal.index');
-    });
+    Route::get('/jadwal', 'App\Http\Controllers\JadwalController@index')->middleware('checkRole:Admin');
+    Route::get('/data-jadwal', 'App\Http\Controllers\JadwalController@data')->middleware('checkRole:Admin');
+    Route::post('/store-jadwal', 'App\Http\Controllers\JadwalController@store')->middleware('checkRole:Admin');
+    Route::post('/update-jadwal', 'App\Http\Controllers\JadwalController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-jadwal', 'App\Http\Controllers\JadwalController@delete')->middleware('checkRole:Admin');
 
-    //DOSEN
-
-    //JUDUL
-    Route::get('/judul', function(){
-        return view('backend.judul.index');
-    });
-
-    //PROPOSAL
-    Route::get('/proposal', function(){
-        return view('backend.proposal.index');
-    });
-
-    //REVISI PROPOSAL
-
-    //NOTIFIKASI WHATSAPP
-    Route::get('/notifikasi', function(){
-        return view('backend.notifikasi.index');
-    });
-
-    //LIBRARY
-    Route::get('/library', 'App\Http\Controllers\LibraryController@index');
-    Route::get('/data-library', 'App\Http\Controllers\LibraryController@data');
-    Route::post('/store-library', 'App\Http\Controllers\LibraryController@store');
-    Route::post('/update-library', 'App\Http\Controllers\LibraryController@update');
-    Route::post('/delete-library', 'App\Http\Controllers\LibraryController@delete');
-
-    //PENGUMUMAN
-    Route::get('/pengumuman', 'App\Http\Controllers\PengumumanController@index');
-    Route::get('/data-pengumuman', 'App\Http\Controllers\PengumumanController@data');
-    Route::post('/store-pengumuman', 'App\Http\Controllers\PengumumanController@store');
-    Route::post('/update-pengumuman', 'App\Http\Controllers\PengumumanController@update');
-    Route::post('/delete-pengumuman', 'App\Http\Controllers\PengumumanController@delete');
-
+    //ABSENSI
+    Route::get('/absensi', 'App\Http\Controllers\AbsensiController@index')->middleware('checkRole:Admin');
+    Route::get('/data-absensi', 'App\Http\Controllers\AbsensiController@data')->middleware('checkRole:Admin');
+    Route::get('/store-absensi', 'App\Http\Controllers\AbsensiController@store')->middleware('checkRole:Admin');
 });
 
 //LOGOUT

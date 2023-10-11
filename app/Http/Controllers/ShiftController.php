@@ -4,34 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\User;
+use App\Models\Shift;
 use Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class ShiftController extends Controller
 {
     public function index(){
-        return view('backend.users.index');
+        return view('backend.shift.index');
     }
 
     public function data(){
         
-        $user = DB::table('users');
+        $data = Shift::all();
 
-        $data_user = Auth::user();
-        $user = $user->get();
-
-        
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $data]);
     }
 
     public function store(Request $request){
 
 
         $validator = Validator::make($request->all(), [
-            'password'   => 'required',
-            'email'      => 'unique:users'
+            'nama_shift'        => 'required',
         ]);
 
         if($validator->fails()){
@@ -40,12 +34,13 @@ class UserController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = User::create([
-                'name'          => $request->name,
-                'role'          => $request->role,
-                'email'         => $request->email,
-                'nip'           => $request->nip,
-                'password'      => Hash::make($request->password)
+            $data = Shift::create([
+                'nama_shift'        => $request->nama_shift,
+                'awal_masuk'        => $request->awal_masuk,
+                'terlambat_masuk'   => $request->terlambat_masuk,
+                'batas_masuk'       => $request->batas_masuk,
+                'awal_pulang'       => $request->awal_pulang,
+                'batas_pulang'      => $request->batas_pulang,
             ]);
 
             $data = [
@@ -60,7 +55,7 @@ class UserController extends Controller
     public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'nama_shift'        => 'required',
         ]);
 
         if($validator->fails()){
@@ -70,13 +65,14 @@ class UserController extends Controller
             ];
         }else{
 
-            $user = User::find($request->id);
-            $data = $user->update([
-                'name'      => $request->name,
-                'role'      => $request->role,
-                'email'     => $request->email,
-                'nip'       => $request->nip,
-                'password'  => $request->password ? Hash::make($request->password) : $user->password
+            $shift = Shift::find($request->id);
+            $data = $shift->update([
+                'nama_shift'        => $request->nama_shift,
+                'awal_masuk'        => $request->awal_masuk,
+                'terlambat_masuk'   => $request->terlambat_masuk,
+                'batas_masuk'       => $request->batas_masuk,
+                'awal_pulang'       => $request->awal_pulang,
+                'batas_pulang'      => $request->batas_pulang,
             ]);
 
             $data = [
@@ -90,7 +86,7 @@ class UserController extends Controller
 
     public function delete(Request $request){
 
-        $data = User::find($request->id)->delete();
+        $data = Shift::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

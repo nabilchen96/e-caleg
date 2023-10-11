@@ -4,34 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\User;
+use App\Models\Jaringan;
 use Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class JaringanController extends Controller
 {
     public function index(){
-        return view('backend.users.index');
+        return view('backend.jaringan.index');
     }
 
     public function data(){
         
-        $user = DB::table('users');
+        $data = Jaringan::all();
 
-        $data_user = Auth::user();
-        $user = $user->get();
-
-        
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $data]);
     }
 
     public function store(Request $request){
 
 
         $validator = Validator::make($request->all(), [
-            'password'   => 'required',
-            'email'      => 'unique:users'
+            'jaringan'  => 'required',
+            'ip'        => 'required'
         ]);
 
         if($validator->fails()){
@@ -40,12 +35,9 @@ class UserController extends Controller
                 'respon'        => $validator->errors()
             ];
         }else{
-            $data = User::create([
-                'name'          => $request->name,
-                'role'          => $request->role,
-                'email'         => $request->email,
-                'nip'           => $request->nip,
-                'password'      => Hash::make($request->password)
+            $data = Jaringan::create([
+                'jaringan'  => $request->jaringan,
+                'ip'        => $request->ip,
             ]);
 
             $data = [
@@ -60,7 +52,9 @@ class UserController extends Controller
     public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'id'    => 'required'
+            'id'        => 'required', 
+            'jaringan'  => 'required', 
+            'ip'        => 'required'
         ]);
 
         if($validator->fails()){
@@ -70,13 +64,10 @@ class UserController extends Controller
             ];
         }else{
 
-            $user = User::find($request->id);
-            $data = $user->update([
-                'name'      => $request->name,
-                'role'      => $request->role,
-                'email'     => $request->email,
-                'nip'       => $request->nip,
-                'password'  => $request->password ? Hash::make($request->password) : $user->password
+            $jaringan = Jaringan::find($request->id);
+            $data = $jaringan->update([
+                'jaringan'      => $request->jaringan,
+                'ip'      => $request->ip,
             ]);
 
             $data = [
@@ -90,7 +81,7 @@ class UserController extends Controller
 
     public function delete(Request $request){
 
-        $data = User::find($request->id)->delete();
+        $data = jaringan::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,

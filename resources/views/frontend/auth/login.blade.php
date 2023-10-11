@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="login-form-02/css/style.css">
 
-    <title>Smart Material Test</title>
+    <title>Absensi Online</title>
   </head>
   <body>
   
@@ -28,38 +28,48 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Login to <br><strong>Smart Material Test</strong></h3>
+            <h3>Login to <br><strong>Absensi Online</strong></h3>
+            <p>Login untuk melakukan absensi</p>
+            
             <br>
-            <form id="formLogin">
-              <div class="form-group first">
-                <label for="username">Email</label>
-                <input type="text" class="form-control" placeholder="your-email@gmail.com" id="email" name="email">
-              </div>
-              <div class="form-group last mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Your Password" id="password">
-              </div>
-              
-              <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                  <input type="checkbox" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
-                {{-- <span class="ml-auto"><a href="login-form-02/#" class="forgot-pass">Forgot Password</a></span>  --}}
-              </div>
 
-              <div class="d-grid">
-                <button type="submit" id="btnLogin" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            {{-- @if ($jaringan) --}}
+              <form id="formLogin">
+                <div class="form-group first">
+                  <label for="username">Email</label>
+                  <input type="text" class="form-control" placeholder="your-email@gmail.com" id="email" name="email">
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" placeholder="Your Password" id="password">
+                </div>
+                
+                <div class="d-flex mb-5 align-items-center">
+                  <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                    <input type="checkbox" checked="checked"/>
+                    <div class="control__indicator"></div>
+                  </label>
+                  {{-- <span class="ml-auto"><a href="login-form-02/#" class="forgot-pass">Forgot Password</a></span>  --}}
+                </div>
 
-                <button style="display: none; background: #0d6efd;" id="btnLoginLoading"
-                    class="btn btn-info btn-moodle text-white btn-lg btn-block" type="button" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status"
-                        aria-hidden="true"></span>
+                <div class="d-grid">
+                  <button type="submit" id="btnLogin" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
-                </button>
-            </div>
+                  <button style="display: none; background: #0d6efd;" id="btnLoginLoading"
+                      class="btn btn-info btn-moodle text-white btn-lg btn-block" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
+
+                  </button>
+              </div>
+            {{-- @else               
+              <h4 class="alert alert-danger">Anda Harus Menggunakan Jaringan Kantor Untuk Melakukan Absensi.
+                Silahkan Beralih ke Jaringan Kantor Terlebih Dahulu!
+              </h4>
+            @endif --}}
             <br>
-            Dont Have an account? <a href="{{ url('register') }}" class="text-primary">Register</a>
+            {{-- <br>
+            Dont Have an account? <a href="{{ url('register') }}" class="text-primary">Register</a> --}}
             </form>
           </div>
         </div>

@@ -1,5 +1,6 @@
 @extends('backend.app')
 @push('style')
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css">
     <style>
         #myTable_filter input {
             height: 29.67px !important;
@@ -16,6 +17,10 @@
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #9e9e9e21 !important;
         }
+
+        /* th, td{
+            white-space: nowrap !important;
+        } */
     </style>
 @endpush
 @section('content')
@@ -23,7 +28,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold">Data Library</h3>
+                    <h3 class="font-weight-bold">Data Shift</h3>
                 </div>
             </div>
         </div>
@@ -37,11 +42,15 @@
                     </button>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
-                            <thead class="bg-info text-white">
+                            <thead class="bg-primary text-white">
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>File</th>
-                                    <th width="5%"></th>
+                                    <th style="width: 200px;">Nama Shift</th>
+                                    <th>Awal Masuk</th>
+                                    <th>Terlambat</th>
+                                    <th>Batas Masuk</th>
+                                    <th>Awal Pulang</th>
+                                    <th>Batas Pulang</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -58,19 +67,53 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Library Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Shift Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label>Judul File <sup class="text-danger">*</sup></label>
-                            <input name="judul" id="judul" type="judul" placeholder="Judul File"
+                            <label>Shift</label>
+                            <input name="nama_shift" id="nama_shift" type="text" placeholder="nama_shift"
                                 class="form-control form-control-sm" required>
                         </div>
-                        <div class="form-group">
-                            <label>File <sup class="text-danger">*</sup></label>
-                            <input name="file" id="file" type="file" placeholder="file"
-                                class="form-control form-control-sm" required>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Awal Masuk</label>
+                                    <input name="awal_masuk" id="awal_masuk" type="time"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Terlambat Masuk</label>
+                                    <input name="terlambat_masuk" id="terlambat_masuk" type="time"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Batas Masuk</label>
+                                    <input name="batas_masuk" id="batas_masuk" type="time"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Awal Pulang</label>
+                                    <input name="awal_pulang" id="awal_pulang" type="time"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Batas Pulang</label>
+                                    <input name="batas_pulang" id="batas_pulang" type="time"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -83,6 +126,7 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
@@ -90,8 +134,10 @@
 
         function getData() {
             $("#myTable").DataTable({
+                'scrollX': true,
+                "scrollCollapse": true,
                 "ordering": false,
-                ajax: '/data-library',
+                ajax: '/data-shift',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -103,14 +149,22 @@
                         }
                     },
                     {
-                        data: "judul"
+                        data: "nama_shift"
                     },
                     {
-                        render: function(data, type, row, meta) {
-                            return `<a href="/file_library/${row.file}">
-                                    <i style="font-size: 1.5rem;" class="text-info bi bi-cloud-arrow-down"></i>
-                                </a>`
-                        }
+                        data: "awal_masuk"
+                    },
+                    {
+                        data: "terlambat_masuk"
+                    },
+                    {
+                        data: "batas_masuk"
+                    },
+                    {
+                        data: "awal_pulang"
+                    },
+                    {
+                        data: "batas_pulang"
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -148,7 +202,12 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#judul').val(cokData[0].judul)
+                modal.find('#nama_shift').val(cokData[0].nama_shift)
+                modal.find('#awal_masuk').val(cokData[0].awal_masuk)
+                modal.find('#terlambat_masuk').val(cokData[0].terlambat_masuk)
+                modal.find('#batas_masuk').val(cokData[0].batas_masuk)
+                modal.find('#awal_pulang').val(cokData[0].awal_pulang)
+                modal.find('#batas_pulang').val(cokData[0].batas_pulang)
             }
         })
 
@@ -162,7 +221,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-library' : '/update-library',
+                    url: formData.get('id') == '' ? '/store-shift' : '/update-shift',
                     data: formData,
                 })
                 .then(function(res) {
@@ -182,7 +241,7 @@
                         getData()
 
                     } else {
-                        //error validation
+
                         console.log('terjadi error');
                     }
 
@@ -208,7 +267,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/delete-library', {
+                    axios.post('/delete-shift', {
                             id
                         })
                         .then((response) => {

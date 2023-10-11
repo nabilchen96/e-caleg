@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data User</h3>
+                    <h3 class="font-weight-bold">Data User</h3>
                 </div>
             </div>
         </div>
@@ -32,18 +32,17 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    {{-- @if (Auth::user()->role == 'Admin')                         --}}
-                        <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
-                            Tambah
-                        </button>
-                    {{-- @endif --}}
+                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
+                        Tambah
+                    </button>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
-                            <thead class="bg-dark text-white">
+                            <thead class="bg-primary text-white">
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>NIP</th>
                                     <th>Role</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
@@ -68,15 +67,19 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input name="email" id="email" type="email" placeholder="email"
-                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
+                                class="form-control form-control-sm" required>
                             <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Lengkap</label>
                             <input name="name" id="name" type="text" placeholder="Nama Lengkap"
-                                class="form-control form-control-sm" aria-describedby="emailHelp" required>
+                                class="form-control form-control-sm" required>
                         </div>
-                    
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">NIP</label>
+                            <input name="nip" id="nip" type="text" placeholder="NIP"
+                                class="form-control form-control-sm" required>
+                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input name="password" id="password" type="password" placeholder="Password"
@@ -87,11 +90,10 @@
                             <label for="exampleInputPassword1">Role</label>
                             <select name="role" class="form-control" id="role" required>
                                 <option value="Admin">Admin</option>
-                                <option value="Verifikator">Verifikator</option>
-                                <option value="Pengguna">Pengguna</option>
+                                <option value="Pegawai">Pegawai</option>
                             </select>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer p-3">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -129,17 +131,18 @@
                         data: "email"
                     },
                     {
+                        data: "nip"
+                    },
+                    {
                         render: function(data, type, row, meta) {
                             if (row.role == "Admin") {
                                 return `<span class="badge badge-success">${row.role}</span>`
-                            } else if (row.role == "Pengguna") {
-                                return `<span class="badge badge-danger">Laboran</span>`
-                            } else if (row.role == "Verifikator") {
+                            } else if (row.role == "Pegawai") {
                                 return `<span class="badge badge-primary">${row.role}</span>`
-                            } 
+                            }
                         }
                     },
-                    
+
                     {
                         render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
@@ -179,6 +182,7 @@
                 modal.find('#email').val(cokData[0].email)
                 modal.find('#name').val(cokData[0].name)
                 modal.find('#role').val(cokData[0].role)
+                modal.find('#nip').val(cokData[0].nip)
             }
         })
 
@@ -212,9 +216,8 @@
                         getData()
 
                     } else {
-                        //error validation
-                        document.getElementById('password_alert').innerHTML = res.data.respon.password ?? ''
-                        document.getElementById('email_alert').innerHTML = res.data.respon.email ?? ''
+
+                        console.log('terjadi error');
                     }
 
                     document.getElementById("tombol_kirim").disabled = false;
