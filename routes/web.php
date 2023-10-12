@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/absensi', 'App\Http\Controllers\AbsensiController@index')->middleware('checkRole:Admin');
     Route::get('/data-absensi', 'App\Http\Controllers\AbsensiController@data')->middleware('checkRole:Admin');
     Route::get('/store-absensi', 'App\Http\Controllers\AbsensiController@store')->middleware('checkRole:Admin');
+    Route::get('/export-absensi', 'App\Http\Controllers\AbsensiController@excelExport')->middleware('checkRole:Admin');
 });
 
 //LOGOUT

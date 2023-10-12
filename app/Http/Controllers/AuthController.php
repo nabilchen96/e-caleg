@@ -28,13 +28,33 @@ class AuthController extends Controller
     {
 
         //cek jaringan
-        $response = Http::get('http://api.bigdatacloud.net/data/client-info');
-        $data = $response->json();
-        $ipString = $data['ipString'];
+        // $response = Http::get('http://api.bigdatacloud.net/data/client-info');
+        // $data = $response->json();
+        // $ipString = $data['ipString'];
+        
+        $iplocal = [
+            '::1', '127.0.0.1'
+        ];
+
+        if(in_array($this->getClientIP(), $iplocal)){
+    
+            $ipString = file_get_contents("http://ipinfo.io/ip");
+
+            // dd($ipString);
+            
+        }else{
+
+            $ipString = $this->getClientIP();
+
+            // dd($ipString);
+        }
 
         $jaringan = DB::table('jaringans')
                     ->where('ip', $ipString)
                     ->first();
+
+
+                    // dd($jaringan);
 
         $response_data = [
             'responCode' => 0,
@@ -233,4 +253,16 @@ class AuthController extends Controller
             );
         }
     }
+
+    public function getClientIP(){       
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
+               return  $_SERVER["HTTP_X_FORWARDED_FOR"];  
+        }else if (array_key_exists('REMOTE_ADDR', $_SERVER)) { 
+               return $_SERVER["REMOTE_ADDR"]; 
+        }else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+               return $_SERVER["HTTP_CLIENT_IP"]; 
+        } 
+   
+        return '';
+   }
 }

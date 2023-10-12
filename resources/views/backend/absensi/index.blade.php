@@ -34,9 +34,17 @@
         <div class="col-12 mt-4">
             <div class="card w-100">
                 <div class="card-body">
-                    <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-primary btn-sm mb-4" href="{{ url('store-absensi') }}">
+
+                    <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-primary btn-sm mb-4"
+                        href="{{ url('store-absensi') }}">
                         <i class="bi bi-search"></i> Cari
                     </button>
+
+                    <a type="button" class="btn btn-success btn-sm mb-4"
+                        href="{{ url('export-absensi') }}?tanggal_awal={{ Request('tanggal_awal') }}&tanggal_akhir={{ Request('tanggal_akhir') }}">
+                        <i class="bi bi-file-excel"></i> Export
+                    </a>
+
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead class="bg-primary text-white">
@@ -48,12 +56,13 @@
                                     <th>Terlambat</th>
                                     <th>Scan Pulang</th>
                                     <th>Pulang Cepat</th>
+                                    <th>Total Jam</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $k => $item)
                                     <tr>
-                                        <td>{{ $k+1 }}</td>
+                                        <td>{{ $k + 1 }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
                                         <td>{{ $item->scan_masuk }}</td>
@@ -72,6 +81,20 @@
                                         @elseif($item->pulang_cepat > '00:00:00')
                                             <td class="bg-danger text-white">{{ $item->pulang_cepat }}</td>
                                         @endif
+                                        <td>
+                                            <?php
+                                                if($item->scan_masuk && $item->scan_pulang){
+
+                                                    $waktu_awal = new DateTime($item->scan_masuk);
+                                                    $waktu_akhir = new DateTime($item->scan_pulang);
+    
+                                                    $selisih = $waktu_awal->diff($waktu_akhir);
+                                                    $selisih = $selisih->format('%H:%I:%S');
+    
+                                                    echo $selisih;
+                                                }
+                                            ?>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -94,7 +117,9 @@
                             <label>Nama Pegawai</label>
                             <select name="id_pegawai" class="form-control" id="id_pegawai" required>
                                 <option>Semua Pegawai</option>
-                                <?php $user = DB::table('users')->where('role', 'Pegawai')->get(); ?>
+                                <?php $user = DB::table('users')
+                                    ->where('role', 'Pegawai')
+                                    ->get(); ?>
                                 @foreach ($user as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -111,7 +136,6 @@
                     </div>
                     <div class="modal-footer p-3">
                         <button class="btn btn-primary btn-sm">Cari</button>
-                        <a href="#" class="btn btn-success btn-sm">export</a>
                     </div>
                 </form>
             </div>
@@ -129,6 +153,5 @@
                 "ordering": false,
             })
         }
-
     </script>
 @endpush
