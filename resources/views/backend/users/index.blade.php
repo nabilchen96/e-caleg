@@ -35,6 +35,14 @@
                     <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                         Tambah
                     </button>
+                    <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#import">
+                        <i class="bi bi-cloud-plus-fill"></i> Import
+                    </button>
+                    <a href="{{ url('export-user') }}">
+                        <button type="button" class="btn btn-success btn-sm mb-4">
+                            <i class="bi bi-file-earmark-excel"></i> Export
+                        </button>
+                    </a>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead class="bg-primary text-white">
@@ -42,7 +50,6 @@
                                     <th width="5%">No</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>NIP</th>
                                     <th>Role</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
@@ -76,11 +83,6 @@
                                 class="form-control form-control-sm" required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">NIP</label>
-                            <input name="nip" id="nip" type="text" placeholder="NIP"
-                                class="form-control form-control-sm" required>
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input name="password" id="password" type="password" placeholder="Password"
                                 class="form-control form-control-sm" required>
@@ -90,10 +92,38 @@
                             <label for="exampleInputPassword1">Role</label>
                             <select name="role" class="form-control" id="role" required>
                                 <option value="Admin">Admin</option>
-                                <option value="Pegawai">Pegawai</option>
+                                <option value="Relawan">Relawan</option>
                             </select>
                         </div>
 
+                    </div>
+                    <div class="modal-footer p-3">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        <button id="tombol_kirim" class="btn btn-primary btn-sm">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formimport" action="{{ url('import-user') }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="modal-header p-3">
+                        <h5 class="modal-title m-2" id="exampleModalLabel">User Import</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Import Excel</label>
+                            <input type="file" name="file" id="file" class="form-control" required>
+                            <ul class="mt-4">
+                                <li>Download contoh Format untuk Import File Excel <a href="{{ asset('file_import') }}/User Import.xlsx">[ Download ]</a></li>
+                                <li>Isi sesuai dengan format excel yang diberikan</li>
+                                <li>Tidak bisa menggunakan email yang sama, jika saat import terdapat email yang sama maka data akan ditimpa</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="modal-footer p-3">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -131,13 +161,10 @@
                         data: "email"
                     },
                     {
-                        data: "nip"
-                    },
-                    {
                         render: function(data, type, row, meta) {
                             if (row.role == "Admin") {
                                 return `<span class="badge badge-success">${row.role}</span>`
-                            } else if (row.role == "Pegawai") {
+                            } else if (row.role == "Relawan") {
                                 return `<span class="badge badge-primary">${row.role}</span>`
                             }
                         }
@@ -182,7 +209,6 @@
                 modal.find('#email').val(cokData[0].email)
                 modal.find('#name').val(cokData[0].name)
                 modal.find('#role').val(cokData[0].role)
-                modal.find('#nip').val(cokData[0].nip)
             }
         })
 

@@ -33,112 +33,243 @@
                         Welcome back to Aplikasi Absensi Online</h6>
                 </div>
             </div>
-        </div>
-    </div>
-    @if (Auth::user()->role != 'Admin')
-        <div class="row">
-            <div class="col-12">
-                <div class="card w-100">
-                    <div class="card-body">
-                        <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-primary btn-sm mb-4"
-                            href="{{ url('store-absensi') }}">
-                            <i class="bi bi-search"></i> Cari
-                        </button>
-                        <div class="table-responsive">
-                            <table id="myTable" class="table table-striped" style="width: 100%;">
-                                <thead class="bg-primary text-white">
-                                    <tr>
-                                        <th width="5%">No</th>
-                                        <th>Pegawai</th>
-                                        <th>Tanggal</th>
-                                        <th>Scan Masuk</th>
-                                        <th>Terlambat</th>
-                                        <th>Scan Pulang</th>
-                                        <th>Pulang Cepat</th>
-                                        <th>Total Jam</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $k => $item)
-                                        <tr>
-                                            <td>{{ $k + 1 }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
-                                            <td>{{ $item->scan_masuk }}</td>
-                                            @if ($item->terlambat == null)
-                                                <td>{{ $item->terlambat }}</td>
-                                            @elseif($item->terlambat == '00:00:00')
-                                                <td class="bg-success text-white">{{ $item->terlambat }}</td>
-                                            @elseif($item->terlambat > '00:00:00')
-                                                <td class="bg-danger text-white">{{ $item->terlambat }}</td>
-                                            @endif
-                                            <td>{{ $item->scan_pulang }}</td>
-                                            @if ($item->pulang_cepat == null)
-                                                <td>{{ $item->pulang_cepat }}</td>
-                                            @elseif($item->pulang_cepat == '00:00:00')
-                                                <td class="bg-success text-white">{{ $item->pulang_cepat }}</td>
-                                            @elseif($item->pulang_cepat > '00:00:00')
-                                                <td class="bg-danger text-white">{{ $item->pulang_cepat }}</td>
-                                            @endif
-                                            <td>
-                                                <?php
-                                                
-                                                if ($item->scan_masuk && $item->scan_pulang) {
-                                                    $waktu_awal = new DateTime($item->scan_masuk);
-                                                    $waktu_akhir = new DateTime($item->scan_pulang);
-                                                
-                                                    $selisih = $waktu_awal->diff($waktu_akhir);
-                                                    $selisih = $selisih->format('%H:%I:%S');
-                                                
-                                                    echo $selisih;
-                                                }
-                                                ?>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+            <div class="row mt-4">
+                <div class="col-lg-3">
+                    <div class="card card-tale shadow mb-3">
+                        <div class="card-body">
+                            <h4 class="mb-4">Total Dapil</h4>
+                            <h2 class="fs-30 mb-2">{{ $dapil }}</h2>
+                            <span>
+                                <a href="{{ url('halaman-dapil') }}" class="text-white">
+                                    List Dapil <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card card-dark-blue shadow mb-3">
+                        <div class="card-body">
+                            <h4 class="mb-4">Total Kecamatan</h4>
+                            <h2 class="fs-30 mb-2">{{ $kecamatan }}</h2>
+                            <span>
+                                <a href="{{ url('halaman-kecamatan') }}" class="text-white">
+                                    List Kecamatan <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card card-light-blue shadow mb-3">
+                        <div class="card-body">
+                            <h4 class="mb-4">Total Kelurahan</h4>
+                            <h2 class="fs-30 mb-2">{{ $kelurahan }}</h2>
+                            <span>
+                                <a href="{{ url('kelurahan') }}" class="text-white">
+                                    List Kelurahan <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card card-light-danger shadow mb-3">
+                        <div class="card-body">
+                            <h4 class="mb-4">Total Partai</h4>
+                            <h2 class="fs-30 mb-2">{{ $partai }}</h2>
+                            <span>
+                                <a href="{{ url('partai') }}" class="text-white">
+                                    List Partai <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <select onchange="cariCalon()" name="id_calon" id="id_calon" class="mb-2 form-control">
+                                <?php
+                                $calon = DB::table('calons')
+                                        ->join('partais', 'partais.id', '=', 'calons.id_partai')
+                                        ->select(
+                                            'calons.*',
+                                            'partais.partai'
+                                        )
+                                        ->get();
+                                ?>
+                                @foreach ($calon as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_calon }} / {{ $item->partai }}</option>
+                                @endforeach
+                            </select>
+                            <div id="grafikKecamatan"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <select onchange="cariDapil()" name="id_dapil" id="id_dapil" class="mb-2 form-control">
+                                <?php
+                                $dapil = DB::table('dapils')->get();
+                                ?>
+                                @foreach ($dapil as $item)
+                                    <option value="{{ $item->id }}">{{ $item->dapil }} / {{ $item->kabupaten }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div id="grafikCalon"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="{{ url('absensi') }}" method="GET">
-                        <div class="modal-header p-3">
-                            <h5 class="modal-title m-2" id="exampleModalLabel">Cari Absen</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Tanggal Awal</label>
-                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Tanggal Akhir</label>
-                                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer p-3">
-                            <button class="btn btn-primary btn-sm">Cari</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endif
+    </div>
 @endsection
 @push('script')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            getData()
+            cariDapil()
+            cariCalon()
         })
 
-        function getData() {
-            $("#myTable").DataTable({
-                "ordering": false,
+        function cariDapil() {
+            var id_dapil = document.getElementById('id_dapil').value;
+
+            axios.get('/grafik-dapil/' + id_dapil ?? 0).then(function(res) {
+
+                let nama_calon = res.data.data.map(function(e) {
+                    return e.nama_calon + ' <br> ' + e.partai
+                })
+
+                let total_suara = res.data.data.map(function(e) {
+                    return parseInt(e.total_suara, 10);
+                })
+
+                let dapil = res.data.data[0].dapil + ' / ' + res.data.data[0].kabupaten
+                console.log(dapil);
+
+                pilihanProdi(nama_calon, total_suara, dapil)
             })
+        }
+
+        function cariCalon() {
+            var id_calon = document.getElementById('id_calon').value;
+
+            axios.get('/grafik-kecamatan/' + id_calon ?? 0).then(function(res) {
+
+                let kecamatan = res.data.data.map(function(e) {
+                    return e.kecamatan
+                })
+
+                let total_suara = res.data.data.map(function(e) {
+                    return parseInt(e.total_suara, 10);
+                })
+
+                let max_suara = res.data.data.map(function(e) {
+                    return parseInt(e.max_suara, 10);
+                })
+
+                let nama_calon = res.data.data[0].nama_calon + ' / ' + res.data.data[0].partai
+
+                pilihanKecamatan(nama_calon, kecamatan, total_suara, max_suara)
+            })
+        }
+
+        function pilihanProdi(nama_calon, total_suara, dapil) {
+            Highcharts.chart('grafikCalon', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Perolehan Suara Terbanyak'
+                },
+                subtitle: {
+                    text: dapil
+                },
+                xAxis: {
+                    categories: nama_calon,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Calon',
+                    data: total_suara
+
+                }]
+            });
+        }
+
+        function pilihanKecamatan(nama_calon, kecamatan, total_suara, max_suara) {
+            Highcharts.chart('grafikKecamatan', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Rekap Suara Per Kecamatan'
+                },
+                subtitle: {
+                    text: nama_calon
+                },
+                xAxis: {
+                    categories: kecamatan,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+                    {
+                        name: 'Total Suara',
+                        data: total_suara
+
+                    },
+                    {
+                        name: 'Max Suara', 
+                        data: max_suara
+                    }
+                ]
+            });
         }
     </script>
 @endpush

@@ -16,6 +16,10 @@
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #9e9e9e21 !important;
         }
+        th,
+        td {
+            white-space: nowrap !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -40,10 +44,9 @@
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Pegawai</th>
-                                    <th>Shift</th>
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Selesai</th>
+                                    <th>Jadwal</th>
+                                    <th>Status</th>
+                                    <th>keterangan</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -65,32 +68,21 @@
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label>Nama Pegawai</label>
-                            <select name="id_pegawai" class="form-control" id="id_pegawai">
-                                <?php $user = DB::table('users')->where('role', 'Pegawai')->get(); ?>
-                                @foreach ($user as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
+                            <label for="exampleInputEmail1">Jadwal <sup class="text-danger">*</sup></label>
+                            <input type="text" name="jadwal" id="jadwal" class="form-control" required
+                                placeholder="Jadwal">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Keterangan <sup class="text-danger">*</sup></label>
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Keterangan"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="">--PILIH STATUS--</option>
+                                <option>AKTIF</option>
+                                <option>TIDAK AKTIF</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Shift</label>
-                            <select name="id_shift" class="form-control" id="id_pegawai">
-                                <?php $shift = DB::table('shifts')->get(); ?>
-                                @foreach ($shift as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_shift }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tanggal Awal Shift</label>
-                            <input name="tanggal_awal_shift" id="tanggal_awal_shift" type="date"
-                                class="form-control form-control-sm" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tanggal Akhir Shift</label>
-                            <input name="tanggal_akhir_shift" id="tanggal_akhir_shift" type="date"
-                            class="form-control form-control-sm" required>
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -103,6 +95,8 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
@@ -113,6 +107,8 @@
                 "ordering": false,
                 ajax: '/data-jadwal',
                 processing: true,
+                scrollX: true,
+                scrollCollapse: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
                     'processing': 'Loading...'
@@ -123,16 +119,13 @@
                         }
                     },
                     {
-                        data: "name"
+                        data: "jadwal"
                     },
                     {
-                        data: "nama_shift"
+                        data: "status"
                     },
                     {
-                        data: "tanggal_awal_shift"
-                    },
-                    {
-                        data: "tanggal_akhir_shift"
+                        data: "keterangan"
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -170,10 +163,9 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#name').val(cokData[0].name)
-                modal.find('#nama_shift').val(cokData[0].nama_shift)
-                modal.find('#tanggal_awal_shift').val(cokData[0].tanggal_awal_shift)
-                modal.find('#tanggal_akhir_shift').val(cokData[0].tanggal_akhir_shift)
+                modal.find('#jadwal').val(cokData[0].jadwal)
+                modal.find('#keterangan').val(cokData[0].keterangan)
+                modal.find('#status').val(cokData[0].status)
             }
         })
 

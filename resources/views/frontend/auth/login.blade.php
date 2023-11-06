@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="login-form-02/css/style.css">
 
-    <title>Absensi Online</title>
+    <title>Pemilu Apps</title>
   </head>
   <body>
   
@@ -28,12 +28,9 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Login to <br><strong>Absensi Online</strong></h3>
-            <p>Login untuk melakukan absensi</p>
+            <h3>Login to <br><strong>Pemilu Apps</strong></h3>
             
             <br>
-
-            {{-- @if ($jaringan) --}}
               <form id="formLogin">
                 <div class="form-group first">
                   <label for="username">Email</label>
@@ -49,7 +46,6 @@
                     <input type="checkbox" checked="checked"/>
                     <div class="control__indicator"></div>
                   </label>
-                  {{-- <span class="ml-auto"><a href="login-form-02/#" class="forgot-pass">Forgot Password</a></span>  --}}
                 </div>
 
                 <div class="d-grid">

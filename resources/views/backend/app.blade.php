@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Absensi Online</title>
+    <title>Pemilu Apps</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('skydash/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('skydash/vendors/ti-icons/css/themify-icons.css') }}">
@@ -123,10 +123,10 @@
             style="box-shadow: 0px 5px 21px -5px #CDD1E1;">
                 <a class="navbar-brand brand-logo mr-5" style="font-size: 16px; margin-left: 20px;"
                     href="{{ url('/') }}">
-                    <h3><b> 📅 ABSEN </b></h3>
+                    <h3><b> Pemilu Apps </b></h3>
                 </a>
                 <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
-                    <h4><b>📅</b></h4>
+                    <h4><b>PA</b></h4>
                 </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -191,13 +191,7 @@
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                     </div>
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
-                            Developed by Unit IT Politeknik Penerbangan Palembang <br>
-                            {{-- Distributed by  --}}
-                            <a href="https://poltekbangplg.ac.id/" target="_blank">
-                                poltekbangplg.ac.id
-                            </a>
-                        </span>
+                        
                     </div>
                 </footer>
                 <!-- partial -->
