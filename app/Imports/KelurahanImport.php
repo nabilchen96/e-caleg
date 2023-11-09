@@ -22,14 +22,16 @@ class KelurahanImport implements ToModel, WithHeadingRow
 
         // dd($data);
 
-        return Kelurahan::updateOrCreate(
-            [
-                'kelurahan' => $row['kelurahan'],
-            ],
-            [
-                'id_kecamatan' => $data->id,
-                'kelurahan' => $row['kelurahan'],
-            ]
-        );
+        if($data){
+            return Kelurahan::updateOrCreate(
+                [
+                    'kelurahan' => $row['kelurahan'],
+                ],
+                [
+                    'id_kecamatan' => $data->id,
+                    'kelurahan' => $row['kelurahan'],
+                ]
+            );
+        }
     }
 }

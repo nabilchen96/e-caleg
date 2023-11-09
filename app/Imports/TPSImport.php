@@ -21,17 +21,19 @@ class TPSImport implements ToModel, WithHeadingRow
             ->where('kelurahan', $row['kelurahan'])
             ->first();
 
-        return TPS::updateOrCreate(
-            [
-                'kode_tps' => $row['kode_tps'],
-                'nama_tps' => $row['nama_tps'],
-            ],
-            [
-                'kode_tps' => $row['kode_tps'],
-                'nama_tps' => $row['nama_tps'],
-                'id_kelurahan' => $data->id,
-                'max_surat_suara' => $row['max_surat_suara']
-            ]
-        );
+        if(@$data){
+            return TPS::updateOrCreate(
+                [
+                    'kode_tps' => $row['kode_tps'],
+                    'nama_tps' => $row['nama_tps'],
+                ],
+                [
+                    'kode_tps' => $row['kode_tps'],
+                    'nama_tps' => $row['nama_tps'],
+                    'id_kelurahan' => $data->id,
+                    'max_surat_suara' => $row['max_surat_suara']
+                ]
+            );
+        }
     }
 }

@@ -49,14 +49,6 @@ class AnggotaImport implements ToModel, WithHeadingRow
             ->where('nama', $row['direkrut_oleh'])
             ->first();
 
-        // $date = $row['tanggal_lahir'];
-        // dd(date('d-m-y', strtotime($row['tanggal_lahir'])));
-
-        // $date_components = explode('/', $date);
-        // $new_date = $date_components[2] . '-' . $date_components[1] . '-' . $date_components[0];
-
-        // dd($new_date);
-
         if (@$kelurahan && @$calon) {
             Anggota::updateOrCreate(
                 [
