@@ -91,6 +91,37 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/import-calon', 'App\Http\Controllers\CalonController@import')->middleware('checkRole:Admin');
     Route::get('/export-calon', 'App\Http\Controllers\CalonController@export')->middleware('checkRole:Admin');
 
+    //TIM PEMENANGAN
+    Route::get('/tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@index')->middleware('checkRole:Admin');
+    Route::get('/data-tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@data');
+    Route::post('/store-tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@store')->middleware('checkRole:Admin');
+    Route::post('/update-tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@delete')->middleware('checkRole:Admin');
+    Route::post('/import-anggota', 'App\Http\Controllers\TimPemenanganController@import')->middleware('checkRole:Admin');
+    Route::get('/export-tim-pemenangan', 'App\Http\Controllers\TimPemenanganController@export')->middleware('checkRole:Admin');
+
+    //RELAWAN
+    Route::get('/relawan', 'App\Http\Controllers\RelawanController@index')->middleware('checkRole:Admin');
+    Route::get('/data-relawan', 'App\Http\Controllers\RelawanController@data');
+    Route::post('/store-relawan', 'App\Http\Controllers\RelawanController@store')->middleware('checkRole:Admin');
+    Route::post('/update-relawan', 'App\Http\Controllers\RelawanController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-relawan', 'App\Http\Controllers\RelawanController@delete')->middleware('checkRole:Admin');
+    Route::post('/import-relawan', 'App\Http\Controllers\RelawanController@import')->middleware('checkRole:Admin');
+    
+    //PENDUKUNG
+    Route::get('/pendukung', 'App\Http\Controllers\PendukungController@index')->middleware('checkRole:Admin');
+    Route::get('/data-pendukung', 'App\Http\Controllers\PendukungController@data');
+    Route::post('/store-pendukung', 'App\Http\Controllers\PendukungController@store')->middleware('checkRole:Admin');
+    Route::post('/update-pendukung', 'App\Http\Controllers\PendukungController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-pendukung', 'App\Http\Controllers\PendukungController@delete')->middleware('checkRole:Admin');
+
+    //SAKSI
+    Route::get('/saksi', 'App\Http\Controllers\SaksiController@index')->middleware('checkRole:Admin');
+    Route::get('/data-saksi', 'App\Http\Controllers\SaksiController@data');
+    Route::post('/store-saksi', 'App\Http\Controllers\SaksiController@store')->middleware('checkRole:Admin');
+    Route::post('/update-saksi', 'App\Http\Controllers\SaksiController@update')->middleware('checkRole:Admin');
+    Route::post('/delete-saksi', 'App\Http\Controllers\SaksiController@delete')->middleware('checkRole:Admin');
+
 
     //TPS
     Route::get('/tps', 'App\Http\Controllers\TpsController@index')->middleware('checkRole:Admin');

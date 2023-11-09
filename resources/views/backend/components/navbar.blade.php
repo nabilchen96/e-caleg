@@ -17,11 +17,11 @@
                 </a>
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('user') }}">
                                 <span class="menu-title">User</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('halaman-dapil') }}">
                                 <span class="menu-title">Dapil</span>
@@ -57,11 +57,44 @@
                     <span class="menu-title">Calon</span>
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('tps') }}">
                     <i class="bi bi-box-seam menu-icon"></i>
                     <span class="menu-title">TPS</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#tim" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <i class="bi bi-people-fill menu-icon"></i>
+                    <span class="menu-title" style="margin-top: 7px;">Tim</span>
+                    <i style="margin-top: 7px;" class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="tim">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('tim-pemenangan') }}">
+                                <span class="menu-title">Tim Pemenangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('relawan') }}">
+                                <span class="menu-title">Relawan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('pendukung') }}">
+                                <span class="menu-title">Pendukung</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('saksi') }}">
+                                <span class="menu-title">Saksi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('suara') }}">
@@ -88,11 +121,6 @@
                                 <span class="menu-title">Lap. Kecamatan</span>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ url('laporan-kursi') }}">
-                                <span class="menu-title">Pembagian Kursi</span>
-                            </a>
-                        </li> --}}
                     </ul>
                 </div>
             </li>

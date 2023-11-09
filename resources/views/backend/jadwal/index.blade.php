@@ -34,7 +34,7 @@
     </div>
     <div class="row">
         <div class="col-12 mt-4">
-            <div class="card w-100">
+            <div class="card shadow w-100">
                 <div class="card-body">
                     <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#modal">
                         Tambah

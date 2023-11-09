@@ -16,6 +16,11 @@
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #9e9e9e21 !important;
         }
+
+        th,
+        td {
+            white-space: nowrap !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -23,7 +28,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold">Data Kecamatan</h3>
+                    <h3 class="font-weight-bold">Data Saksi</h3>
                 </div>
             </div>
         </div>
@@ -38,20 +43,22 @@
                     <button type="button" class="btn btn-primary btn-sm mb-4" data-toggle="modal" data-target="#import">
                         <i class="bi bi-cloud-plus-fill"></i> Import
                     </button>
-                    <a href="{{ url('export-kecamatan') }}">
+                    {{-- <a href="{{ url('export-tim-pemenangan') }}">
                         <button type="button" class="btn btn-success btn-sm mb-4">
                             <i class="bi bi-file-earmark-excel"></i> Export
                         </button>
-                    </a>
+                    </a> --}}
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped" style="width: 100%;">
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Kode Kecamatan</th>
-                                    <th>kecamatan</th>
-                                    <th>Dapil</th>
-                                    <th>Jumlah DPT</th>
+                                    <th>Nama</th>
+                                    <th>Tim / Partai</th>
+                                    <th>No HP</th>
+                                    <th>Tempat / Tanggal Lahir</th>
+                                    <th>TPS / Kelurahan</th>
+                                    <th>Direkrut Oleh</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -68,37 +75,120 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Kecamatan Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Tim Pemenangan Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_user" id="id_user">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Dapil <sup class="text-danger">*</sup></label>
+                            <label>Nama Lengkap <sup class="text-danger">*</sup></label>
+                            <input name="nama" id="nama" type="text" placeholder="Nama Lengkap"
+                                class="form-control form-control-sm" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Kode Anggota</label>
+                                    <input name="kode_anggota" id="kode_anggota" type="text" placeholder="Kode Anggota"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>NIK</label>
+                                    <input name="nik" id="nik" type="text" placeholder="NIK"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor HP</label>
+                            <input name="no_hp" id="no_hp" type="text" placeholder="Nomor HP"
+                                class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control form-control-sm"
+                                placeholder="Alamat"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Calon <sup class="text-danger">*</sup></label>
                             <?php
-                            $dapil = DB::table('dapils')->get();
+                            $calon = DB::table('calons as c')
+                                ->join('partais as p', 'p.id', '=', 'c.id_partai')
+                                ->join('jadwals as j', 'j.id', '=', 'c.id_jadwal')
+                                ->where('j.status', 'AKTIF')
+                                ->select('c.*', 'p.partai')
+                                ->get();
                             ?>
-                            <select name="id_dapil" id="id_dapil" class="form-control" required>
-                                <option value="">--PILIH DAPIL</option>
-                                @foreach ($dapil as $item)
-                                    <option value="{{ $item->id }}">{{ $item->dapil }} / {{ $item->kabupaten }}
+                            <select name="id_calon" id="id_calon" class="form-control form-control-sm" required>
+                                <option value="">--PILIH CALON--</option>
+                                @foreach ($calon as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_calon }} / {{ $item->partai }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Kode Kecamatan <sup class="text-danger">*</sup></label>
-                            <input type="text" name="kode_kecamatan" id="kode_kecamatan" class="form-control" required
-                                placeholder="Kecamatan">
+                            <label>TPS <sup class="text-danger">*</sup></label>
+                            <?php 
+                                $kel = DB::table('tps as t')
+                                        ->join('kelurahans as k', 'k.id', '=', 't.id_kelurahan')
+                                        ->select(
+                                            't.id',
+                                            't.nama_tps',
+                                            'k.kelurahan'
+                                        )
+                                        ->get(); 
+                            ?>
+                            <select name="id_tps" id="id_tps" class="form-control form-control-sm" required>
+                                <option value="">--PILIH TPS--</option>
+                                @foreach ($kel as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_tps }} / {{ $item->kelurahan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tempat Lahir</label>
+                                    <input name="tempat_lahir" id="tempat_lahir" type="text" placeholder="Tempat Lahir"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tanggal Lahir</label>
+                                    <input name="tanggal_lahir" id="tanggal_lahir" type="date"
+                                        placeholder="Tanggal Lahir" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Email <sup class="text-danger">*</sup></label>
+                                    <input name="email" id="email" type="email" placeholder="Email"
+                                        class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input name="password" id="password" type="password" required
+                                        class="form-control form-control-sm">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Kecamatan <sup class="text-danger">*</sup></label>
-                            <input type="text" name="kecamatan" id="kecamatan" class="form-control" required
-                                placeholder="Kecamatan">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Jumlah DPT</label>
-                            <input type="number" name="jumlah_dpt" id="jumlah_dpt" class="form-control"
-                                placeholder="Jumlah DPT">
+                            <label>Direkrut Oleh <sup class="text-danger">*</sup></label>
+                            <?php $kel = DB::table('anggotas')->get(); ?>
+                            <select name="id_anggota" id="id_anggota" class="form-control form-control-sm" required>
+                                <option value="">--PILIH PEREKRUT--</option>
+                                @foreach ($kel as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }} </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -112,10 +202,11 @@
     <div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="formimport" action="{{ url('import-kecamatan') }}" enctype="multipart/form-data" method="POST">
+                <form id="formimport" action="{{ url('import-anggota') }}" enctype="multipart/form-data"
+                    method="POST">
                     @csrf
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Kecamatan Import</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Saksi Import</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
@@ -123,16 +214,11 @@
                             <label for="exampleInputEmail1">Import Excel</label>
                             <input type="file" name="file" id="file" class="form-control" required>
                             <ul class="mt-4">
-                                <li>Download contoh Format untuk Import File Excel 
-                                    <a href="{{ asset('file_import') }}/Kecamatan Import.xlsx">[ Download ]</a>
-                                </li>
+                                <li>Download contoh Format untuk Import File Excel <a
+                                        href="{{ asset('file_import') }}/import anggota.xlsx">[ Download ]</a></li>
                                 <li>Isi sesuai dengan format excel yang diberikan</li>
-                                <li>Tidak bisa menggunakan kode kecamatan dan kecamatan yang sama, 
-                                    jika saat import terdapat kode kecamatan dan kecamatan yang sama maka data akan ditimpa
-                                </li>
-                                <li>
-                                    Text dapil harus sama dengan data yang ada di aplikasi, jika tidak data tidak terimport
-                                </li>
+                                <li>Tidak bisa menggunakan email yang sama, jika saat import terdapat email yang sama maka
+                                    data akan ditimpa</li>
                             </ul>
                         </div>
                     </div>
@@ -146,6 +232,8 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
@@ -154,8 +242,10 @@
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/data-kecamatan',
+                ajax: '/data-saksi',
                 processing: true,
+                scrollX: true,
+                scrollCollapse: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
                     'processing': 'Loading...'
@@ -166,16 +256,30 @@
                         }
                     },
                     {
-                        data: "kode_kecamatan"
+                        render: function(data, type, row, meta) {
+                            return `${row.nama}`
+                        }
                     },
                     {
-                        data: "kecamatan"
+                        render: function(data, type, row, meta) {
+                            return `${row.nama_calon} / ${row.partai}`
+                        }
                     },
                     {
-                        data: "dapil"
+                        data: "no_hp"
                     },
                     {
-                        data: "jumlah_dpt"
+                        render: function(data, type, row, meta) {
+                            return `${row.tempat_lahir}, ${row.tanggal_lahir}`
+                        }
+                    },
+                    {
+                        render: function(data, type, row, meta) {
+                            return `${row.nama_tps} / ${row.kelurahan}`
+                        }
+                    },
+                    {
+                        data: 'nama_anggota'
                     },
                     {
                         render: function(data, type, row, meta) {
@@ -213,10 +317,21 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#id_dapil').val(cokData[0].id_dapil)
-                modal.find('#kecamatan').val(cokData[0].kecamatan)
-                modal.find('#kode_kecamatan').val(cokData[0].kode_kecamatan)
-                modal.find('#jumlah_dpt').val(cokData[0].jumlah_dpt)
+                modal.find('#nama').val(cokData[0].nama)
+                modal.find('#kode_anggota').val(cokData[0].kode_anggota)
+                modal.find('#nik').val(cokData[0].nik)
+                modal.find('#no_hp').val(cokData[0].no_hp)
+                modal.find('#alamat').val(cokData[0].alamat)
+                modal.find('#id_calon').val(cokData[0].id_calon)
+                modal.find('#id_kelurahan').val(cokData[0].id_kelurahan)
+                modal.find('#tempat_lahir').val(cokData[0].tempat_lahir)
+                modal.find('#tanggal_lahir').val(cokData[0].tanggal_lahir)
+                modal.find('#email').val(cokData[0].email)
+                modal.find('#id_user').val(cokData[0].id_user)
+                modal.find('#id_anggota').val(cokData[0].id_anggota)
+                modal.find('#id_tps').val(cokData[0].id_tps)
+
+
             }
         })
 
@@ -230,7 +345,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/store-kecamatan' : '/update-kecamatan',
+                    url: formData.get('id') == '' ? '/store-saksi' : '/update-saksi',
                     data: formData,
                 })
                 .then(function(res) {
@@ -276,7 +391,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/delete-kecamatan', {
+                    axios.post('/delete-saksi', {
                             id
                         })
                         .then((response) => {
